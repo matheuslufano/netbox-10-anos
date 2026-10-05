@@ -1,0 +1,8 @@
+.client-hero{background-image:linear-gradient(90deg,#fff2dcc9 0%,#fff5e6c5 53%,#fff5e600 76%),url('/images/netbox-10-anos/banner-participante.png');background-position:center}
+.prize-banner{background-image:linear-gradient(90deg,#050608 0%,#050608ed 24%,#05060880 60%,#05060810 100%),url('/images/netbox-10-anos/arte-premios.png');background-size:cover;background-position:center}
+.prize-banner:not(.compact) .prize-art>svg{display:none}
+.prize-banner:not(.compact) .prize-chips{inset:10px 10px 0 12%;align-content:end;grid-template-rows:repeat(2,65px)}
+.prize-banner.compact{background-position:center}
+.history-band{background-image:linear-gradient(90deg,#08111e 0%,#08111ed6 26%,#08111e0d 65%,#08111ed6 100%),url('/images/netbox-10-anos/banner-historia.png');background-position:center;background-size:cover}
+@media(max-width:780px){.client-hero{background-position:55% center}.history-band{background-position:55% center}}
+@media(max-width:560px){.client-hero{background-image:linear-gradient(90deg,#fff2dceb,#fff2dca8),url('/images/netbox-10-anos/banner-participante.png');background-position:62% center}.prize-banner:not(.compact) .prize-chips{inset:0;grid-template-rows:repeat(2,48px)}.history-band{background-image:linear-gradient(90deg,#08111ee8,#08111e88),url('/images/netbox-10-anos/banner-historia.png');background-position:60% center}}
