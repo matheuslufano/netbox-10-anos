@@ -2,19 +2,12 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
-  Home,
-  FileText,
-  LifeBuoy,
-  Gift,
-  UsersRound,
-  UserRound,
-  LogOut,
   Ticket,
   X,
   Info,
-  Wifi,
   CalendarDays,
   ArrowRight,
+  UserRound,
 } from "lucide-react";
 import { useConsultation } from "@/components/consultation-provider";
 import {
@@ -101,7 +94,7 @@ export default function ClientPage() {
   if (!data)
     return (
       <>
-        <Header client />
+        <Header returnHome />
         <main className="shell empty-client">
           <Ticket size={48} />
           <h1>Consulte seus números da sorte</h1>
@@ -115,189 +108,154 @@ export default function ClientPage() {
   const origins = Object.entries(data.por_origem);
   return (
     <>
-      <Header client />
-      <div className="client-layout">
-        <aside className="sidebar">
-          <div className="profile">
-            <span className="profile-avatar">
-              {data.nome
-                .split(/\s+/)
-                .slice(0, 2)
-                .map((n) => n[0])
-                .join("")}
+      <Header returnHome />
+      <main className="client-main client-main--full">
+        <section className="client-hero">
+          <AnniversaryMark />
+          <div>
+            <h1>Parabéns por fazer parte dessa história!</h1>
+            <p>
+              Aqui você acompanha sua participação na promoção Netbox 10 Anos.
+            </p>
+          </div>
+        </section>
+        <section
+          className="dashboard-card participant-card"
+          aria-label="Dados do CPF consultado"
+        >
+          <span className="participant-card__icon" aria-hidden="true">
+            <UserRound size={23} />
+          </span>
+          <div className="participant-card__identity">
+            <small>Consulta realizada para</small>
+            <strong>{data.nome}</strong>
+          </div>
+          <div className="participant-card__document">
+            <small>CPF consultado</small>
+            <strong>{data.cpf}</strong>
+          </div>
+        </section>
+        <div className="dashboard-top">
+          <article className="dashboard-card balance-card">
+            <span className="balance-icon">
+              <Ticket size={52} />
             </span>
             <div>
-              <strong>{data.nome}</strong>
-              <small>Cliente Netbox</small>
-              <small>CPF {data.cpf}</small>
+              <h2>Você já acumulou</h2>
+              <strong>{data.total}</strong>
+              <b>{data.total === 1 ? "número da sorte" : "números da sorte"}</b>
+              <p>na promoção Netbox 10 Anos.</p>
+              <small>
+                Consulta realizada em{" "}
+                {new Intl.DateTimeFormat("pt-BR", {
+                  dateStyle: "short",
+                  timeStyle: "short",
+                  timeZone: "America/Araguaina",
+                }).format(new Date(data.consultedAt))}
+              </small>
             </div>
-          </div>
-          <nav aria-label="Área do cliente">
-            {[
-              ["Visão geral", Home],
-              ["Meus planos", Wifi],
-              ["Faturas", FileText],
-              ["Suporte", LifeBuoy],
-              ["Serviços adicionais", Gift],
-              ["Indique um amigo", UsersRound],
-              ["Netbox 10 Anos", Gift],
-              ["Meu perfil", UserRound],
-              ["Sair", LogOut],
-            ].map(([label, Icon]) => (
-              <span
-                className={
-                  label === "Netbox 10 Anos"
-                    ? "sidebar-active"
-                    : "sidebar-disabled"
-                }
-                title={
-                  label === "Netbox 10 Anos"
-                    ? undefined
-                    : "Requer autenticação do portal Netbox"
-                }
-                key={String(label)}
-              >
-                <Icon size={18} />
-                {String(label)}
-              </span>
-            ))}
-          </nav>
-        </aside>
-        <main className="client-main">
-          <section className="client-hero">
-            <AnniversaryMark />
-            <div>
-              <h1>Parabéns por fazer parte dessa história!</h1>
-              <p>
-                Aqui você acompanha sua participação na promoção Netbox 10 Anos.
+          </article>
+          <article className="dashboard-card numbers-card">
+            <div className="card-title">
+              <h2>Seus números da sorte</h2>
+              {data.numeros.length > 0 && (
+                <button onClick={() => setModal(true)} className="text-link">
+                  Ver todos <ArrowRight size={15} />
+                </button>
+              )}
+            </div>
+            {data.numeros.length ? (
+              <div className="number-grid">
+                {data.numeros.slice(0, 6).map((n, i) => (
+                  <span key={`${n}-${i}`}>{n}</span>
+                ))}
+              </div>
+            ) : (
+              <p className="empty-numbers">
+                Nenhum número da sorte disponível nesta consulta.
               </p>
-            </div>
+            )}
+            <p className="muted-note">
+              <Info size={17} /> Números informados pelo serviço da campanha
+              após a validação das ações.
+            </p>
+          </article>
+        </div>
+        {data.inconsistent && (
+          <div className="inconsistency" role="alert">
+            <strong>Os dados desta consulta estão inconsistentes.</strong>
+            <p>
+              O total informado ({data.total}) difere da quantidade de números
+              recebidos ({data.numeros.length}). Nenhum número foi acrescentado
+              ou removido.
+            </p>
+            <Link href="/10-anos#consulta" className="outline-button">
+              Tentar novamente
+            </Link>
+          </div>
+        )}
+        <CommercialBand />
+        <div className="dashboard-lower">
+          <section className="dashboard-card origin-card">
+            <h2>Resumo da participação</h2>
+            <p>Quantidades agregadas por origem informadas pelo serviço.</p>
+            {origins.length ? (
+              <div className="origin-list">
+                {origins.map(([key, value]) => (
+                  <div className="origin-row" key={key}>
+                    <span>
+                      <Ticket size={19} />
+                      {campaign.origins[key] || key.replace(/_/g, " ")}
+                    </span>
+                    <span>
+                      {value.acoes} {value.acoes === 1 ? "ação" : "ações"}
+                    </span>
+                    <strong>
+                      {value.numeros}{" "}
+                      {value.numeros === 1 ? "número" : "números"}
+                    </strong>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>Nenhuma origem informada.</p>
+            )}
+            <small>O histórico detalhado depende de integração futura.</small>
           </section>
-          <div className="dashboard-top">
-            <article className="dashboard-card balance-card">
-              <span className="balance-icon">
-                <Ticket size={52} />
-              </span>
-              <div>
-                <h2>Você já acumulou</h2>
-                <strong>{data.total}</strong>
-                <b>
-                  {data.total === 1 ? "número da sorte" : "números da sorte"}
-                </b>
-                <p>na promoção Netbox 10 Anos.</p>
-                <small>
-                  Consulta realizada em{" "}
-                  {new Intl.DateTimeFormat("pt-BR", {
-                    dateStyle: "short",
-                    timeStyle: "short",
-                    timeZone: "America/Araguaina",
-                  }).format(new Date(data.consultedAt))}
-                </small>
-              </div>
-            </article>
-            <article className="dashboard-card numbers-card">
-              <div className="card-title">
-                <h2>Seus números da sorte</h2>
-                {data.numeros.length > 0 && (
-                  <button onClick={() => setModal(true)} className="text-link">
-                    Ver todos <ArrowRight size={15} />
-                  </button>
-                )}
-              </div>
-              {data.numeros.length ? (
-                <div className="number-grid">
-                  {data.numeros.slice(0, 6).map((n, i) => (
-                    <span key={`${n}-${i}`}>{n}</span>
-                  ))}
+          <div className="summary-column">
+            <PrizeBanner compact />
+            <section className="dashboard-card campaign-summary">
+              <h2>
+                <CalendarDays /> Resumo da campanha
+              </h2>
+              <dl>
+                <div>
+                  <dt>Período</dt>
+                  <dd>
+                    {dateBR(data.campanha.inicio)} a {dateBR(data.campanha.fim)}
+                  </dd>
                 </div>
-              ) : (
-                <p className="empty-numbers">
-                  Nenhum número da sorte disponível nesta consulta.
-                </p>
-              )}
-              <p className="muted-note">
-                <Info size={17} /> Números informados pelo serviço da campanha
-                após a validação das ações.
-              </p>
-            </article>
-          </div>
-          {data.inconsistent && (
-            <div className="inconsistency" role="alert">
-              <strong>Os dados desta consulta estão inconsistentes.</strong>
-              <p>
-                O total informado ({data.total}) difere da quantidade de números
-                recebidos ({data.numeros.length}). Nenhum número foi
-                acrescentado ou removido.
-              </p>
-              <Link href="/10-anos#consulta" className="outline-button">
-                Tentar novamente
+                <div>
+                  <dt>Premiação prevista</dt>
+                  <dd>10 prêmios de R$ 2.000 via Pix</dd>
+                </div>
+                <div>
+                  <dt>Participação</dt>
+                  <dd>Indicação, renovação, upgrade e novos contratos</dd>
+                </div>
+                <div>
+                  <dt>Público</dt>
+                  <dd>Clientes PF e PJ, conforme elegibilidade</dd>
+                </div>
+              </dl>
+              <Link href="/10-anos/regulamento" className="outline-button">
+                Ver regulamento <ArrowRight size={16} />
               </Link>
-            </div>
-          )}
-          <CommercialBand />
-          <div className="dashboard-lower">
-            <section className="dashboard-card origin-card">
-              <h2>Resumo da participação</h2>
-              <p>Quantidades agregadas por origem informadas pelo serviço.</p>
-              {origins.length ? (
-                <div className="origin-list">
-                  {origins.map(([key, value]) => (
-                    <div className="origin-row" key={key}>
-                      <span>
-                        <Ticket size={19} />
-                        {campaign.origins[key] || key.replace(/_/g, " ")}
-                      </span>
-                      <span>
-                        {value.acoes} {value.acoes === 1 ? "ação" : "ações"}
-                      </span>
-                      <strong>
-                        {value.numeros}{" "}
-                        {value.numeros === 1 ? "número" : "números"}
-                      </strong>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p>Nenhuma origem informada.</p>
-              )}
-              <small>O histórico detalhado depende de integração futura.</small>
             </section>
-            <div className="summary-column">
-              <PrizeBanner compact />
-              <section className="dashboard-card campaign-summary">
-                <h2>
-                  <CalendarDays /> Resumo da campanha
-                </h2>
-                <dl>
-                  <div>
-                    <dt>Período</dt>
-                    <dd>
-                      {dateBR(data.campanha.inicio)} a{" "}
-                      {dateBR(data.campanha.fim)}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Premiação prevista</dt>
-                    <dd>10 prêmios de R$ 2.000 via Pix</dd>
-                  </div>
-                  <div>
-                    <dt>Participação</dt>
-                    <dd>Indicação, renovação, upgrade e novos contratos</dd>
-                  </div>
-                  <div>
-                    <dt>Público</dt>
-                    <dd>Clientes PF e PJ, conforme elegibilidade</dd>
-                  </div>
-                </dl>
-                <Link href="/10-anos/regulamento" className="outline-button">
-                  Ver regulamento <ArrowRight size={16} />
-                </Link>
-              </section>
-            </div>
           </div>
-          <HelpBand />
-        </main>
-      </div>
+        </div>
+        <HelpBand />
+      </main>
       {modal && (
         <NumbersModal numbers={data.numeros} onClose={() => setModal(false)} />
       )}

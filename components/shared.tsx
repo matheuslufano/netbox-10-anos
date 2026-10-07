@@ -30,7 +30,7 @@ export function Logo() {
     </Link>
   );
 }
-export function Header({ client = false }: { client?: boolean }) {
+export function Header({ client = false, returnHome = false }: { client?: boolean; returnHome?: boolean }) {
   const [open, setOpen] = useState(false);
   const items = client
     ? [
@@ -55,20 +55,22 @@ export function Header({ client = false }: { client?: boolean }) {
         <Logo />
         <button
           className="menu-toggle"
-          aria-label="Abrir menu"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
+          aria-controls="site-navigation"
           onClick={() => setOpen(!open)}
         >
           <Menu />
         </button>
         <nav
+          id="site-navigation"
           className={open ? "nav open" : "nav"}
           aria-label="Navegação principal"
         >
           {items.map(([label, href]) => (
             <Link
               key={label}
-              href={href}
+              href={returnHome && href.startsWith("#") ? `/10-anos${href}` : href}
               className={label === "10 Anos" ? "active" : ""}
               onClick={() => setOpen(false)}
             >
@@ -83,7 +85,7 @@ export function Header({ client = false }: { client?: boolean }) {
         ) : (
           <a
             className="button small header-cta"
-            href="#consulta"
+            href={returnHome ? "/10-anos#consulta" : "#consulta"}
             onClick={() =>
               setTimeout(() => document.getElementById("cpf")?.focus(), 350)
             }
@@ -171,23 +173,13 @@ export function PrizeBanner({ compact = false }: { compact?: boolean }) {
       <div className="prize-copy">
         <span className="eyebrow">Prêmios</span>
         <h2>
-          10 prêmios de <strong>R$ 2.000</strong> via Pix
+          10 sorteios de <strong>R$ 2.000</strong> via Pix
         </h2>
-        <p>R$ 20 mil para celebrar com quem faz parte dessa história.</p>
+        <p>Serão 10 sorteios, com R$ 2.000 via Pix em cada um, para celebrar com quem faz parte dessa história.</p>
+        <span className="prize-total">R$ 20 mil <span>em prêmios no total</span></span>
       </div>
-      <div className="prize-art" aria-label="Dez prêmios de dois mil reais">
+      <div className="prize-art" aria-label="Dez sorteios de dois mil reais via Pix">
         <Gift size={compact ? 100 : 190} strokeWidth={1.4} />
-        {!compact && (
-          <div className="prize-chips">
-            {Array.from({ length: 10 }, (_, i) => (
-              <span key={i}>
-                {i + 1}º prêmio
-                <br />
-                <b>R$ 2.000</b>
-              </span>
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );

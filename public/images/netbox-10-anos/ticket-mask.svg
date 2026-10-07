@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 300" preserveAspectRatio="none">
+  <mask id="ticket" maskUnits="userSpaceOnUse" x="0" y="0" width="170" height="300">
+    <rect width="170" height="300" fill="white" />
+    <circle cx="0" cy="0" r="18" fill="black" />
+    <circle cx="170" cy="0" r="18" fill="black" />
+    <circle cx="0" cy="300" r="18" fill="black" />
+    <circle cx="170" cy="300" r="18" fill="black" />
+    <circle cx="22" cy="0" r="5.5" fill="black" />
+    <circle cx="47" cy="0" r="5.5" fill="black" />
+    <circle cx="72" cy="0" r="5.5" fill="black" />
+    <circle cx="97" cy="0" r="5.5" fill="black" />
+    <circle cx="122" cy="0" r="5.5" fill="black" />
+    <circle cx="147" cy="0" r="5.5" fill="black" />
+    <circle cx="22" cy="300" r="5.5" fill="black" />
+    <circle cx="47" cy="300" r="5.5" fill="black" />
+    <circle cx="72" cy="300" r="5.5" fill="black" />
+    <circle cx="97" cy="300" r="5.5" fill="black" />
+    <circle cx="122" cy="300" r="5.5" fill="black" />
+    <circle cx="147" cy="300" r="5.5" fill="black" />
+  </mask>
+  <rect width="170" height="300" fill="white" mask="url(#ticket)" />
+</svg>

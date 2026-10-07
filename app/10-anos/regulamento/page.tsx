@@ -4,7 +4,7 @@ import { Header } from "@/components/shared";
 export default function RegulationPage() {
   return (
     <>
-      <Header />
+      <Header returnHome />
       <main className="shell subpage regulation-page">
         <FileText size={54} />
         <h1>Regulamento da promoção</h1>
