@@ -10,6 +10,7 @@ npm.cmd install
 npm.cmd run dev
 ```
 
+
 Acesse `http://localhost:3000/10-anos`. Para produção, execute `npm.cmd run build` e `npm.cmd start`. A variável `CAMPANHA_API_URL` fica somente no servidor.
 
 ## Rotas
