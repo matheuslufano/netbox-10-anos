@@ -142,9 +142,16 @@ export default function CampaignPage() {
                 <h2 id="participation-title">Como <span>participar?</span></h2>
                 <p>É simples começar a acumular seus números da sorte.</p>
               </div>
-              <span className="participation-cover__hint">
+              <span className="participation-cover__hint participation-cover__hint--desktop">
                 Deslize e confira <ArrowRight size={17} />
               </span>
+              <button
+                type="button"
+                className="participation-cover__hint participation-cover__hint--mobile"
+                data-carousel-next
+              >
+                Deslize para ver como <ArrowRight size={17} />
+              </button>
             </article>
             {participationSteps.map(({ title, description }, index) => (
               <article className={`step-card participation-card participation-card--${index + 1} participation-slide`} key={title}>

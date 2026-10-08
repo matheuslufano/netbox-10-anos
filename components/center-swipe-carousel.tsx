@@ -23,6 +23,7 @@ export function CenterSwipeCarousel({
 
     const media = window.matchMedia("(max-width: 640px)");
     const focusMedia = window.matchMedia("(max-width: 640px)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const focusSection = focusTheme
       ? track.closest<HTMLElement>(".campaign-steps")
       : null;
@@ -31,6 +32,8 @@ export function CenterSwipeCarousel({
     );
     let frame = 0;
     let themeObserver: IntersectionObserver | undefined;
+    let wasInFocusArea = false;
+    let revealAnimation: Animation | undefined;
 
     const updateFocusTheme = () => {
       if (!focusSection) return;
@@ -39,6 +42,18 @@ export function CenterSwipeCarousel({
       const focusAreaBottom = window.innerHeight * 0.72;
       const isInFocusArea =
         bounds.bottom > focusAreaTop && bounds.top < focusAreaBottom;
+      const shouldReveal = focusMedia.matches && isInFocusArea;
+      if (shouldReveal && !wasInFocusArea && !reducedMotion.matches) {
+        revealAnimation?.cancel();
+        revealAnimation = track.animate(
+          [
+            { opacity: 0.45, transform: "translateY(28px) scale(0.98)" },
+            { opacity: 1, transform: "translateY(0) scale(1)" },
+          ],
+          { duration: 650, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+        );
+      }
+      wasInFocusArea = shouldReveal;
       const selectedMode = document.body.dataset.themeMode;
       const shouldUseDarkTheme =
         selectedMode === "dark" || (focusMedia.matches && isInFocusArea);
@@ -89,7 +104,23 @@ export function CenterSwipeCarousel({
       });
     };
 
+    const handleNextClick = (event: MouseEvent) => {
+      if (!media.matches || !(event.target instanceof Element)) return;
+      if (!event.target.closest("[data-carousel-next]")) return;
+      const nextCard = cards[1];
+      if (!nextCard) return;
+      const trackBounds = track.getBoundingClientRect();
+      const cardBounds = nextCard.getBoundingClientRect();
+      track.scrollBy({
+        left:
+          cardBounds.left + cardBounds.width / 2 -
+          (trackBounds.left + trackBounds.width / 2),
+        behavior: "smooth",
+      });
+    };
+
     track.addEventListener("scroll", updateCenteredCard, { passive: true });
+    track.addEventListener("click", handleNextClick);
     window.addEventListener("resize", updateCenteredCard);
     media.addEventListener("change", updateCenteredCard);
     if (focusSection) {
@@ -102,7 +133,9 @@ export function CenterSwipeCarousel({
 
     return () => {
       window.cancelAnimationFrame(frame);
+      revealAnimation?.cancel();
       track.removeEventListener("scroll", updateCenteredCard);
+      track.removeEventListener("click", handleNextClick);
       window.removeEventListener("resize", updateCenteredCard);
       media.removeEventListener("change", updateCenteredCard);
       themeObserver?.disconnect();
