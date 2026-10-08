@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Menu,
   Rocket,
@@ -15,6 +15,8 @@ import {
   UsersRound,
   BadgeCheck,
   HeartHandshake,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { campaign, commercialActions, faq } from "@/lib/campaign";
 export function Logo() {
@@ -32,6 +34,19 @@ export function Logo() {
 }
 export function Header({ client = false, returnHome = false }: { client?: boolean; returnHome?: boolean }) {
   const [open, setOpen] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(false);
+  useEffect(() => {
+    const syncTheme = () => {
+      const selectedMode = document.body.dataset.themeMode;
+      setDarkTheme(
+        selectedMode === "dark" || document.body.classList.contains("participation-focus"),
+      );
+    };
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    syncTheme();
+    return () => observer.disconnect();
+  }, []);
   const items = client
     ? [
         ["Início", "/10-anos"],
@@ -50,7 +65,7 @@ export function Header({ client = false, returnHome = false }: { client?: boolea
         ["Regulamento", "#regulamento"],
       ];
   return (
-    <header className="site-header">
+    <header className={client ? "site-header site-header--client" : "site-header"}>
       <div className="shell header-inner">
         <Logo />
         <button
@@ -78,6 +93,29 @@ export function Header({ client = false, returnHome = false }: { client?: boolea
             </Link>
           ))}
         </nav>
+        {!client && (
+          <button
+            className="header-theme-toggle"
+            type="button"
+            aria-label={darkTheme ? "Desligar tema escuro" : "Ligar tema escuro"}
+            aria-pressed={darkTheme}
+            title={darkTheme ? "Desligar tema escuro" : "Ligar tema escuro"}
+            onClick={() => {
+              const nextTheme = !document.body.classList.contains("participation-focus");
+              if (nextTheme) {
+                document.body.dataset.themeMode = "dark";
+                document.body.classList.add("participation-focus");
+              } else {
+                delete document.body.dataset.themeMode;
+                document.body.classList.remove("participation-focus");
+                window.dispatchEvent(new Event("netbox:theme-auto-resume"));
+              }
+              setDarkTheme(nextTheme);
+            }}
+          >
+            {darkTheme ? <Sun size={19} /> : <Moon size={19} />}
+          </button>
+        )}
         {client ? (
           <span className="header-location">
             <MapPin size={16} /> Paraíso do Tocantins

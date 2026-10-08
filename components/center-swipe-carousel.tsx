@@ -7,11 +7,13 @@ export function CenterSwipeCarousel({
   className,
   ariaLabel,
   itemSelector = ".campaign-actions__item",
+  focusTheme = false,
 }: {
   children: ReactNode;
   className: string;
   ariaLabel: string;
   itemSelector?: string;
+  focusTheme?: boolean;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -20,10 +22,45 @@ export function CenterSwipeCarousel({
     if (!track) return;
 
     const media = window.matchMedia("(max-width: 640px)");
+    const focusMedia = window.matchMedia("(max-width: 640px)");
+    const focusSection = focusTheme
+      ? track.closest<HTMLElement>(".campaign-steps")
+      : null;
     const cards = Array.from(
       track.querySelectorAll<HTMLElement>(itemSelector),
     );
     let frame = 0;
+    let themeObserver: IntersectionObserver | undefined;
+
+    const updateFocusTheme = () => {
+      if (!focusSection) return;
+      const bounds = focusSection.getBoundingClientRect();
+      const focusAreaTop = window.innerHeight * 0.28;
+      const focusAreaBottom = window.innerHeight * 0.72;
+      const isInFocusArea =
+        bounds.bottom > focusAreaTop && bounds.top < focusAreaBottom;
+      const selectedMode = document.body.dataset.themeMode;
+      const shouldUseDarkTheme =
+        selectedMode === "dark" || (focusMedia.matches && isInFocusArea);
+      document.body.classList.toggle(
+        "participation-focus",
+        shouldUseDarkTheme,
+      );
+    };
+
+    const observeFocusSection = () => {
+      if (!focusSection || !("IntersectionObserver" in window)) {
+        updateFocusTheme();
+        return;
+      }
+      themeObserver?.disconnect();
+      const inset = Math.round(window.innerHeight * 0.28);
+      themeObserver = new IntersectionObserver(updateFocusTheme, {
+        rootMargin: `-${inset}px 0px -${inset}px 0px`,
+      });
+      themeObserver.observe(focusSection);
+      updateFocusTheme();
+    };
 
     const updateCenteredCard = () => {
       window.cancelAnimationFrame(frame);
@@ -55,6 +92,12 @@ export function CenterSwipeCarousel({
     track.addEventListener("scroll", updateCenteredCard, { passive: true });
     window.addEventListener("resize", updateCenteredCard);
     media.addEventListener("change", updateCenteredCard);
+    if (focusSection) {
+      observeFocusSection();
+      window.addEventListener("resize", observeFocusSection);
+      focusMedia.addEventListener("change", updateFocusTheme);
+      window.addEventListener("netbox:theme-auto-resume", updateFocusTheme);
+    }
     updateCenteredCard();
 
     return () => {
@@ -62,9 +105,19 @@ export function CenterSwipeCarousel({
       track.removeEventListener("scroll", updateCenteredCard);
       window.removeEventListener("resize", updateCenteredCard);
       media.removeEventListener("change", updateCenteredCard);
+      themeObserver?.disconnect();
+      window.removeEventListener("resize", observeFocusSection);
+      focusMedia.removeEventListener("change", updateFocusTheme);
+      window.removeEventListener("netbox:theme-auto-resume", updateFocusTheme);
+      if (
+        focusSection &&
+        document.body.dataset.themeMode !== "dark"
+      ) {
+        document.body.classList.remove("participation-focus");
+      }
       cards.forEach((card) => card.classList.remove("is-centered"));
     };
-  }, [itemSelector]);
+  }, [focusTheme, itemSelector]);
 
   return (
     <div
