@@ -1,3 +1,4 @@
+import "./campaign-glass.css";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -36,7 +37,7 @@ export default function CampaignPage() {
   return (
     <>
       <Header />
-      <main>
+      <main className="campaign-page">
         <section className="hero" id="inicio">
           <div className="shell hero-inner">
             <div className="hero-copy">

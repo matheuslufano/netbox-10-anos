@@ -5,5 +5,111 @@ import { Search } from "lucide-react";
 import { maskCPF, parseResponse, validCPF } from "@/lib/consult";
 import { useConsultation } from "./consultation-provider";
 import { PrivacyNote } from "./shared";
-const messages:Record<string,string>={invalid_cpf:"CPF inválido. Confira os 11 dígitos.",not_confirmed:"A participação não foi confirmada pelo serviço. Confira os dados e tente novamente.",timeout:"A consulta demorou mais que o esperado. Tente novamente.",connection_error:"Falha de conexão. Tente novamente.",invalid_response:"O serviço retornou uma resposta inválida. Tente novamente.",upstream_error:"O serviço está indisponível. Tente novamente.",not_configured:"A integração ainda não está configurada."};
-export function ConsultForm(){const [cpf,setCpf]=useState("");const [error,setError]=useState("");const [loading,setLoading]=useState(false);const router=useRouter();const {setData}=useConsultation();async function submit(e:FormEvent){e.preventDefault();setError("");if(!validCPF(cpf)){setError(messages.invalid_cpf);return}setLoading(true);try{const response=await fetch("/api/campanha/consulta",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({cpf}),cache:"no-store"});const result=await response.json();if(!response.ok){setError(messages[result.code]||"Não foi possível concluir a consulta. Tente novamente.");return}const parsed=parseResponse(result);if(!parsed||typeof result.consultedAt!=="string"||typeof result.inconsistent!=="boolean"){setError(messages.invalid_response);return}setData({...parsed,consultedAt:result.consultedAt,inconsistent:result.inconsistent});router.push("/cliente/10-anos")}catch{setError(messages.connection_error)}finally{setLoading(false)}}return <form className="consult-card" id="consulta" onSubmit={submit} noValidate><div><h2>Consulte sua participação</h2><p>Informe seu CPF para acompanhar seus números da sorte.</p></div><div className="consult-controls"><label htmlFor="cpf" className="sr-only">CPF</label><input id="cpf" name="cpf" type="text" inputMode="numeric" autoComplete="off" placeholder="000.000.000-00" maxLength={14} value={cpf} onChange={e=>setCpf(maskCPF(e.target.value))} aria-invalid={!!error} aria-describedby={error?"consult-error":undefined}/><button className="button" type="submit" disabled={loading}><Search size={18}/>{loading?"Consultando...":"Consultar"}</button><PrivacyNote/></div>{error&&<p id="consult-error" role="alert" className="form-error">{error} <button type="submit" className="text-link">Tentar novamente</button></p>}</form>}
+const messages: Record<string, string> = {
+  invalid_cpf: "CPF inválido. Confira os 11 dígitos.",
+  not_confirmed:
+    "A participação não foi confirmada pelo serviço. Confira os dados e tente novamente.",
+  timeout: "A consulta demorou mais que o esperado. Tente novamente.",
+  connection_error: "Falha de conexão. Tente novamente.",
+  invalid_response:
+    "O serviço retornou uma resposta inválida. Tente novamente.",
+  upstream_error: "O serviço está indisponível. Tente novamente.",
+  not_configured: "A integração ainda não está configurada.",
+};
+export function ConsultForm() {
+  const [cpf, setCpf] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { setData } = useConsultation();
+  async function submit(e: FormEvent) {
+    e.preventDefault();
+    setError("");
+    if (!validCPF(cpf)) {
+      setError(messages.invalid_cpf);
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await fetch("/api/campanha/consulta", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cpf }),
+        cache: "no-store",
+      });
+      const result = await response.json();
+      if (!response.ok) {
+        setError(
+          messages[result.code] ||
+            "Não foi possível concluir a consulta. Tente novamente.",
+        );
+        return;
+      }
+      const parsed = parseResponse(result);
+      if (
+        !parsed ||
+        typeof result.consultedAt !== "string" ||
+        typeof result.inconsistent !== "boolean"
+      ) {
+        setError(messages.invalid_response);
+        return;
+      }
+      setData({
+        ...parsed,
+        consultedAt: result.consultedAt,
+        inconsistent: result.inconsistent,
+      });
+      router.push("/cliente/10-anos");
+    } catch {
+      setError(messages.connection_error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  return (
+    <form className="consult-card" id="consulta" onSubmit={submit} noValidate>
+      <div>
+        <h2>Consulte sua participação</h2>
+        <p>Informe seu CPF para acompanhar seus números da sorte.</p>
+      </div>
+      <div className="consult-controls">
+        <label htmlFor="cpf" className="sr-only">
+          CPF
+        </label>
+        <input
+          id="cpf"
+          name="cpf"
+          type="text"
+          inputMode="numeric"
+          autoComplete="off"
+          placeholder="000.000.000-00"
+          maxLength={14}
+          value={cpf}
+          onChange={(e) => setCpf(maskCPF(e.target.value))}
+          aria-invalid={!!error}
+          aria-describedby={error ? "consult-error" : undefined}
+        />
+        <button
+          className="button"
+          type="submit"
+          disabled={loading}
+          aria-label={loading ? "Consultando..." : "Consultar"}
+        >
+          <Search size={18} />
+          <span className="consult-submit__label">
+            {loading ? "Consultando..." : "Consultar"}
+          </span>
+        </button>
+        <PrivacyNote />
+      </div>
+      {error && (
+        <p id="consult-error" role="alert" className="form-error">
+          {error}{" "}
+          <button type="submit" className="text-link">
+            Tentar novamente
+          </button>
+        </p>
+      )}
+    </form>
+  );
+}

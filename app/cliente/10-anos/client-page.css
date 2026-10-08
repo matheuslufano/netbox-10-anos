@@ -1,0 +1,795 @@
+/* Painel da campanha: superfícies translúcidas em ambos os temas. */
+body:has(.client-page) {
+  background-color: #f2f4f7;
+  background-image:
+    radial-gradient(circle at 12% 8%, rgb(255 178 102 / 22%), transparent 30%),
+    radial-gradient(circle at 88% 35%, rgb(160 190 230 / 18%), transparent 34%);
+}
+
+body:has(.client-page) .site-header {
+  background: rgb(255 255 255 / 78%);
+  border-bottom: 1px solid rgb(255 255 255 / 70%);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+
+.client-page {
+  --client-ink: #17202d;
+  --client-muted: #59697c;
+  --client-rim: rgb(255 255 255 / 82%);
+  --client-glass: rgb(255 255 255 / 68%);
+  --client-soft: rgb(255 255 255 / 48%);
+  --client-shadow: 0 18px 44px rgb(39 57 82 / 11%), inset 0 1px rgb(255 255 255 / 75%);
+  color: var(--client-ink);
+}
+
+.client-page.client-main--full {
+  width: min(1240px, calc(100% - 48px));
+  padding: 26px 0 56px;
+}
+
+.client-page .client-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 350px;
+  height: auto;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 30px;
+  border: 1px solid rgb(255 255 255 / 75%);
+  border-radius: 30px;
+  background-image:
+    linear-gradient(90deg, rgb(255 248 237 / 72%) 0%, rgb(255 247 232 / 30%) 53%, transparent 78%),
+    url('/images/netbox-10-anos/banner-participante.png');
+  background-position: center;
+  background-size: cover;
+  box-shadow: var(--client-shadow);
+}
+
+.client-page .client-hero .anniversary {
+  position: absolute;
+  z-index: 1;
+  top: 22px;
+  left: 30px;
+  transform: scale(.26);
+  transform-origin: top left;
+  pointer-events: none;
+}
+
+.client-page .client-hero__copy {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 545px);
+  margin-top: 110px;
+  padding: 22px 25px;
+  border: 1px solid rgb(255 255 255 / 76%);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 67%);
+  box-shadow: 0 14px 36px rgb(87 51 27 / 14%), inset 0 1px rgb(255 255 255 / 90%);
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+}
+
+.client-page .client-hero__eyebrow {
+  display: inline-flex;
+  margin-bottom: 10px;
+  color: #d85000;
+  font-size: .73rem;
+  font-weight: 850;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.client-page .client-hero h1 {
+  max-width: 12ch;
+  margin: 0 0 10px;
+  color: var(--client-ink);
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  line-height: 1.04;
+}
+
+.client-page .client-hero p {
+  max-width: 39ch;
+  margin: 0;
+  color: #334155;
+  font-size: .98rem;
+  line-height: 1.45;
+}
+
+.client-page :is(.dashboard-card, .help-band, .inconsistency) {
+  min-width: 0;
+  border: 1px solid var(--client-rim);
+  border-radius: 24px;
+  background: var(--client-glass);
+  box-shadow: var(--client-shadow);
+  backdrop-filter: blur(22px) saturate(155%);
+  -webkit-backdrop-filter: blur(22px) saturate(155%);
+}
+
+.client-page .dashboard-card {
+  padding: 24px;
+}
+
+.client-page .dashboard-card h2 {
+  color: var(--client-ink);
+  font-size: clamp(1.18rem, 2vw, 1.45rem);
+}
+
+.client-page .participant-card {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) minmax(180px, .8fr);
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 18px 22px;
+}
+
+.client-page .participant-card__icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgb(255 117 25 / 18%);
+  border-radius: 16px;
+  background: rgb(255 114 25 / 12%);
+}
+
+.client-page .participant-card__document {
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding-left: 22px;
+  border-top: 0;
+  border-left: 1px solid rgb(97 112 135 / 22%);
+}
+
+.client-page .participant-card small,
+.client-page .balance-card small,
+.client-page .origin-card small {
+  color: var(--client-muted);
+}
+
+.client-page .dashboard-top {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.client-page .balance-card {
+  gap: 19px;
+  background:
+    radial-gradient(circle at 3% 4%, rgb(255 139 55 / 20%), transparent 50%),
+    var(--client-glass);
+}
+
+.client-page .balance-icon {
+  width: 76px;
+  height: 82px;
+  border: 1px solid rgb(255 122 38 / 23%);
+  border-radius: 22px;
+  background: rgb(255 255 255 / 55%);
+  box-shadow: inset 0 1px rgb(255 255 255 / 85%);
+}
+
+.client-page .balance-card strong {
+  font-size: clamp(4rem, 7vw, 5.5rem);
+  letter-spacing: -.08em;
+}
+
+.client-page .balance-card b {
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+}
+
+.client-page .balance-card p {
+  color: var(--client-muted);
+}
+
+.client-page .numbers-card .card-title {
+  align-items: flex-start;
+}
+
+.client-page .numbers-card .text-link {
+  color: #d85000;
+  font-weight: 750;
+}
+
+.client-page .number-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.client-page .number-grid span {
+  min-width: 0;
+  min-height: 49px;
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: 14px;
+  background: var(--client-soft);
+  box-shadow: inset 0 1px rgb(255 255 255 / 85%);
+  color: var(--client-ink);
+}
+
+.client-page :is(.muted-note, .empty-numbers, .origin-card > p, .help-band p) {
+  color: var(--client-muted);
+}
+
+.client-page .empty-numbers {
+  border: 1px solid var(--client-rim);
+  background: var(--client-soft);
+}
+
+.client-page .inconsistency {
+  border-color: rgb(255 151 55 / 58%);
+  background: rgb(255 242 222 / 78%);
+}
+
+.client-page .campaign-commercial {
+  margin: 18px 0;
+  padding: 20px;
+  border: 1px solid var(--client-rim);
+  border-radius: 26px;
+  background: rgb(255 245 233 / 58%);
+  box-shadow: var(--client-shadow);
+  backdrop-filter: blur(22px) saturate(155%);
+  -webkit-backdrop-filter: blur(22px) saturate(155%);
+}
+
+.client-page .commercial-grid {
+  width: 100%;
+  grid-template-columns: 1.18fr repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+
+.client-page .commercial-intro {
+  gap: 14px;
+  padding: 12px;
+}
+
+.client-page .commercial-intro h2 {
+  color: var(--client-ink);
+  font-size: 1.18rem;
+}
+
+.client-page .commercial-intro p,
+.client-page .commercial-card small {
+  color: var(--client-muted);
+}
+
+.client-page .commercial-card {
+  border: 1px solid var(--client-rim);
+  border-radius: 20px;
+  background: var(--client-glass);
+  box-shadow: inset 0 1px rgb(255 255 255 / 80%);
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+}
+
+.client-page .commercial-card h3 {
+  color: var(--client-ink);
+}
+
+.client-page :is(.dashboard-card, .commercial-card, .help-band) {
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease,
+    background-color 650ms ease, color 650ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .client-page :is(.dashboard-card, .commercial-card, .help-band):hover {
+    transform: translateY(-3px);
+    border-color: rgb(255 121 32 / 58%);
+    box-shadow: 0 20px 44px rgb(61 43 31 / 15%),
+      0 0 0 1px rgb(255 125 38 / 20%), 0 0 24px rgb(255 115 23 / 20%);
+  }
+
+  body.participation-focus .client-page :is(.dashboard-card, .commercial-card, .help-band):hover {
+    border-color: rgb(255 134 43 / 65%);
+    box-shadow: 0 22px 48px rgb(0 0 0 / 48%),
+      0 0 0 1px rgb(255 125 38 / 25%), 0 0 28px rgb(255 115 23 / 25%);
+  }
+}
+
+.client-page .dashboard-lower {
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+.client-page .origin-list {
+  border-color: rgb(97 112 135 / 16%);
+}
+
+.client-page .origin-row {
+  grid-template-columns: minmax(0, 1fr) 94px 105px;
+  border-color: rgb(97 112 135 / 16%);
+}
+
+.client-page .origin-row > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.client-page .summary-column {
+  min-width: 0;
+  align-content: start;
+}
+
+.client-page .prize-banner.compact {
+  min-height: 194px;
+  border: 1px solid rgb(255 155 65 / 26%);
+  border-radius: 24px;
+  background-image:
+    linear-gradient(90deg, rgb(4 6 10 / 93%) 0%, rgb(4 6 10 / 76%) 60%, rgb(4 6 10 / 24%) 100%),
+    url('/images/netbox-10-anos/arte-premios.png');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 18px 35px rgb(17 23 35 / 16%);
+}
+
+.client-page .campaign-summary dl div {
+  grid-template-columns: minmax(95px, 38%) minmax(0, 1fr);
+  border-color: rgb(97 112 135 / 16%);
+}
+
+.client-page .campaign-summary dt {
+  color: var(--client-muted);
+}
+
+.client-page .campaign-summary dd {
+  overflow-wrap: anywhere;
+}
+
+.client-page .help-band {
+  gap: 16px;
+  margin-top: 18px;
+  padding: 20px 24px;
+}
+
+.client-page .help-band h3 {
+  color: var(--client-ink);
+}
+
+.client-page.empty-client {
+  width: min(560px, calc(100% - 32px));
+  min-height: 0;
+  margin: 10vh auto;
+  padding: 48px 32px;
+  border: 1px solid var(--client-rim);
+  border-radius: 28px;
+  background: var(--client-glass);
+  box-shadow: var(--client-shadow);
+  backdrop-filter: blur(22px) saturate(155%);
+  -webkit-backdrop-filter: blur(22px) saturate(155%);
+}
+
+.client-page.empty-client h1 {
+  margin: 16px 0 8px;
+  color: var(--client-ink);
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+}
+
+.client-page.empty-client p {
+  color: var(--client-muted);
+}
+
+body:has(.client-page) .modal-backdrop {
+  background: rgb(9 14 23 / 55%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+body:has(.client-page) .modal {
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 26px;
+  background: rgb(255 255 255 / 84%);
+  box-shadow: 0 28px 90px rgb(6 15 30 / 32%);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+
+body:has(.client-page) .modal-close {
+  background: rgb(235 239 245 / 82%);
+}
+
+/* Vidro escuro: superfícies legíveis sobre o fundo preto. */
+body.participation-focus:has(.client-page) {
+  background-color: #000;
+  background-image:
+    radial-gradient(circle at 13% 7%, rgb(255 99 0 / 13%), transparent 30%),
+    radial-gradient(circle at 88% 40%, rgb(255 130 40 / 7%), transparent 30%);
+}
+
+body.participation-focus:has(.client-page) .site-header,
+body.participation-focus:has(.client-page) .site-header .nav {
+  background: rgb(12 12 15 / 78%);
+  border-color: rgb(255 255 255 / 13%);
+  color: #f5f6f8;
+}
+
+body.participation-focus .client-page {
+  --client-ink: #f5f6f8;
+  --client-muted: #b7bec9;
+  --client-rim: rgb(255 255 255 / 16%);
+  --client-glass: rgb(25 25 29 / 72%);
+  --client-soft: rgb(255 255 255 / 7%);
+  --client-shadow: 0 20px 48px rgb(0 0 0 / 40%), inset 0 1px rgb(255 255 255 / 12%);
+}
+
+body.participation-focus .client-page .client-hero {
+  border-color: rgb(255 255 255 / 18%);
+  background-image:
+    linear-gradient(90deg, rgb(0 0 0 / 72%) 0%, rgb(0 0 0 / 30%) 55%, rgb(0 0 0 / 7%) 100%),
+    url('/images/netbox-10-anos/banner-participante.png');
+  background-blend-mode: normal;
+}
+
+body.participation-focus .client-page .client-hero__copy {
+  border-color: rgb(255 151 70 / 26%);
+  background: rgb(15 15 18 / 70%);
+  box-shadow: 0 18px 42px rgb(0 0 0 / 45%), inset 0 1px rgb(255 255 255 / 13%);
+}
+
+body.participation-focus .client-page .client-hero :is(h1, p),
+body.participation-focus .client-page .client-hero .anniversary :is(.anniversary-brand, p) {
+  color: #f5f6f8;
+}
+
+body.participation-focus .client-page .client-hero__eyebrow {
+  color: #ffad70;
+}
+
+body.participation-focus .client-page :is(.dashboard-card, .help-band, .commercial-card) {
+  background: var(--client-glass);
+  border-color: var(--client-rim);
+  box-shadow: var(--client-shadow);
+  color: var(--client-ink);
+}
+
+body.participation-focus .client-page .balance-card {
+  background:
+    radial-gradient(circle at 3% 4%, rgb(255 111 27 / 17%), transparent 56%),
+    var(--client-glass);
+}
+
+body.participation-focus .client-page :is(.participant-card__icon, .balance-icon) {
+  border-color: rgb(255 120 35 / 32%);
+  background: rgb(255 111 27 / 13%);
+  box-shadow: inset 0 1px rgb(255 255 255 / 10%);
+}
+
+body.participation-focus .client-page .participant-card__document,
+body.participation-focus .client-page :is(.origin-list, .origin-row, .campaign-summary dl div) {
+  border-color: rgb(255 255 255 / 15%);
+}
+
+body.participation-focus .client-page .number-grid span,
+body.participation-focus .client-page .empty-numbers {
+  border-color: rgb(255 255 255 / 13%);
+  background: var(--client-soft);
+  box-shadow: inset 0 1px rgb(255 255 255 / 10%);
+  color: var(--client-ink);
+}
+
+body.participation-focus .client-page .inconsistency {
+  border-color: rgb(255 148 54 / 48%);
+  background: rgb(65 38 20 / 74%);
+  color: var(--client-ink);
+}
+
+body.participation-focus .client-page .campaign-commercial {
+  border-color: var(--client-rim);
+  background: rgb(20 17 15 / 76%);
+  color: var(--client-ink);
+}
+
+body.participation-focus .client-page .commercial-card {
+  background: rgb(38 32 29 / 68%);
+  box-shadow: inset 0 1px rgb(255 255 255 / 12%);
+}
+
+body.participation-focus .client-page .commercial-intro :is(h2, p),
+body.participation-focus .client-page .commercial-card h3,
+body.participation-focus .client-page .help-band h3 {
+  color: var(--client-ink);
+}
+
+body.participation-focus .client-page .summary-column .prize-banner.compact {
+  background-image:
+    linear-gradient(90deg, rgb(0 0 0 / 91%) 0%, rgb(0 0 0 / 70%) 60%, rgb(0 0 0 / 28%) 100%),
+    url('/images/netbox-10-anos/arte-premios.png');
+  border-color: rgb(255 135 45 / 27%);
+}
+
+body.participation-focus .client-page.empty-client {
+  border-color: var(--client-rim);
+  background: var(--client-glass);
+  box-shadow: var(--client-shadow);
+}
+
+body.participation-focus:has(.client-page) .modal {
+  border-color: rgb(255 255 255 / 18%);
+  background: rgb(25 25 29 / 88%);
+  color: #f5f6f8;
+}
+
+body.participation-focus:has(.client-page) .modal :is(h2, .number-grid span) {
+  color: #f5f6f8;
+}
+
+body.participation-focus:has(.client-page) .modal p {
+  color: #b7bec9;
+}
+
+body.participation-focus:has(.client-page) .modal .number-grid span,
+body.participation-focus:has(.client-page) .modal-close {
+  border: 1px solid rgb(255 255 255 / 14%);
+  background: rgb(255 255 255 / 8%);
+  color: #f5f6f8;
+}
+
+@media (max-width: 1100px) {
+  body:has(.client-page) .site-header .nav {
+    top: 100%;
+    border: 1px solid rgb(255 255 255 / 70%);
+    border-top: 0;
+    border-radius: 0 0 22px 22px;
+    background: rgb(255 255 255 / 88%);
+    box-shadow: 0 18px 36px rgb(28 42 63 / 16%);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+  }
+
+  body.participation-focus:has(.client-page) .site-header .nav {
+    border-color: rgb(255 255 255 / 13%);
+    background: rgb(15 15 18 / 88%);
+    box-shadow: 0 18px 36px rgb(0 0 0 / 38%);
+  }
+}
+
+@media (max-width: 980px) {
+  .client-page .dashboard-top,
+  .client-page .dashboard-lower {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .client-page .commercial-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .client-page .commercial-intro {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .client-page.client-main--full {
+    width: calc(100% - 24px);
+    padding: 12px 0 32px;
+  }
+
+  .client-page .client-hero {
+    min-height: 430px;
+    align-items: flex-end;
+    padding: 14px;
+    border-radius: 26px;
+    background-image:
+      linear-gradient(180deg, transparent 22%, rgb(255 247 231 / 14%) 49%, rgb(255 247 231 / 68%) 100%),
+      url('/images/netbox-10-anos/banner-participante.png');
+    background-position: 76% center;
+  }
+
+  .client-page .client-hero .anniversary {
+    display: none;
+  }
+
+  .client-page .client-hero__copy {
+    width: 100%;
+    margin: 0;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .client-page .client-hero h1 {
+    max-width: 16ch;
+    font-size: clamp(1.55rem, 7.2vw, 2rem);
+  }
+
+  .client-page .client-hero p {
+    font-size: .87rem;
+  }
+
+  .client-page .participant-card {
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .client-page .participant-card__document {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 13px 0 0;
+    border-left: 0;
+    border-top: 1px solid rgb(97 112 135 / 22%);
+  }
+
+  .client-page .dashboard-top,
+  .client-page .dashboard-lower {
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .client-page .dashboard-card {
+    padding: 20px;
+    border-radius: 22px;
+  }
+
+  .client-page .balance-card {
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .client-page .balance-icon {
+    width: 58px;
+    height: 62px;
+    border-radius: 18px;
+  }
+
+  .client-page .balance-icon svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .client-page .balance-card strong {
+    font-size: clamp(3.7rem, 15vw, 5rem);
+  }
+
+  .client-page .numbers-card .card-title {
+    flex-wrap: wrap;
+  }
+
+  .client-page .number-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .client-page .number-grid span {
+    min-height: 45px;
+    font-size: .84rem;
+  }
+
+  .client-page .campaign-commercial {
+    margin: 12px 0;
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .client-page .commercial-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .client-page .commercial-intro {
+    grid-column: auto;
+    padding: 4px 2px 8px;
+  }
+
+  .client-page .commercial-card,
+  .client-page .commercial-card:last-child {
+    grid-column: auto;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 5px 12px;
+    align-items: center;
+    padding: 16px;
+    text-align: left;
+  }
+
+  .client-page .commercial-card > svg {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .client-page .commercial-card :is(h3, strong) {
+    grid-column: 2;
+    min-height: 0;
+  }
+
+  .client-page .commercial-card :is(.button, small) {
+    grid-column: 1 / -1;
+  }
+
+  .client-page .origin-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 7px 12px;
+    padding: 13px 3px;
+    font-size: .82rem;
+  }
+
+  .client-page .origin-row > span:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .client-page .origin-row strong {
+    text-align: right;
+  }
+
+  .client-page .summary-column {
+    gap: 12px;
+  }
+
+  .client-page .prize-banner.compact {
+    min-height: 210px;
+    padding: 20px;
+  }
+
+  .client-page .campaign-summary dl div {
+    grid-template-columns: minmax(82px, 35%) minmax(0, 1fr);
+    font-size: .82rem;
+  }
+
+  .client-page .help-band {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 10px 13px;
+    margin-top: 12px;
+    padding: 18px;
+  }
+
+  .client-page .help-band > svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .client-page .help-band .button {
+    grid-column: 1 / -1;
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .client-page.empty-client {
+    margin: 8vh auto;
+    padding: 34px 22px;
+  }
+
+  body.participation-focus .client-page .client-hero {
+    background-image:
+      linear-gradient(180deg, rgb(0 0 0 / 6%) 18%, rgb(0 0 0 / 48%) 58%, rgb(0 0 0 / 76%) 100%),
+      url('/images/netbox-10-anos/banner-participante.png');
+  }
+
+  body.participation-focus .client-page .participant-card__document {
+    border-color: rgb(255 255 255 / 15%);
+  }
+}
+
+@media (max-width: 380px) {
+  .client-page .balance-card {
+    display: block;
+  }
+
+  .client-page .balance-icon {
+    margin-bottom: 12px;
+  }
+
+  .client-page .client-hero {
+    min-height: 400px;
+  }
+
+  .client-page .commercial-card .button {
+    min-height: 44px;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .client-page :is(.dashboard-card, .help-band, .inconsistency, .client-hero__copy, .campaign-commercial, .commercial-card),
+  .client-page.empty-client {
+    background-color: #fff;
+  }
+
+  body.participation-focus .client-page :is(.dashboard-card, .help-band, .inconsistency, .client-hero__copy, .campaign-commercial, .commercial-card),
+  body.participation-focus .client-page.empty-client {
+    background-color: #19191d;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-page :is(.dashboard-card, .commercial-card, .help-band):hover {
+    transform: none !important;
+  }
+}

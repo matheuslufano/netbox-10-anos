@@ -1,4 +1,5 @@
 "use client";
+import "./client-page.css";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -95,7 +96,7 @@ export default function ClientPage() {
     return (
       <>
         <Header returnHome />
-        <main className="shell empty-client">
+        <main className="shell empty-client client-page">
           <Ticket size={48} />
           <h1>Consulte seus números da sorte</h1>
           <p>Para abrir seu painel, informe seu CPF na página da campanha.</p>
@@ -109,10 +110,11 @@ export default function ClientPage() {
   return (
     <>
       <Header returnHome />
-      <main className="client-main client-main--full">
+      <main className="client-main client-main--full client-page">
         <section className="client-hero">
           <AnniversaryMark />
-          <div>
+          <div className="client-hero__copy">
+            <span className="client-hero__eyebrow">Netbox 10 anos</span>
             <h1>Parabéns por fazer parte dessa história!</h1>
             <p>
               Aqui você acompanha sua participação na promoção Netbox 10 Anos.

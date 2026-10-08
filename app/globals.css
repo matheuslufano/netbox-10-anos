@@ -898,6 +898,10 @@ p {
   }
 }
 @media (max-width: 400px) {
+  #como-participar{
+    margin: 150px 20px;
+
+  }
   .hero .hero-buttons .button,
   .hero .hero-buttons .light-button {
     width: 100%;
@@ -1330,7 +1334,7 @@ p {
 .campaign-steps .steps-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
+  gap: 32px;
 }
 .campaign-steps .participation-slide {
   position: relative;
@@ -1502,7 +1506,7 @@ p {
 @media (max-width: 1050px) {
   .campaign-steps .steps-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 32px;
   }
   .campaign-steps .participation-card h3 {
     font-size: clamp(28px, 3.2vw, 38px);
@@ -1526,7 +1530,7 @@ p {
     display: flex;
     grid-template-columns: none;
     align-items: center;
-    gap: 12px;
+    gap: 36px;
     overflow-x: auto;
     margin-inline: -12px;
     padding: 24px max(20px, calc((100% - var(--participation-card-width)) / 2))
@@ -1740,12 +1744,22 @@ body.participation-focus :is(
 }
 body.participation-focus .hero {
   background-color: #000;
-  background-blend-mode: multiply;
+  background-image:
+    linear-gradient(90deg, rgb(0 0 0 / 18%), rgb(0 0 0 / 4%) 50%, rgb(0 0 0 / 18%)),
+    url("/images/netbox-10-anos/banner-publico.png");
+  background-blend-mode: normal;
 }
 body.participation-focus .hero-copy {
-  background-color: rgb(10 16 25 / 82%);
+  background-color: rgb(5 5 5 / 72%);
+  border-color: rgb(255 144 56 / 44%);
+  box-shadow: 0 18px 50px rgb(0 0 0 / 32%), 0 0 30px rgb(255 101 0 / 12%);
   color: #f2f5f9;
-  transition: background-color 650ms ease, color 650ms ease;
+  transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease, box-shadow 650ms ease;
+}
+body.participation-focus .hero .anniversary-brand,
+body.participation-focus .hero .anniversary p {
+  color: #fff;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 65%);
 }
 body.participation-focus .hero-prize {
   background: linear-gradient(115deg, #5b3a12, #805417, #46300f);
@@ -1765,12 +1779,24 @@ body.participation-focus .privacy-note {
   transition: background-color 650ms ease, color 650ms ease;
 }
 body.participation-focus .campaign-actions {
-  border-color: #293648;
+  border-color: #000;
+}
+body.participation-focus .section.shell.campaign-section.campaign-actions {
+  background-color: #000;
 }
 body.participation-focus .campaign-actions .campaign-actions__header h2 { color: #f2f5f9; }
 body.participation-focus .campaign-actions .campaign-actions__header p { color: #b6c0ce; }
 body.participation-focus .campaign-actions .campaign-actions__ticket {
-  background: linear-gradient(145deg, #101010, #050505);
+  background: linear-gradient(145deg, #17110d, #080808 65%);
+  border-color: #3b281d;
+}
+body.participation-focus .campaign-actions :is(
+  .campaign-actions__title, .campaign-actions__label
+) {
+  color: #f2f5f9;
+}
+body.participation-focus .campaign-actions .campaign-actions__description {
+  color: #b6c0ce;
 }
 body.participation-focus .campaign-steps {
   background-color: #000;
@@ -1822,6 +1848,81 @@ body.participation-focus .outline-button {
   border-color: #ff6500;
   color: #ff995c;
   transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
+}
+
+body.participation-focus :is(
+  .campaign-actions__ticket, .commercial-card, .winner-card,
+  .faq-grid details, .regulation-card, .consult-card
+) {
+  transition: background-color 650ms ease, color 650ms ease,
+    border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+body:not(.participation-focus) :is(
+  .campaign-actions__ticket, .commercial-card, .winner-card,
+  .faq-grid details, .regulation-card, .consult-card
+) {
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.participation-focus .campaign-actions .campaign-actions__item:hover .campaign-actions__ticket,
+  body.participation-focus :is(
+    .commercial-card, .winner-card,
+    .faq-grid details, .regulation-card, .consult-card
+  ):hover {
+    transform: translateY(-4px);
+    border-color: #ff8033;
+    box-shadow: 0 14px 32px rgb(0 0 0 / 45%),
+      0 0 0 1px rgb(255 119 30 / 32%), 0 0 28px rgb(255 101 0 / 28%);
+  }
+
+  body.participation-focus :is(
+    .button:not(.header-cta), .light-button, .outline-button
+  ):hover {
+    animation: dark-orange-glow 1.5s ease-in-out infinite alternate;
+  }
+
+  body:not(.participation-focus) .campaign-actions .campaign-actions__item:hover .campaign-actions__ticket,
+  body:not(.participation-focus) :is(
+    .commercial-card, .winner-card,
+    .faq-grid details, .regulation-card, .consult-card
+  ):hover {
+    transform: translateY(-4px);
+    border-color: #ff8033;
+    box-shadow: 0 14px 30px rgb(73 41 19 / 15%),
+      0 0 0 1px rgb(255 101 0 / 32%), 0 0 26px rgb(255 101 0 / 30%);
+  }
+
+  body:not(.participation-focus) :is(
+    .button:not(.header-cta), .light-button, .outline-button
+  ):hover {
+    animation: dark-orange-glow 1.5s ease-in-out infinite alternate;
+  }
+
+  .site-header :is(.nav a, .header-cta):hover {
+    animation: header-text-glow 1.5s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes dark-orange-glow {
+  from { box-shadow: 0 0 8px rgb(255 101 0 / 25%); }
+  to { box-shadow: 0 0 8px rgb(255 101 0 / 45%), 0 0 24px rgb(255 101 0 / 50%); }
+}
+
+@keyframes header-text-glow {
+  from { text-shadow: 0 0 4px rgb(255 126 30 / 40%); }
+  to { text-shadow: 0 0 7px rgb(255 126 30 / 85%), 0 0 16px rgb(255 101 0 / 75%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body :is(
+    .campaign-actions__ticket, .commercial-card, .winner-card,
+    .faq-grid details, .regulation-card, .consult-card
+  ):hover { transform: none !important; }
+  body :is(
+    .button, .light-button, .outline-button
+  ):hover { animation: none !important; }
+  .site-header :is(.nav a, .header-cta):hover { animation: none !important; }
 }
 
 .header-theme-toggle {

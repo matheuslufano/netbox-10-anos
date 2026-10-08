@@ -15,9 +15,11 @@
   font-size: clamp(25px, 2.4vw, 34px);
   font-weight: 850;
   line-height: 1.15;
-  letter-spacing: -.04em;
+  letter-spacing: -0.04em;
 }
-.campaign-actions .campaign-actions__header h2::after { display: none; }
+.campaign-actions .campaign-actions__header h2::after {
+  display: none;
+}
 .campaign-actions .campaign-actions__header p {
   margin: 0;
   color: #617087;
@@ -28,7 +30,9 @@
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
 }
-.campaign-actions .campaign-actions__item { min-width: 0; }
+.campaign-actions .campaign-actions__item {
+  min-width: 0;
+}
 .campaign-actions .campaign-actions__ticket {
   display: flex;
   width: 100%;
@@ -38,7 +42,9 @@
   border: 1px solid #e8ebef;
   border-radius: 16px;
   box-shadow: 0 6px 18px rgb(25 36 55 / 8%);
-  transition: transform 220ms ease, box-shadow 220ms ease;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
 }
 .campaign-actions .campaign-actions__ticket-panel {
   display: flex;
@@ -84,7 +90,7 @@
   font-size: clamp(15px, 1.45vw, 20px);
   font-weight: 850;
   line-height: 1.12;
-  letter-spacing: -.03em;
+  letter-spacing: -0.03em;
 }
 .campaign-actions .campaign-actions__description {
   max-width: 22ch;
@@ -105,19 +111,34 @@
   .campaign-actions .campaign-actions__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .campaign-actions .campaign-actions__quantity { font-size: 20px; }
+  .campaign-actions .campaign-actions__quantity {
+    font-size: 20px;
+  }
 }
 @media (max-width: 640px) {
   .section.shell.campaign-section.campaign-actions {
     width: calc(100% - 24px);
     padding-block: 32px;
   }
-  .campaign-actions .campaign-actions__header h2 { font-size: 25px; }
-  .campaign-actions .campaign-actions__header p { font-size: 13px; }
-  .campaign-actions .campaign-actions__ticket { min-height: 245px; padding: 20px 12px; }
-  .campaign-actions .campaign-actions__quantity { font-size: 19px; }
+  .campaign-actions .campaign-actions__header h2 {
+    font-size: 25px;
+  }
+  .campaign-actions .campaign-actions__header p {
+    font-size: 13px;
+  }
+  .campaign-actions .campaign-actions__ticket {
+    min-height: 245px;
+    padding: 20px 12px;
+  }
+  .campaign-actions .campaign-actions__quantity {
+    font-size: 19px;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .campaign-actions .campaign-actions__ticket { transition: none; }
-  .campaign-actions .campaign-actions__item:hover .campaign-actions__ticket { transform: none; }
+  .campaign-actions .campaign-actions__ticket {
+    transition: none;
+  }
+  .campaign-actions .campaign-actions__item:hover .campaign-actions__ticket {
+    transform: none;
+  }
 }
