@@ -1,4 +1,7 @@
 "use client";
+// ============================================================================
+// IMPORTAÇÕES — Next.js, React, ícones e dados compartilhados
+// ============================================================================
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -19,6 +22,9 @@ import {
   Sun,
 } from "lucide-react";
 import { campaign, commercialActions, faq } from "@/lib/campaign";
+// ============================================================================
+// LOGOTIPO / IDENTIDADE VISUAL — imagem e link para a campanha
+// ============================================================================
 export function Logo() {
   return (
     <Link className="logo" href="/10-anos" aria-label="Netbox, página inicial">
@@ -32,9 +38,15 @@ export function Logo() {
     </Link>
   );
 }
+// ============================================================================
+// CABEÇALHO — menu responsivo, navegação, tema e botão de consulta
+// ============================================================================
 export function Header({ client = false, returnHome = false }: { client?: boolean; returnHome?: boolean }) {
+  // Controle da abertura do menu no mobile.
   const [open, setOpen] = useState(false);
+  // Estado visual do botão de tema.
   const [darkTheme, setDarkTheme] = useState(false);
+  // Mantém o ícone do tema sincronizado com as classes do <body>.
   useEffect(() => {
     const syncTheme = () => {
       const selectedMode = document.body.dataset.themeMode;
@@ -47,6 +59,7 @@ export function Header({ client = false, returnHome = false }: { client?: boolea
     syncTheme();
     return () => observer.disconnect();
   }, []);
+  // Links exibidos no cabeçalho: área do cliente ou campanha pública.
   const items = client
     ? [
         ["Início", "/10-anos"],
@@ -135,6 +148,9 @@ export function Header({ client = false, returnHome = false }: { client?: boolea
     </header>
   );
 }
+// ============================================================================
+// MARCA COMEMORATIVA — símbolo tipográfico dos 10 anos
+// ============================================================================
 export function AnniversaryMark() {
   return (
     <div className="anniversary">
@@ -151,7 +167,11 @@ export function AnniversaryMark() {
     </div>
   );
 }
+// ============================================================================
+// AÇÕES COMERCIAIS — renovação e formas de ganhar números
+// ============================================================================
 export function CommercialBand() {
+  // Evento que permite rastrear cliques comerciais no restante do site.
   function track(action: string) {
     window.dispatchEvent(
       new CustomEvent("netbox:commercial-click", { detail: { action } }),
@@ -179,6 +199,7 @@ export function CommercialBand() {
             </a>
           </div>
         </div>
+        {/* Cartões gerados a partir de commercialActions, em @/lib/campaign. */}
         {commercialActions.map((a) => (
           <article className="commercial-card" key={a.key}>
             <a.icon size={35} />
@@ -202,6 +223,9 @@ export function CommercialBand() {
     </section>
   );
 }
+// ============================================================================
+// PRÊMIOS — valores, texto e arte (versões normal e compacta)
+// ============================================================================
 export function PrizeBanner({ compact = false }: { compact?: boolean }) {
   return (
     <section
@@ -235,6 +259,9 @@ export function PrizeBanner({ compact = false }: { compact?: boolean }) {
     </section>
   );
 }
+// ============================================================================
+// GANHADORES — cartões de prévia e acesso à listagem
+// ============================================================================
 export function WinnersPreview() {
   return (
     <section className="section shell campaign-section campaign-winners" id="ganhadores">
@@ -263,6 +290,9 @@ export function WinnersPreview() {
     </section>
   );
 }
+// ============================================================================
+// DÚVIDAS E REGULAMENTO — perguntas, respostas e links
+// ============================================================================
 export function FAQ({ standalone = false }: { standalone?: boolean }) {
   return (
     <section className="section shell campaign-section campaign-faq" id="duvidas">
@@ -273,6 +303,7 @@ export function FAQ({ standalone = false }: { standalone?: boolean }) {
         </div>
       </div>
       <div className="faq-grid">
+        {/* Perguntas carregadas da lista faq em @/lib/campaign. */}
         {faq.map(([q, a]) => (
           <details key={q}>
             <summary>{q}</summary>
@@ -280,6 +311,7 @@ export function FAQ({ standalone = false }: { standalone?: boolean }) {
           </details>
         ))}
       </div>
+      {/* Área de acesso ao regulamento oficial. */}
       <div className="regulation-card" id="regulamento">
         <FileText />
         <div>
@@ -308,6 +340,9 @@ export function FAQ({ standalone = false }: { standalone?: boolean }) {
     </section>
   );
 }
+// ============================================================================
+// AJUDA — faixa de acesso às dúvidas frequentes
+// ============================================================================
 export function HelpBand() {
   return (
     <div className="help-band">
@@ -324,6 +359,9 @@ export function HelpBand() {
     </div>
   );
 }
+// ============================================================================
+// HISTÓRIA DA NETBOX — texto institucional e indicadores
+// ============================================================================
 export function HistoryBand() {
   return (
     <section className="history-band">
@@ -345,6 +383,7 @@ export function HistoryBand() {
             Conheça a nossa história <ArrowRight size={16} />
           </a>
         </div>
+        {/* Indicadores institucionais alimentados por campaign.institutional. */}
         <div className="history-stats">
           <p>
             <MapPin /> <b>{campaign.institutional.cities}</b> cidades conectadas
@@ -364,6 +403,9 @@ export function HistoryBand() {
     </section>
   );
 }
+// ============================================================================
+// PRIVACIDADE — mensagem de proteção dos dados
+// ============================================================================
 export function PrivacyNote() {
   return (
     <span className="privacy-note">

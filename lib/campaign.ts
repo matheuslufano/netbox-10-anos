@@ -73,8 +73,8 @@ export const commercialActions = [
     key: "indication",
   },
   {
-    title: "Faça upgrade do seu plano",
-    amount: "+3 números",
+    title: "Faça uma renovação do seu plano",
+    amount: "+2 números",
     cta: "Conhecer planos",
     href: campaign.commercial.upgrade,
     icon: ChartNoAxesCombined,
@@ -82,7 +82,7 @@ export const commercialActions = [
   },
   {
     title: "Contrate a Netbox",
-    amount: "+1 a 4 números",
+    amount: "+2 números",
     cta: "Ver planos",
     href: campaign.commercial.plans,
     icon: Gift,

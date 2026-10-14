@@ -1,4 +1,5 @@
 import "./campaign-glass.css";
+import "./participation-desktop.css";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -12,23 +13,9 @@ import {
 } from "@/components/shared";
 import { ConsultForm } from "@/components/consult-form";
 import { CenterSwipeCarousel } from "@/components/center-swipe-carousel";
+import { ParticipationDesktop } from "@/components/participation-desktop";
 import { actions, campaign, dateBR } from "@/lib/campaign";
-
-const participationSteps = [
-  {
-    title: "Participe da comemoração de 10 anos da Netbox",
-    description: "Indique, renove, faça upgrade ou contrate a Netbox.",
-  },
-  {
-    title: "Acumule números da sorte",
-    description:
-      "Após a validação, cada ação gera a quantidade correspondente de números.",
-  },
-  {
-    title: "Acompanhe a campanha",
-    description: "Consulte seus números e acompanhe os sorteios e resultados.",
-  },
-];
+import { participationIntro, participationSteps } from "@/lib/participation";
 
 export default function CampaignPage() {
   return (
@@ -83,61 +70,64 @@ export default function CampaignPage() {
           <ConsultForm />
         </div>
 
-        <section
-          className="section shell campaign-section campaign-actions"
-          id="acoes"
-          aria-labelledby="campaign-actions-title"
-        >
-          <header className="section-head campaign-actions__header">
-            <div>
-              <h2 id="campaign-actions-title">Como ganhar números da sorte?</h2>
-              <p>
-                Cada ação válida gera uma quantidade específica de números da
-                sorte.
-              </p>
-            </div>
-          </header>
-
-          <CenterSwipeCarousel
-            className="campaign-actions__grid"
-            ariaLabel="Ações que geram números da sorte"
+        <div className="campaign-reward-flow">
+          <section
+            className="section shell campaign-section campaign-actions"
+            id="acoes"
+            aria-labelledby="campaign-actions-title"
           >
-            {actions.map((action) => {
-              const Icon = action.icon;
+            <header className="section-head campaign-actions__header">
+              <div>
+                <h2 id="campaign-actions-title">Como ganhar números da sorte?</h2>
+                <p>
+                  Cada ação válida gera uma quantidade específica de números da
+                  sorte.
+                </p>
+              </div>
+            </header>
 
-              return (
-                <article className="campaign-actions__item" key={action.title}>
-                  <div className="campaign-actions__ticket">
-                    <div className="campaign-actions__ticket-panel">
-                      <Icon className="campaign-actions__icon" aria-hidden="true" />
-                      <h3 className="campaign-actions__title">
-                        {action.title}
-                      </h3>
-                      <div className="campaign-actions__reward">
-                        <span className="campaign-actions__label">Ganhe</span>
-                        <strong className="campaign-actions__quantity">
-                          {action.amount} {action.amount === 1 ? "número" : "números"}
-                          <br />
-                          da sorte
-                        </strong>
+            <CenterSwipeCarousel
+              className="campaign-actions__grid"
+              ariaLabel="Ações que geram números da sorte"
+            >
+              {actions.map((action) => {
+                const Icon = action.icon;
+
+                return (
+                  <article className="campaign-actions__item" key={action.title}>
+                    <div className="campaign-actions__ticket">
+                      <div className="campaign-actions__ticket-panel">
+                        <Icon className="campaign-actions__icon" aria-hidden="true" />
+                        <h3 className="campaign-actions__title">
+                          {action.title}
+                        </h3>
+                        <div className="campaign-actions__reward">
+                          <span className="campaign-actions__label">Ganhe</span>
+                          <strong className="campaign-actions__quantity">
+                            {action.amount} {action.amount === 1 ? "número" : "números"}
+                            <br />
+                            da sorte
+                          </strong>
+                        </div>
+                        <p className="campaign-actions__description">
+                          {action.description}
+                        </p>
                       </div>
-                      <p className="campaign-actions__description">
-                        {action.description}
-                      </p>
                     </div>
-                  </div>
-                </article>
-              );
-            })}
-          </CenterSwipeCarousel>
-        </section>
+                  </article>
+                );
+              })}
+            </CenterSwipeCarousel>
+          </section>
 
-        <div className="shell campaign-prize-wrap">
-          <PrizeBanner />
+          <div className="shell campaign-prize-wrap">
+            <PrizeBanner />
+          </div>
         </div>
+        <div id="como-participar" />
+        <ParticipationDesktop />
         <section
-          className="section shell campaign-section campaign-steps"
-          id="como-participar"
+          className="section shell campaign-section campaign-steps campaign-steps--mobile"
           aria-labelledby="participation-title"
         >
           <CenterSwipeCarousel
@@ -149,7 +139,7 @@ export default function CampaignPage() {
             <article className="participation-cover participation-slide">
               <div className="participation-cover__copy">
                 <h2 id="participation-title">Como <span>participar?</span></h2>
-                <p>É simples começar a acumular seus números da sorte.</p>
+                <p>{participationIntro.description}</p>
               </div>
               <span className="participation-cover__hint participation-cover__hint--desktop">
                 Deslize e confira <ArrowRight size={17} />

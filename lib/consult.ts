@@ -1,11 +1,11 @@
 export type Consultation = {
   ok: true;
   cpf: string;
-  nome: string;
+  nome: string | null;
   total: number;
   numeros: string[];
   por_origem: Record<string, { acoes: number; numeros: number }>;
-  campanha: { inicio: string; fim: string };
+  campanha: { inicio: string; fim: string; comecou?: boolean };
   consultedAt: string;
   inconsistent: boolean;
 };
@@ -39,8 +39,8 @@ export function parseResponse(
   const x = v as Record<string, unknown>;
   if (
     x.ok !== true ||
-    typeof x.nome !== "string" ||
-    x.nome.length === 0 ||
+    (x.nome !== null &&
+      (typeof x.nome !== "string" || x.nome.length === 0)) ||
     typeof x.cpf !== "string" ||
     !/^\d{3}\.\*{3}\.\*{3}-\d{2}$/.test(x.cpf) ||
     !Number.isSafeInteger(x.total) ||
@@ -75,6 +75,7 @@ export function parseResponse(
     )
   )
     return null;
+  if (p.comecou !== undefined && typeof p.comecou !== "boolean") return null;
   return {
     ok: true,
     cpf: x.cpf,
@@ -82,6 +83,10 @@ export function parseResponse(
     total: x.total,
     numeros: x.numeros,
     por_origem: origins,
-    campanha: { inicio: p.inicio, fim: p.fim },
+    campanha: {
+      inicio: p.inicio,
+      fim: p.fim,
+      ...(typeof p.comecou === "boolean" ? { comecou: p.comecou } : {}),
+    },
   } as Omit<Consultation, "consultedAt" | "inconsistent">;
 }

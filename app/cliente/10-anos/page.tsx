@@ -130,7 +130,7 @@ export default function ClientPage() {
           </span>
           <div className="participant-card__identity">
             <small>Consulta realizada para</small>
-            <strong>{data.nome}</strong>
+            <strong>{data.nome || "Participante"}</strong>
           </div>
           <div className="participant-card__document">
             <small>CPF consultado</small>
@@ -174,7 +174,9 @@ export default function ClientPage() {
               </div>
             ) : (
               <p className="empty-numbers">
-                Nenhum número da sorte disponível nesta consulta.
+                {data.campanha.comecou === false
+                  ? "A campanha ainda não começou. Seus números da sorte serão exibidos aqui após o início e a validação das ações."
+                  : "Este CPF ainda não possui números da sorte. Eles aparecerão aqui após a validação de uma ação válida."}
               </p>
             )}
             <p className="muted-note">
@@ -183,19 +185,6 @@ export default function ClientPage() {
             </p>
           </article>
         </div>
-        {data.inconsistent && (
-          <div className="inconsistency" role="alert">
-            <strong>Os dados desta consulta estão inconsistentes.</strong>
-            <p>
-              O total informado ({data.total}) difere da quantidade de números
-              recebidos ({data.numeros.length}). Nenhum número foi acrescentado
-              ou removido.
-            </p>
-            <Link href="/10-anos#consulta" className="outline-button">
-              Tentar novamente
-            </Link>
-          </div>
-        )}
         <CommercialBand />
         <div className="dashboard-lower">
           <section className="dashboard-card origin-card">

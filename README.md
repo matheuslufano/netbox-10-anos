@@ -1,6 +1,6 @@
 # Netbox 10 Anos
-
-Site de campanha em Next.js 16 (App Router), TypeScript, Tailwind CSS 4, CSS e Lucide React.
+ 78694736187
+Site de campanha em Next.js 16 (App Router), TypeScript, Tailwind CSS 4, CSS e Lucide React. A tipografia usa Manrope para textos e Sora para títulos, seguindo o site institucional Netbox.
 
 ## Executar
 
@@ -23,9 +23,13 @@ Acesse `http://localhost:3000/10-anos`. Para produção, execute `npm.cmd run bu
 - `/demo/admin/10-anos`: painel ilustrativo separado, com eventos explicitamente fictícios e filtros locais. Não executa operações.
 - `POST /api/campanha/consulta`: valida CPF e consulta o endpoint configurado por GET, sem cache.
 
+## Como participar
+
+Na rota `/10-anos`, a seção desktop (largura acima de 640 px) tem fundo de largura total e conteúdo centralizado na mesma largura de `.shell` (até 1240 px), com título e arte comemorativa, quatro etapas em sequência e botão que leva ao formulário `#consulta`. Os cartões destacam-se com brilho laranja ao passar o mouse e expandem ao clique para exibir detalhes de cada etapa. O fundo usa `public/images/como participar/plano de fundo.png`; a arte `10 anos.png` e o logo Netbox são arquivos separados, enquanto textos e ícones são elementos HTML editáveis. O carrossel original permanece no mobile, com seus textos em `lib/participation.ts`.
+
 ## Integração
 
-O formulário aceita somente CPF válido e envia por POST ao servidor. O servidor remove a pontuação, chama a API externa com timeout de 8 segundos, valida os campos e retorna total, números, origens e período. A resposta individual não é guardada em URL, localStorage ou cookie. O painel é somente uma consulta, sem liberar faturas, contratos ou perfil autenticado.
+O formulário aceita somente CPF válido e envia por POST ao servidor. O servidor remove a pontuação, chama a API externa com timeout de 8 segundos, valida os campos e retorna total, números, origens e período. Respostas válidas sem números são exibidas como participação ainda sem números da sorte; quando a API indica que a campanha não começou, o painel informa isso ao participante. A resposta individual não é guardada em URL, localStorage ou cookie. O painel é somente uma consulta, sem liberar faturas, contratos ou perfil autenticado.
 
 Para desenvolvimento, use uma API simulada que reproduza o contrato do prompt. Não use CPFs reais para testes. O endpoint de produção só deve ser consultado mediante ação de uma pessoa autorizada.
 
