@@ -7,6 +7,7 @@ import {
   UserRoundPlus,
   BriefcaseBusiness,
 } from "lucide-react";
+import { FaUserAstronaut, FaRegUser } from "react-icons/fa";
 export const campaign = {
   name: "Netbox 10 Anos",
   tagline: "Conectando pessoas e construindo histórias",
@@ -40,38 +41,26 @@ export const actions = [
   {
     title: "Indique um amigo",
     amount: 5,
-    description: "Quando sua indicação gerar um contrato elegível e ativado.",
+    description: "Quando sua indicação gerar um contrato elegível e ativado",
     icon: UsersRound,
   },
   {
-    title: "Renovação com upgrade",
-    amount: 3,
-    description: "Renove e aproveite para melhorar seu plano.",
+    title: "Contrato ativo",
+    amount: 1,
+    description: "Todo cliente ativo já concorre a 1 número da sorte.",
+    icon: FaRegUser,
+  },
+  {
+    title: "Renovação do contrato",
+    amount: 2,
+    description: "Renove e aproveite para melhorar seu plano",
     icon: ChartNoAxesCombined,
   },
   {
-    title: "Renovação PF",
-    amount: 1,
-    description: "Renove seu contrato residencial elegível.",
-    icon: House,
-  },
-  {
-    title: "Renovação PJ",
-    amount: 4,
-    description: "Renove o contrato elegível da sua empresa.",
-    icon: Building2,
-  },
-  {
-    title: "Novo cliente PF",
-    amount: 1,
-    description: "Contrate um plano residencial participante.",
+    title: "Novo contrato",
+    amount: 2,
+    description: "Contrate mais um de nossos planos de internet",
     icon: UserRoundPlus,
-  },
-  {
-    title: "Novo cliente PJ",
-    amount: 4,
-    description: "Contrate um plano empresarial participante.",
-    icon: BriefcaseBusiness,
   },
 ];
 export const commercialActions = [

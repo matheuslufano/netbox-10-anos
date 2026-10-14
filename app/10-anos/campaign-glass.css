@@ -1,4 +1,29 @@
+/* ===================================================================
+   CAMPANHA NETBOX 10 ANOS — CSS COMPLETO
+   Estrutura por componentes / seções.
+   Escopo: .campaign-page (não altera as demais páginas).
+
+   SUMÁRIO
+   01 Base e cabeçalho               11 História
+   02 Banner principal               12 Ganhadores, FAQ, regulamento
+   03 Hero secundário                13 Rodapé
+   04 Superfícies de vidro           14 Modo escuro
+   05 Formulário de consulta         15 Hover
+   06 Títulos das seções             16–17 Responsividade
+   07 Ações / tickets                18 Acessibilidade
+   08 Prêmios                        19 Compatibilidade
+   09 Como participar
+   10 Comercial
+
+   NOTA: abaixo de 701px, o banner original usa imagem mobile
+   e oculta os cartões de ofertas, como no CSS fornecido.
+   =================================================================== */
+
 /* Linguagem de vidro da campanha, sem alterar as demais rotas. */
+
+/* ===================================================================
+   01 | BASE: fundo, cabeçalho e variáveis
+   =================================================================== */
 body:has(.campaign-page) {
   background-color: #f1f3f7;
   background-image:
@@ -24,6 +49,253 @@ body:has(.campaign-page) .site-header {
   color: var(--glass-ink);
 }
 
+
+/* ===================================================================
+   02 | BANNER PRINCIPAL: estrutura e marca
+   =================================================================== */
+.campaign-page .campaign-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  min-height: clamp(480px, 40vw, 620px);
+  align-items: center;
+  padding: clamp(24px, 3.5vw, 42px) 20px;
+  background: #fff4e5;
+  color: #142453;
+}
+
+.campaign-page .campaign-hero::before,
+.campaign-page .campaign-hero::after {
+  position: absolute;
+  z-index: -1;
+  width: min(42vw, 540px);
+  aspect-ratio: 1;
+  border: 2px solid rgb(255 155 55 / 17%);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.campaign-page .campaign-hero::before {
+  top: -52%;
+  left: -18%;
+}
+
+.campaign-page .campaign-hero::after {
+  top: 8%;
+  right: -18%;
+}
+
+.campaign-page .campaign-hero__inner {
+  display: grid;
+  width: min(760px, 100%);
+  gap: clamp(18px, 2.5vw, 28px);
+  margin-inline: auto;
+}
+
+.campaign-page .campaign-hero__brand {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  text-align: center;
+}
+
+.campaign-page .campaign-hero__eyebrow {
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #142453;
+  color: #fff;
+  font-size: clamp(0.8rem, 1.3vw, 0.9rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.campaign-page .campaign-hero__responsive-image {
+  display: block;
+  width: min(100%, 620px);
+  margin-inline: auto;
+}
+
+.campaign-page .campaign-hero__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2172 / 724;
+  object-fit: contain;
+}
+
+.campaign-page .campaign-hero__brand h1 {
+  max-width: 480px;
+  margin: 0;
+  color: #142453;
+  font-size: clamp(0.95rem, 1.8vw, 1.3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+
+/* ===================================================================
+   02.4 | BANNER: cartões promocionais
+   =================================================================== */
+.campaign-page .campaign-hero__offers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 680px);
+  gap: 14px;
+  align-items: stretch;
+  margin-inline: auto;
+}
+
+.campaign-page .campaign-hero__prize,
+.campaign-page .campaign-hero__message {
+  display: flex;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 108px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.campaign-page .campaign-hero__prize {
+  flex-direction: column;
+  border: 1px solid #ffbd64;
+  background: #ffe6a9;
+}
+
+.campaign-page .campaign-hero__prize p {
+  margin: 0;
+  color: #142453;
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 800;
+}
+
+.campaign-page .campaign-hero__prize strong {
+  display: block;
+  color: #ff6500;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 950;
+  line-height: 1.05;
+}
+
+.campaign-page .campaign-hero__prize b {
+  color: #142453;
+  display: block;
+  font-size: clamp(19px, 2vw, 25px);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.campaign-page .campaign-hero__message {
+  background: #ff5908;
+  color: #fff;
+  font-size: clamp(14px, 1.3vw, 16px);
+  font-weight: 500;
+  line-height: 1.35;
+  text-wrap: pretty;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+
+/* ===================================================================
+   02.6 | BANNER: datas e botões
+   =================================================================== */
+.campaign-page .campaign-hero__date {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #142453;
+  font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+  font-weight: 850;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.campaign-page .campaign-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.campaign-page .campaign-hero__actions .light-button {
+  border: 1px solid #142453;
+  background: #fff;
+  color: #142453;
+}
+
+.campaign-page .campaign-hero__actions :is(.button, .light-button) {
+  min-height: 38px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+}
+
+/* 02.8 | Banner em tablets e notebooks compactos (701–850px) */
+@media (min-width: 701px) and (max-width: 850px) {
+  .campaign-page .campaign-hero__inner {
+    width: min(94%, 700px);
+  }
+
+  .campaign-page .campaign-hero__offers {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .campaign-page .campaign-hero__prize,
+  .campaign-page .campaign-hero__message {
+    padding: 14px;
+  }
+}
+
+/* 02.9 | Banner mobile: utiliza imagem própria */
+@media (max-width: 700px) {
+  .campaign-page .campaign-hero {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    background: none;
+  }
+
+  .campaign-page .campaign-hero::before,
+  .campaign-page .campaign-hero::after {
+    display: none;
+  }
+
+  .campaign-page .campaign-hero__inner {
+    width: 100%;
+    gap: 0;
+  }
+
+  .campaign-page .campaign-hero__brand {
+    display: block;
+  }
+
+  .campaign-page .campaign-hero__responsive-image {
+    width: 100%;
+  }
+
+  .campaign-page .campaign-hero__logo {
+    aspect-ratio: 901 / 1201;
+  }
+
+  .campaign-page .campaign-hero__brand > :not(.campaign-hero__responsive-image),
+  .campaign-page .campaign-hero__offers,
+  .campaign-page .campaign-hero__date,
+  .campaign-page .campaign-hero__actions {
+    display: none;
+  }
+
+}
+
+
+/* ===================================================================
+   03 | HERO SECUNDÁRIO: efeito de vidro
+   =================================================================== */
 .campaign-page .hero .hero-copy {
   border: 1px solid var(--glass-rim);
   border-radius: 28px;
@@ -42,9 +314,17 @@ body:has(.campaign-page) .site-header {
     inset 0 1px rgb(255 255 255 / 75%);
 }
 
+
+/* ===================================================================
+   04 | CARDS GENÉRICOS: superfícies glass
+   =================================================================== */
 .campaign-page .consult-card,
 .campaign-page .campaign-actions__ticket,
 .campaign-page .commercial-card,
+
+/* ===================================================================
+   12 | GANHADORES, FAQ E REGULAMENTO
+   =================================================================== */
 .campaign-page .winner-card,
 .campaign-page .faq-grid details,
 .campaign-page .regulation-card {
@@ -55,8 +335,14 @@ body:has(.campaign-page) .site-header {
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
+#acoes{
+  margin: 100px auto;
+}
 
 
+/* ===================================================================
+   05 | CONSULTA: CPF, formulário e privacidade
+   =================================================================== */
 .campaign-page .consult-wrap {
   isolation: isolate;
   border-radius: 30px;
@@ -101,6 +387,10 @@ body:has(.campaign-page) .site-header {
   background: rgb(255 236 222 / 72%);
 }
 
+
+/* ===================================================================
+   06 | TÍTULOS DAS SEÇÕES
+   =================================================================== */
 .campaign-page .section-head :is(h2, p),
 .campaign-page .campaign-actions__header :is(h2, p) {
   color: var(--glass-ink);
@@ -111,13 +401,44 @@ body:has(.campaign-page) .site-header {
   color: var(--glass-muted);
 }
 
+
+/* ===================================================================
+   07 | AÇÕES DA CAMPANHA: tickets e grade
+   =================================================================== */
 .campaign-page .campaign-actions__ticket {
+  height: 260px;
   border-radius: 22px;
   background: linear-gradient(
     145deg,
     rgb(255 255 255 / 82%),
     rgb(255 255 255 / 52%)
   );
+}
+
+.campaign-page .campaign-actions .campaign-actions__grid {
+  width: min(100%, 1000px);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  justify-content: center;
+  margin-inline: auto;
+}
+
+
+/* ===================================================================
+   17 | RESPONSIVIDADE: componentes até 640px
+   =================================================================== */
+@media (max-width: 640px) {
+  .campaign-page .campaign-actions .campaign-actions__grid {
+    width: auto;
+    margin-inline: -12px;
+  }
+
+  .campaign-page .campaign-actions .campaign-actions__item,
+  .campaign-page .campaign-actions .campaign-actions__item.is-centered {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .campaign-page
@@ -130,37 +451,44 @@ body:has(.campaign-page) .site-header {
   color: var(--glass-muted);
 }
 
+
+/* ===================================================================
+   08 | PRÊMIOS: banner e informações
+   =================================================================== */
+#premios{
+  margin: 50px auto;
+}
+
 .campaign-page .prize-banner.prize-banner {
-  border: 1px solid rgb(255 195 112 / 38%);
-  border-radius: 28px;
-  background-image:
-    linear-gradient(
-      90deg,
-      rgb(5 7 11 / 88%) 0%,
-      rgb(5 7 11 / 55%) 56%,
-      rgb(5 7 11 / 12%) 100%
-    ),
-    url("/images/netbox-10-anos/arte-premios.png");
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 20px 50px rgb(15 11 8 / 24%);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   color: #fff;
+}
+
+.campaign-page .prize-banner .prize-banner__illustration {
+  display: block;
+  width: min(100%, 520px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 24%));
 }
 
 .campaign-page .prize-banner .prize-copy {
   align-self: center;
-  padding: clamp(18px, 2vw, 26px);
-  border: 1px solid rgb(255 255 255 / 20%);
-  border-radius: 22px;
-  background: rgb(14 14 17 / 55%);
-  box-shadow: inset 0 1px rgb(255 255 255 / 13%);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  padding: clamp(22px, 3vw, 36px);
+  border: 1px solid rgb(255 177 92 / 55%);
+  border-radius: 24px;
+  background: linear-gradient(145deg, #fffaf3, #fff 72%);
+  box-shadow:
+    0 18px 42px rgb(0 0 0 / 17%),
+    inset 0 1px rgb(255 255 255 / 90%);
 }
 
 .campaign-page .prize-banner .prize-copy :is(h2, p),
 .campaign-page .prize-banner .prize-total span {
-  color: #f6f7fa;
+  color: #24324a;
 }
 
 .campaign-page .prize-banner .prize-copy strong,
@@ -169,7 +497,7 @@ body:has(.campaign-page) .site-header {
 }
 
 .campaign-page .prize-banner .prize-total {
-  border-color: rgb(255 255 255 / 22%);
+  border-color: rgb(36 50 74 / 17%);
 }
 
 .campaign-page .prize-banner .prize-chips span {
@@ -187,6 +515,10 @@ body:has(.campaign-page) .site-header {
   color: #ffad63;
 }
 
+
+/* ===================================================================
+   09 | COMO PARTICIPAR: carrossel de passos
+   =================================================================== */
 .campaign-page .campaign-steps .participation-slide {
   border: 1px solid rgb(255 181 105 / 26%);
   border-radius: 20px;
@@ -204,6 +536,10 @@ body:has(.campaign-page) .site-header {
   55%, 100% { transform: translateX(380%) skewX(-24deg); }
 }
 
+
+/* ===================================================================
+   10 | SEÇÃO COMERCIAL
+   =================================================================== */
 .campaign-page .campaign-commercial {
   margin-block: 22px;
   padding-block: 24px;
@@ -228,6 +564,10 @@ body:has(.campaign-page) .site-header {
   color: var(--glass-muted);
 }
 
+
+/* ===================================================================
+   11 | HISTÓRIA NETBOX
+   =================================================================== */
 .campaign-page .history-band {
   background-position: center;
   background-size: cover;
@@ -277,6 +617,10 @@ body:has(.campaign-page) .site-header {
   color: var(--glass-ink);
 }
 
+
+/* ===================================================================
+   13 | RODAPÉ
+   =================================================================== */
 .campaign-page .site-footer {
   border-top: 1px solid rgb(255 255 255 / 12%);
   background: rgb(12 17 24 / 94%);
@@ -285,6 +629,10 @@ body:has(.campaign-page) .site-header {
 }
 
 /* Tema escuro: vidro fumê sobre uma base preta. */
+
+/* ===================================================================
+   14 | TEMA ESCURO: modo participation-focus
+   =================================================================== */
 body.participation-focus:has(.campaign-page) {
   background-color: #000;
   background-image: radial-gradient(
@@ -368,14 +716,7 @@ body.participation-focus .campaign-page .privacy-note {
 }
 
 body.participation-focus .campaign-page .prize-banner.prize-banner {
-  background-image:
-    linear-gradient(
-      90deg,
-      rgb(0 0 0 / 92%) 0%,
-      rgb(0 0 0 / 62%) 56%,
-      rgb(0 0 0 / 22%) 100%
-    ),
-    url("/images/netbox-10-anos/arte-premios.png");
+  background-image: none;
   border-color: rgb(255 147 53 / 27%);
 }
 
@@ -407,6 +748,10 @@ body.participation-focus .campaign-page .faq-grid details[open] {
     0 0 25px rgb(255 122 35 / 19%);
 }
 
+
+/* ===================================================================
+   15 | INTERAÇÕES: hover em dispositivos compatíveis
+   =================================================================== */
 @media (hover: hover) and (pointer: fine) {
   .campaign-page
     :is(.consult-card, .winner-card, .faq-grid details, .regulation-card):hover,
@@ -440,6 +785,10 @@ body.participation-focus .campaign-page .faq-grid details[open] {
   }
 }
 
+
+/* ===================================================================
+   16 | RESPONSIVIDADE: navegação até 1100px
+   =================================================================== */
 @media (max-width: 1100px) {
   body:has(.campaign-page) .site-header .nav {
     top: 100%;
@@ -562,13 +911,19 @@ body.participation-focus .campaign-page .faq-grid details[open] {
   }
 
   .campaign-page .prize-banner.prize-banner {
-    padding: 16px;
-    border-radius: 24px;
-    background-position: 67% center;
+    padding: 16px 0;
   }
 
   .campaign-page .prize-banner .prize-copy {
-    padding: 17px;
+    padding: 20px;
+  }
+
+  .campaign-page .prize-banner .prize-banner__illustration {
+    width: min(100%, 360px);
+  }
+
+  .campaign-page .prize-banner:not(.compact) .prize-art {
+    height: auto;
   }
 
   .campaign-page .campaign-steps .participation-slide {
@@ -601,12 +956,20 @@ body.participation-focus .campaign-page .faq-grid details[open] {
   }
 }
 
+
+/* ===================================================================
+   18 | ACESSIBILIDADE: movimento reduzido
+   =================================================================== */
 @media (max-width: 640px) and (prefers-reduced-motion: reduce) {
   .campaign-page .participation-cover__hint--mobile::before {
     animation: none;
   }
 }
 
+
+/* ===================================================================
+   19 | COMPATIBILIDADE: fallback sem backdrop-filter
+   =================================================================== */
 @supports not (backdrop-filter: blur(1px)) {
   .campaign-page
     :is(

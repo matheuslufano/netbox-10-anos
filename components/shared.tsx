@@ -211,14 +211,27 @@ export function PrizeBanner({ compact = false }: { compact?: boolean }) {
       <div className="prize-copy">
         <span className="eyebrow">Prêmios</span>
         <h2>
-          10 sorteios de <strong>R$ 2.000</strong> via Pix
+          10 sorteios de <strong>R$ 2.000</strong> no Pix
         </h2>
         <p>Serão 10 sorteios, com R$ 2.000 via Pix em cada um, para celebrar com quem faz parte dessa história.</p>
         <span className="prize-total">R$ 20 mil <span>em prêmios no total</span></span>
       </div>
-      <div className="prize-art" aria-label="Dez sorteios de dois mil reais via Pix">
-        <Gift size={compact ? 100 : 190} strokeWidth={1.4} />
-      </div>
+      {compact ? (
+        <div className="prize-art" aria-label="Dez sorteios de dois mil reais via Pix">
+          <Gift size={100} strokeWidth={1.4} />
+        </div>
+      ) : (
+        <div className="prize-art">
+          <Image
+            className="prize-banner__illustration"
+            src="/images/netbox-10-anos/Cashback%20PIX%20com%20Notas%20de%20100%20Reais.png"
+            alt="Notas de cem reais ao redor de um símbolo Pix"
+            width={1421}
+            height={1107}
+            sizes="(max-width: 760px) 90vw, (max-width: 1100px) 42vw, 520px"
+          />
+        </div>
+      )}
     </section>
   );
 }

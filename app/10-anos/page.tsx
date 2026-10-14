@@ -1,12 +1,9 @@
 import "./campaign-glass.css";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Gift,
-} from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import {
   Header,
-  AnniversaryMark,
   CommercialBand,
   PrizeBanner,
   WinnersPreview,
@@ -38,38 +35,50 @@ export default function CampaignPage() {
     <>
       <Header />
       <main className="campaign-page">
-        <section className="hero" id="inicio">
-          <div className="shell hero-inner">
-            <div className="hero-copy">
-              <AnniversaryMark />
-              <h1>
-                10 anos conectando histórias.
-                <br />
-                <span>
-                  Agora, cada nova <em>conexão</em> pode <em>valer prêmios.</em>
-                </span>
-              </h1>
-              <div className="hero-prize">
-                <strong>R$ 20 MIL EM PIX</strong>
-                <span>10 prêmios de R$ 2.000</span>
+        <section className="campaign-hero" id="inicio" aria-labelledby="campaign-hero-title">
+          <div className="campaign-hero__inner">
+            <header className="campaign-hero__brand">
+              <picture className="campaign-hero__responsive-image">
+                <source
+                  media="(max-width: 700px)"
+                  srcSet="/images/netbox-10-anos/BANNER%20SITE%20mobile-%2010%20ANOS.png"
+                />
+                <Image
+                  className="campaign-hero__logo"
+                  src="/images/netbox-10-anos/LOG 3 SITE.png"
+                  alt="Show de Prêmios Netbox 10 Anos: R$ 20 mil em prêmios, com sorteio em 30 de janeiro de 2027."
+                  width={2172}
+                  height={724}
+                  sizes="(max-width: 700px) 100vw, 480px"
+                  loading="eager"
+                  fetchPriority="high"
+                />
+              </picture>
+              <h1 id="campaign-hero-title">Conectando pessoas e construindo histórias</h1>
+            </header>
+
+            <div className="campaign-hero__offers">
+              <div className="campaign-hero__prize">
+                <p>CLIENTE NETBOX CONCORRE A</p>
+                <strong>R$ 20 MIL REAIS</strong>
+                <b>EM PRÊMIOS!</b>
               </div>
-              <p>
-                Indique, renove, faça upgrade ou contrate a Netbox. Cada ação
-                elegível e validada gera números da sorte para participar da
-                campanha.
+              <p className="campaign-hero__message">
+                Contrate, indique ou renove seu plano e ganhe um número da sorte
+                para participar do Show de Prêmios Netbox 10 Anos.
               </p>
-              <div className="hero-buttons">
-                <a className="button" href="#acoes">
-                  <Gift size={18} /> Quero participar
-                </a>
-                <a className="light-button" href="#consulta">
-                  Consultar meus números
-                </a>
-              </div>
+            </div>
+
+            <p className="campaign-hero__date">
+              SORTEIO DIA 30 DE JANEIRO DE 2027, AO VIVO NO INSTAGRAM DA NETBOX INTERNET
+            </p>
+
+            <div className="campaign-hero__actions">
+              <a className="button" href="#acoes">Quero participar</a>
+              <a className="light-button" href="#consulta">Consultar meus números</a>
             </div>
           </div>
         </section>
-
         <div className="shell consult-wrap">
           <ConsultForm />
         </div>
