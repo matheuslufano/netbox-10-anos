@@ -467,12 +467,14 @@ p {
   z-index: 1;
   align-self: center;
 }
+
 .eyebrow {
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 800;
 }
+
 .prize-copy h2 {
   font-size: 2.25rem;
   color: #ffd18b;
@@ -639,9 +641,9 @@ p {
 }
 .history-inner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 24px;
   padding-block: 35px;
 }
 .history-inner > div:first-child {
@@ -1345,9 +1347,11 @@ p {
   aspect-ratio: 941 / 1672;
   min-height: 0;
   overflow: hidden;
-  border: 0;
+  border: 1px solid rgb(255 255 255 / 32%);
   border-radius: 14px;
-  box-shadow: 0 8px 24px rgb(15 10 7 / 16%);
+  box-shadow:
+    0 12px 30px rgb(15 10 7 / 18%),
+    inset 0 1px rgb(255 255 255 / 42%);
   background-color: #140b08;
   background-size: cover;
   background-position: center;
@@ -1371,10 +1375,12 @@ p {
   bottom: 0;
   background: linear-gradient(
     180deg,
-    transparent,
+    rgb(255 255 255 / 5%),
     rgb(0 0 0 / 34%) 28%,
     rgb(0 0 0 / 66%)
   );
+  backdrop-filter: blur(1px) saturate(112%);
+  -webkit-backdrop-filter: blur(1px) saturate(112%);
 }
 .campaign-steps .participation-card {
   display: flex;
@@ -1386,10 +1392,13 @@ p {
   height: 49%;
   background: linear-gradient(
     180deg,
-    rgb(0 0 0 / 34%),
-    rgb(0 0 0 / 22%) 72%,
+    rgb(255 255 255 / 9%),
+    rgb(0 0 0 / 22%) 24%,
+    rgb(0 0 0 / 30%) 72%,
     transparent
   );
+  backdrop-filter: blur(1.5px) saturate(115%);
+  -webkit-backdrop-filter: blur(1.5px) saturate(115%);
 }
 .campaign-steps .participation-card--1 {
   background-image: url("/images/netbox-10-anos/participation-action-orange.webp");
@@ -1928,7 +1937,8 @@ body:not(.participation-focus) :is(
   .site-header :is(.nav a, .header-cta):hover { animation: none !important; }
 }
 
-.header-theme-toggle {
+.header-theme-toggle,
+.header-icon-button {
   display: grid;
   flex: none;
   place-items: center;
@@ -1941,15 +1951,16 @@ body:not(.participation-focus) :is(
   color: var(--dark);
   transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
 }
-.header-theme-toggle:hover { background-color: #fff0e3; }
-body.participation-focus .header-theme-toggle {
+:is(.header-theme-toggle, .header-icon-button):hover { background-color: #fff0e3; }
+body.participation-focus :is(.header-theme-toggle, .header-icon-button) {
   border-color: #ff6500;
   background-color: #090909;
   color: #ff995c;
 }
-body.participation-focus .header-theme-toggle:hover { background-color: #1a100b; }
+body.participation-focus :is(.header-theme-toggle, .header-icon-button):hover { background-color: #1a100b; }
 @media (prefers-reduced-motion: reduce) {
-  .header-theme-toggle { transition: none; }
+  .header-theme-toggle,
+  .header-icon-button { transition: none; }
 }
 @media (max-width: 640px) {
   .site-header .menu-toggle { margin-left: auto; }

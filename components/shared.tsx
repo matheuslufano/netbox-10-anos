@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   Menu,
+  ChevronDown,
   Rocket,
   ArrowRight,
   ShieldCheck,
@@ -22,6 +23,7 @@ import {
   Sun,
 } from "lucide-react";
 import { campaign, commercialActions, faq } from "@/lib/campaign";
+import { HeaderContactLinks } from "@/components/header-contact-links";
 // ============================================================================
 // LOGOTIPO / IDENTIDADE VISUAL — imagem e link para a campanha
 // ============================================================================
@@ -39,7 +41,7 @@ export function Logo() {
   );
 }
 // ============================================================================
-// CABEÇALHO — menu responsivo, navegação, tema e botão de consulta
+// CABEÇALHO — menu responsivo, navegação, tema, contatos e consulta
 // ============================================================================
 export function Header({ client = false, returnHome = false }: { client?: boolean; returnHome?: boolean }) {
   // Controle da abertura do menu no mobile.
@@ -78,7 +80,7 @@ export function Header({ client = false, returnHome = false }: { client?: boolea
         ["Regulamento", "#regulamento"],
       ];
   return (
-    <header className={client ? "site-header site-header--client" : "site-header"}>
+    <header className={client ? "site-header site-header--client" : "site-header site-header--with-contacts"}>
       <div className="shell header-inner">
         <Logo />
         <button
@@ -105,29 +107,33 @@ export function Header({ client = false, returnHome = false }: { client?: boolea
               {label}
             </Link>
           ))}
+          {!client && <HeaderContactLinks onNavigate={() => setOpen(false)} />}
         </nav>
         {!client && (
-          <button
-            className="header-theme-toggle"
-            type="button"
-            aria-label={darkTheme ? "Desligar tema escuro" : "Ligar tema escuro"}
-            aria-pressed={darkTheme}
-            title={darkTheme ? "Desligar tema escuro" : "Ligar tema escuro"}
-            onClick={() => {
-              const nextTheme = !document.body.classList.contains("participation-focus");
-              if (nextTheme) {
-                document.body.dataset.themeMode = "dark";
-                document.body.classList.add("participation-focus");
-              } else {
-                delete document.body.dataset.themeMode;
-                document.body.classList.remove("participation-focus");
-                window.dispatchEvent(new Event("netbox:theme-auto-resume"));
-              }
-              setDarkTheme(nextTheme);
-            }}
-          >
-            {darkTheme ? <Sun size={19} /> : <Moon size={19} />}
-          </button>
+          <div className="header-tools">
+            <button
+              className="header-theme-toggle"
+              type="button"
+              aria-label={darkTheme ? "Desligar tema escuro" : "Ligar tema escuro"}
+              aria-pressed={darkTheme}
+              title={darkTheme ? "Desligar tema escuro" : "Ligar tema escuro"}
+              onClick={() => {
+                const nextTheme = !document.body.classList.contains("participation-focus");
+                if (nextTheme) {
+                  document.body.dataset.themeMode = "dark";
+                  document.body.classList.add("participation-focus");
+                } else {
+                  delete document.body.dataset.themeMode;
+                  document.body.classList.remove("participation-focus");
+                  window.dispatchEvent(new Event("netbox:theme-auto-resume"));
+                }
+                setDarkTheme(nextTheme);
+              }}
+            >
+              {darkTheme ? <Sun size={19} /> : <Moon size={19} />}
+            </button>
+            <HeaderContactLinks />
+          </div>
         )}
         {client ? (
           <span className="header-location">
@@ -233,9 +239,19 @@ export function PrizeBanner({ compact = false }: { compact?: boolean }) {
       className={compact ? "prize-banner compact" : "prize-banner"}
     >
       <div className="prize-copy">
-        <span className="eyebrow">Prêmios</span>
+        <span className="eyebrow">Prêmio no pix</span>
+        {!compact && (
+          <Image
+            className="prize-banner__illustration prize-banner__illustration--mobile"
+            src="/images/netbox-10-anos/Cashback%20PIX%20com%20Notas%20de%20100%20Reais.png"
+            alt="Notas de cem reais ao redor de um símbolo Pix"
+            width={1421}
+            height={1107}
+            sizes="(max-width: 700px) 48vw, 190px"
+          />
+        )}
         <h2>
-          10 sorteios de <strong>R$ 2.000</strong> no Pix
+          10 sorteios de <strong>R$ 2.000</strong>
         </h2>
         <p>Serão 10 sorteios, com R$ 2.000 via Pix em cada um, para celebrar com quem faz parte dessa história.</p>
         <span className="prize-total">R$ 20 mil <span>em prêmios no total</span></span>
@@ -293,6 +309,7 @@ export function WinnersPreview() {
 // ============================================================================
 // DÚVIDAS E REGULAMENTO — perguntas, respostas e links
 // ============================================================================
+/** Lista dúvidas em acordeões nativos, com indicador visual de abertura no mobile. */
 export function FAQ({ standalone = false }: { standalone?: boolean }) {
   return (
     <section className="section shell campaign-section campaign-faq" id="duvidas">
@@ -306,7 +323,10 @@ export function FAQ({ standalone = false }: { standalone?: boolean }) {
         {/* Perguntas carregadas da lista faq em @/lib/campaign. */}
         {faq.map(([q, a]) => (
           <details key={q}>
-            <summary>{q}</summary>
+            <summary>
+              <span>{q}</span>
+              <ChevronDown className="faq-grid__toggle" size={18} aria-hidden="true" />
+            </summary>
             <p>{a}</p>
           </details>
         ))}

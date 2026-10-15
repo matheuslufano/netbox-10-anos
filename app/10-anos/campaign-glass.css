@@ -70,6 +70,7 @@ body.participation-focus
    02 | BANNER PRINCIPAL: estrutura e marca
    =================================================================== */
 .campaign-page .campaign-hero {
+  --hero-circle-drift: clamp(14px, 2.5vw, 32px);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -81,6 +82,7 @@ body.participation-focus
   color: #142453;
 }
 
+.campaign-page .campaign-hero__circle,
 .campaign-page .campaign-hero::before,
 .campaign-page .campaign-hero::after {
   position: absolute;
@@ -89,9 +91,25 @@ body.participation-focus
   aspect-ratio: 1;
   border: 5px solid rgb(255 155 55 / 17%);
   border-radius: 50%;
-  animation: campaign-hero-circles 16s ease-in-out infinite alternate;
   content: "";
   pointer-events: none;
+}
+
+/* Somente os círculos se movem; transform evita recalcular o layout do banner. */
+.campaign-page .campaign-hero::before,
+.campaign-page .campaign-hero::after,
+.campaign-page .campaign-hero__circle,
+.campaign-page .campaign-hero__mobile::before,
+.campaign-page .campaign-hero__mobile::after {
+  animation: campaign-hero-circles 18s ease-in-out infinite alternate;
+}
+
+.campaign-page .campaign-hero__circle {
+  bottom: -48%;
+  left: 12%;
+  width: min(34vw, 460px);
+  animation-duration: 7s;
+  animation-delay: -5s;
 }
 
 .campaign-page .campaign-hero::before {
@@ -103,23 +121,31 @@ body.participation-focus
 .campaign-page .campaign-hero::after {
   top: 8%;
   right: -18%;
+  animation-duration: 22s;
+  animation-delay: -12s;
+  animation-direction: alternate-reverse;
 }
 
 @keyframes campaign-hero-circles {
   from {
-    opacity: 0.45;
-    transform: translate3d(-2%, -1%, 0) scale(0.94);
+    transform: translate3d(calc(-1 * var(--hero-circle-drift)), 8px, 0) scale(0.96);
+  }
+
+  50% {
+    transform: translate3d(0, calc(-1 * var(--hero-circle-drift)), 0) scale(1);
   }
 
   to {
-    opacity: 1;
-    transform: translate3d(2%, 2%, 0) scale(1.06);
+    transform: translate3d(var(--hero-circle-drift), 16px, 0) scale(1.04);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .campaign-page .campaign-hero::before,
-  .campaign-page .campaign-hero::after {
+  .campaign-page .campaign-hero::after,
+  .campaign-page .campaign-hero__circle,
+  .campaign-page .campaign-hero__mobile::before,
+  .campaign-page .campaign-hero__mobile::after {
     animation: none;
   }
 }
@@ -152,6 +178,10 @@ body.participation-focus
   display: block;
   width: min(100%, 620px);
   margin-inline: auto;
+}
+
+.campaign-page .campaign-hero__mobile {
+  display: none;
 }
 
 .campaign-page .campaign-hero__logo {
@@ -202,7 +232,30 @@ body.participation-focus
 .campaign-page .campaign-hero__prize {
   flex-direction: column;
   border: 1px solid #ffbd64;
-  background: #ffe6a9;
+  background: #ffe7a9d2;
+}
+
+/* .campaign-page :is(.campaign-hero__prize, .campaign-hero__mobile-prize) {
+  animation: campaign-prize-pulse 1.2s ease-in-out infinite;
+  transform-origin: center;
+} */
+
+/* O pulso usa escala para destacar o prêmio sem alterar o espaço do cartão. */
+@keyframes campaign-prize-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.035);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-page :is(.campaign-hero__prize, .campaign-hero__mobile-prize) {
+    animation: none;
+  }
 }
 
 .campaign-page .campaign-hero__prize p {
@@ -229,7 +282,7 @@ body.participation-focus
 }
 
 .campaign-page .campaign-hero__message {
-  background: #ff5908;
+  background: #ff5a08c0;
   color: #fff;
   font-size: clamp(14px, 1.3vw, 16px);
   font-weight: 500;
@@ -251,6 +304,19 @@ body.participation-focus
   font-weight: 850;
   line-height: 1.35;
   text-align: center;
+}
+
+.campaign-page .campaign-hero__instagram {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #ff6500;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  border-radius: 3px;
+}
+
+.campaign-page .campaign-hero__instagram:hover {
+  color: #c34b08;
 }
 
 .campaign-page .campaign-hero__actions {
@@ -289,7 +355,7 @@ body.participation-focus
   }
 }
 
-/* 02.9 | Banner mobile: utiliza imagem própria */
+/* 02.9 | Banner mobile: composição editável em HTML e CSS */
 @media (max-width: 700px) {
   .campaign-page .campaign-hero {
     display: block;
@@ -299,7 +365,8 @@ body.participation-focus
   }
 
   .campaign-page .campaign-hero::before,
-  .campaign-page .campaign-hero::after {
+  .campaign-page .campaign-hero::after,
+  .campaign-page .campaign-hero > .campaign-hero__circle {
     display: none;
   }
 
@@ -309,18 +376,150 @@ body.participation-focus
   }
 
   .campaign-page .campaign-hero__brand {
+    display: none;
+  }
+
+  .campaign-page .campaign-hero__mobile {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 12px;
+    overflow: hidden;
+    padding: 10vw 0 17vw;
+    background: #fff4e5;
+  }
+
+  .campaign-page .campaign-hero__mobile::before,
+  .campaign-page .campaign-hero__mobile::after {
+    position: absolute;
+    z-index: -1;
+    border: 1px solid rgb(245 199 136 / 48%);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+  }
+
+  .campaign-page .campaign-hero__mobile::before {
+    top: -65vw;
+    right: -110vw;
+    width: 130vw;
+    aspect-ratio: 1;
+    animation-delay: -8s;
+  }
+
+  .campaign-page .campaign-hero__mobile::after {
+    top: 25vw;
+    left: -180vw;
+    width: 240vw;
+    aspect-ratio: 1;
+    animation-duration: 22s;
+    animation-delay: -12s;
+    animation-direction: alternate-reverse;
+  }
+
+  .campaign-page .campaign-hero__circle--mobile {
+    right: -24vw;
+    bottom: -28vw;
+    left: auto;
+    width: 76vw;
+    border-width: 1px;
+    border-color: rgb(245 199 136 / 48%);
+  }
+
+  .campaign-page .campaign-hero__mobile-logo {
     display: block;
+    width: min(65.3vw, 489px);
+    height: auto;
+    margin-bottom: 3vw;
   }
 
-  .campaign-page .campaign-hero__responsive-image {
-    width: 100%;
+  .campaign-page .campaign-hero__mobile-prize,
+  .campaign-page .campaign-hero__mobile-message {
+    box-sizing: border-box;
+    width: min(64vw, 575px);
+    max-width: calc(100% - 32px);
+    border-radius: clamp(14px, 3vw, 26px);
+    text-align: center;
   }
 
-  .campaign-page .campaign-hero__logo {
-    aspect-ratio: 901 / 1201;
+  .campaign-page .campaign-hero__mobile-prize {
+    display: flex;
+    min-height: 20.8vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    border: 1px solid #ffbd64;
+    background: linear-gradient(100deg, #ffe4a1, #ffdb85 55%, #ffe6ad);
+    color: #142453;
   }
 
-  .campaign-page .campaign-hero__brand > :not(.campaign-hero__responsive-image),
+  .campaign-page .campaign-hero__mobile-prize span {
+    font-size: clamp(10px, 3.1vw, 15px);
+    font-weight: 850;
+    line-height: 1.15;
+  }
+
+  .campaign-page .campaign-hero__mobile-prize strong {
+    color: #ff6500;
+    font-size: clamp(18px, 6.2vw, 34px);
+    font-weight: 950;
+    line-height: 1.05;
+  }
+
+  .campaign-page .campaign-hero__mobile-prize b {
+    font-size: clamp(18px, 6vw, 30px);
+    font-weight: 900;
+    line-height: 1.05;
+  }
+
+  .campaign-page .campaign-hero__mobile-message {
+    display: flex;
+    min-height: 21vw;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 8px 12px;
+    background: linear-gradient(110deg, #ff7200, #ff3b0b);
+    color: #fff;
+    font-size: clamp(13px, 1.6vw, 18px);
+    font-weight: 550;
+    line-height: 1.24;
+  }
+
+  .campaign-page .campaign-hero__mobile-date {
+    width: min(90vw, 760px);
+    margin: 0 auto;
+    color: #142453;
+    font-size: clamp(11px, 3.45vw, 16px);
+    font-weight: 900;
+    line-height: 1.35;
+    text-align: center;
+  }
+
+  .campaign-page .campaign-hero__mobile-accent {
+    position: absolute;
+    z-index: -1;
+    width: 9vw;
+    height: 9vw;
+    border-radius: clamp(3px, 1vw, 10px);
+    pointer-events: none;
+  }
+
+  .campaign-page .campaign-hero__mobile-accent--top {
+    top: 4.4vw;
+    left: -5vw;
+    background: linear-gradient(135deg, #ff1747, #f83049);
+  }
+
+  .campaign-page .campaign-hero__mobile-accent--bottom {
+    right: -5vw;
+    bottom: 6vw;
+    background: linear-gradient(135deg, #ff9b18, #ff5d16);
+  }
+
   .campaign-page .campaign-hero__offers,
   .campaign-page .campaign-hero__date,
   .campaign-page .campaign-hero__actions {
@@ -402,11 +601,53 @@ body.participation-focus
 .campaign-page .consult-card {
   position: relative;
   z-index: 1;
+  overflow: hidden;
   padding: clamp(22px, 3vw, 34px);
   border-radius: 26px;
   background: rgb(255 255 255 / 75%);
   backdrop-filter: blur(30px) saturate(165%);
   -webkit-backdrop-filter: blur(30px) saturate(165%);
+}
+
+.campaign-page .consult-card::after {
+  position: absolute;
+  z-index: 0;
+  top: -25%;
+  bottom: -25%;
+  left: -55%;
+  width: 55%;
+  background: linear-gradient(
+    105deg,
+    transparent 34%,
+    rgb(255 255 255 / 0%) 43%,
+    rgb(255 255 255 / 50%) 50%,
+    rgb(255 255 255 / 0%) 57%,
+    transparent 66%
+  );
+  animation: consult-card-reflection 6s ease-in-out infinite;
+  content: "";
+  pointer-events: none;
+}
+
+.campaign-page .consult-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes consult-card-reflection {
+  0%, 18% {
+    transform: translateX(-100%) skewX(-20deg);
+  }
+
+  68%, 100% {
+    transform: translateX(380%) skewX(-20deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-page .consult-card::after {
+    animation: none;
+  }
 }
 
 .campaign-page .consult-card :is(h2, p) {
@@ -510,11 +751,35 @@ body.participation-focus
 }
 
 .campaign-page .prize-banner .prize-banner__illustration {
+  --prize-float-distance: -12px;
   display: block;
   width: min(100%, 520px);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 24%));
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / 30%));
+  animation: campaign-prize-float 2.5s ease-in-out infinite;
+}
+
+/* A flutuação desloca somente a arte, preservando o espaço reservado à imagem. */
+@keyframes campaign-prize-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(0, var(--prize-float-distance), 0) rotate(1deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-page .prize-banner .prize-banner__illustration {
+    animation: none;
+  }
+}
+
+.campaign-page .prize-banner .prize-banner__illustration--mobile {
+  display: none;
 }
 
 .campaign-page .prize-banner .prize-copy {
@@ -535,7 +800,22 @@ body.participation-focus
 
 .campaign-page .prize-banner .prize-copy strong,
 .campaign-page .prize-banner .prize-total {
-  color: #ffb15c;
+  color: #fc5e24;
+}
+
+@media (max-width: 700px) {
+  .campaign-page .prize-banner:not(.compact) > .prize-art {
+    display: none;
+  }
+
+  .campaign-page .prize-banner .prize-copy .prize-banner__illustration--mobile {
+    --prize-float-distance: -7px;
+    display: block;
+    width: min(100vw, 250px);
+    height: auto;
+    align-self: center;
+    margin: 12px auto 50px;
+  }
 }
 
 .campaign-page .prize-banner .prize-total {
@@ -659,6 +939,156 @@ body.participation-focus
   color: var(--glass-ink);
 }
 
+.campaign-page .faq-grid__toggle {
+  display: none;
+}
+
+/* Coluna única e cabeçalhos inteiros como área de toque no celular. */
+@media (max-width: 700px) {
+  .campaign-page .campaign-faq {
+    --faq-accent: #c34b08;
+    padding: 24px 16px;
+    scroll-margin-top: 90px;
+  }
+
+  body.participation-focus .campaign-page .campaign-faq {
+    --faq-accent: #ffad63;
+  }
+
+  .campaign-page .campaign-faq .section-head {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .campaign-page .campaign-faq .section-head h2 {
+    margin: 0 0 8px;
+    font-size: clamp(23px, 6vw, 28px);
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+  }
+
+  .campaign-page .campaign-faq .section-head p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .campaign-page .campaign-faq .faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 10px;
+  }
+
+  .campaign-page .campaign-faq .faq-grid details {
+    min-width: 0;
+    padding: 0;
+    border-radius: 16px;
+    box-shadow: 0 5px 16px rgb(36 50 74 / 5%);
+  }
+
+  .campaign-page .campaign-faq .faq-grid details[open] {
+    box-shadow: var(--glass-shadow);
+  }
+
+  .campaign-page .campaign-faq .faq-grid summary {
+    display: flex;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 16px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+    list-style: none;
+  }
+
+  .campaign-page .campaign-faq .faq-grid summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .campaign-page .campaign-faq .faq-grid summary > span {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .campaign-page .campaign-faq .faq-grid summary:focus-visible {
+    outline: 2px solid var(--faq-accent);
+    outline-offset: -3px;
+  }
+
+  .campaign-page .campaign-faq .faq-grid__toggle {
+    display: block;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    padding: 5px;
+    border: 1px solid rgb(233 107 20 / 20%);
+    border-radius: 50%;
+    background: rgb(255 148 65 / 10%);
+    color: var(--faq-accent);
+    transition: transform 180ms ease;
+  }
+
+  .campaign-page .campaign-faq details[open] .faq-grid__toggle {
+    transform: rotate(180deg);
+  }
+
+  .campaign-page .campaign-faq .faq-grid details p {
+    margin: 0 16px 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgb(233 107 20 / 18%);
+    font-size: 14px;
+    line-height: 1.65;
+    overflow-wrap: break-word;
+  }
+
+  .campaign-page .campaign-faq .regulation-card {
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 22px;
+    padding: 16px;
+  }
+
+  .campaign-page .campaign-faq .regulation-card > svg {
+    align-self: start;
+    width: 24px;
+    height: 24px;
+  }
+
+  .campaign-page .campaign-faq .regulation-card > div {
+    min-width: 0;
+  }
+
+  .campaign-page .campaign-faq .regulation-card h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .campaign-page .campaign-faq .regulation-card p {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .campaign-page .campaign-faq .regulation-card :is(.button, .outline-button) {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 46px;
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-page .faq-grid__toggle {
+    transition: none;
+  }
+}
+
 
 /* ===================================================================
    13 | RODAPÉ
@@ -699,6 +1129,47 @@ body.participation-focus .campaign-page {
   --glass-rim: rgb(255 255 255 / 16%);
   --glass-shadow:
     0 20px 44px rgb(0 0 0 / 42%), inset 0 1px rgb(255 255 255 / 12%);
+}
+
+body.participation-focus .campaign-page :is(.campaign-hero, .campaign-hero__mobile) {
+  background:
+    radial-gradient(ellipse at 15% 12%, rgb(255 101 0 / 12%), transparent 48%),
+    linear-gradient(135deg, #171312, #0c0d11 75%);
+  color: var(--glass-ink);
+}
+
+body.participation-focus .campaign-page :is(.campaign-hero, .campaign-hero__mobile)::before,
+body.participation-focus .campaign-page :is(.campaign-hero, .campaign-hero__mobile)::after,
+body.participation-focus .campaign-page .campaign-hero__circle {
+  border-color: rgb(255 153 92 / 18%);
+}
+
+body.participation-focus .campaign-page :is(.campaign-hero__prize, .campaign-hero__mobile-prize) {
+  border-color: rgb(255 153 92 / 32%);
+  background: linear-gradient(135deg, #352317, #211b18);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 9%);
+  color: var(--glass-ink);
+}
+
+body.participation-focus .campaign-page :is(.campaign-hero__prize p, .campaign-hero__prize b) {
+  color: var(--glass-ink);
+}
+
+body.participation-focus .campaign-page :is(.campaign-hero__prize strong, .campaign-hero__mobile-prize strong) {
+  color: #ffad63;
+}
+
+body.participation-focus .campaign-page :is(.campaign-hero__message, .campaign-hero__mobile-message) {
+  background: linear-gradient(135deg, #8a350f, #602708);
+  color: #fff5eb;
+}
+
+body.participation-focus .campaign-page :is(.campaign-hero__date, .campaign-hero__mobile-date) {
+  color: var(--glass-ink);
+}
+
+body.participation-focus .campaign-page .campaign-hero__instagram {
+  color: #ffb579;
 }
 
 body.participation-focus .campaign-page .hero .hero-copy {
@@ -750,6 +1221,10 @@ body.participation-focus .campaign-page .campaign-actions__ticket {
   background: linear-gradient(145deg, rgb(36 28 24 / 85%), rgb(15 15 17 / 85%));
 }
 
+body.participation-focus .campaign-page :is(.campaign-actions__quantity, .campaign-actions__icon) {
+  color: #ffad63;
+}
+
 body.participation-focus .campaign-page .consult-controls input,
 body.participation-focus .campaign-page .privacy-note {
   border-color: rgb(255 255 255 / 16%);
@@ -760,6 +1235,33 @@ body.participation-focus .campaign-page .privacy-note {
 body.participation-focus .campaign-page .prize-banner.prize-banner {
   background-image: none;
   border-color: rgb(255 147 53 / 27%);
+}
+
+body.participation-focus .campaign-page .prize-banner .prize-copy {
+  border-color: rgb(255 153 92 / 28%);
+  background: linear-gradient(145deg, #231c18, #151518 72%);
+  box-shadow: var(--glass-shadow);
+}
+
+body.participation-focus .campaign-page .prize-banner .prize-copy h2 {
+  color: var(--glass-ink);
+}
+
+body.participation-focus .campaign-page .prize-banner :is(.prize-copy p, .prize-total span) {
+  color: var(--glass-muted);
+}
+
+body.participation-focus .campaign-page .prize-banner :is(.prize-copy strong, .prize-total) {
+  color: #ffad63;
+}
+
+body.participation-focus .campaign-page .prize-banner .prize-total {
+  border-color: rgb(255 255 255 / 14%);
+}
+
+body.participation-focus .campaign-page .prize-banner .eyebrow {
+  background: rgb(255 153 92 / 10%);
+  color: #ffb579;
 }
 
 body.participation-focus .campaign-page .campaign-commercial {
@@ -865,26 +1367,43 @@ body.participation-focus .campaign-page .faq-grid details[open] {
     display: none;
   }
 
-  .campaign-page .campaign-steps .participation-cover__hint--mobile {
-    right: auto;
-    display: inline-flex;
-    justify-content: center;
-    width: max-content;
-    max-width: 83%;
-    min-height: 46px;
-    padding: 10px 16px;
-    overflow: hidden;
-    border: 1px solid rgb(255 255 255 / 52%);
-    border-radius: 999px;
-    background: linear-gradient(125deg, rgb(255 255 255 / 25%), rgb(255 255 255 / 8%));
-    box-shadow: inset 0 1px rgb(255 255 255 / 48%), 0 10px 24px rgb(0 0 0 / 28%);
-    color: #fff;
-    font-size: .76rem;
-    letter-spacing: .08em;
-    text-shadow: 0 1px 5px rgb(0 0 0 / 50%);
-    backdrop-filter: blur(18px) saturate(180%);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
-  }
+.campaign-page .campaign-steps .participation-cover__hint--mobile {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: max-content;
+  max-width: 83%;
+  min-height: 46px;
+  padding: 10px 16px;
+
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 52%);
+  border-radius: 999px;
+
+  background: linear-gradient(
+    125deg,
+    rgb(255 255 255 / 25%),
+    rgb(255 255 255 / 8%)
+  );
+
+  box-shadow:
+    inset 0 1px rgb(255 255 255 / 48%),
+    0 10px 24px rgb(0 0 0 / 28%);
+
+  color: #fff;
+  font-size: .76rem;
+  letter-spacing: .08em;
+  text-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+}
 
   .campaign-page .participation-cover__hint--mobile::before {
     content: "";

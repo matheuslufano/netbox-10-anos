@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./header-contacts.css";
 import { ConsultationProvider } from "@/components/consultation-provider";
 
 const manrope = localFont({

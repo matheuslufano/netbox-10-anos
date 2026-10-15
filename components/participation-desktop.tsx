@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { CampaignBrand } from "@/components/campaign-brand";
 import {
   ArrowRight,
   ChevronDown,
@@ -11,20 +11,21 @@ import {
   Ticket,
   UserRound,
 } from "lucide-react";
+import { campaignRewardAmounts } from "@/lib/campaign";
 
 const participationSteps = [
   {
     title: "Seja cliente Netbox",
     description: "Clientes ativos já participam da campanha.",
     details:
-      "Clientes ativos entram na campanha conforme os critérios de elegibilidade. O cadastro e a validação das ações determinam os números que aparecem na consulta.",
+      "Clientes ativos já começa com um número da sorte. Se você ainda não é cliente, contrate um plano para participar.",
     icon: UserRound,
   },
   {
     title: "Faça uma ação válida",
     description: "Indique, renove, faça upgrade ou contrate um plano.",
     details:
-      "Você pode indicar um amigo, renovar, fazer upgrade ou contratar um plano. Cada ação precisa ser validada; uma indicação conta quando gera um contrato elegível e ativado.",
+      "Você pode indicar um amigo, renovar ou contratar um novo plano. Cada ação precisa ser validada; uma indicação conta quando gera um contrato ativado.",
     icon: FilePlus2,
   },
   {
@@ -36,7 +37,7 @@ const participationSteps = [
     icon: Ticket,
   },
   {
-    title: "Acompanhe pelo app",
+    title: "Acompanhe pelo site",
     description: "Consulte seus números e veja os resultados da campanha.",
     details:
       "Informe seu CPF na consulta de participação para conferir os números acumulados. Acompanhe também os resultados e as atualizações oficiais da campanha.",
@@ -57,7 +58,7 @@ export function ParticipationDesktop() {
         <div className="participation-desktop__hero">
           <div className="participation-desktop__intro">
             <span className="participation-desktop__eyebrow">
-              Como participar
+              1o anos de Netbox
             </span>
             <h2 id="participation-desktop-title">
               Como participar
@@ -70,7 +71,7 @@ export function ParticipationDesktop() {
             </p>
           </div>
           <div className="participation-desktop__visual">
-            <Image
+            <CampaignBrand
               className="participation-desktop__anniversary"
               src="/images/netbox-10-anos/LOG%201%20SITE.png"
               alt=""
@@ -82,74 +83,108 @@ export function ParticipationDesktop() {
         </div>
 
         <ol className="participation-desktop__steps">
-          {participationSteps.map(({ title, description, icon: Icon }, index) => {
-            const isExpanded = expandedStep === index;
+          {participationSteps.map(
+            ({ title, description, details, icon: Icon }, index) => {
+              const isExpanded = expandedStep === index;
 
-            return (
-              <li
-                className="participation-desktop__step"
-                data-expanded={isExpanded}
-                key={title}
-              >
-                <button
-                  id={`participation-step-${index}`}
-                  className="participation-desktop__summary"
-                  type="button"
-                  aria-expanded={isExpanded}
-                  aria-controls={isExpanded ? "participation-step-details" : undefined}
-                  onClick={() =>
-                    setExpandedStep((currentStep) =>
-                      currentStep === index ? null : index,
-                    )
-                  }
+              return (
+                <li
+                  className="participation-desktop__step"
+                  data-expanded={isExpanded}
+                  key={title}
                 >
-                  <span className="participation-desktop__icon" aria-hidden="true">
-                    <Icon size={42} strokeWidth={1.7} />
-                  </span>
-                  <span className="participation-desktop__step-copy">
-                    <span className="participation-desktop__step-title">
-                      <span>{index + 1}.</span> {title}
+                  <button
+                    id={`participation-step-${index}`}
+                    className="participation-desktop__summary"
+                    type="button"
+                    aria-expanded={isExpanded}
+                    aria-controls={
+                      isExpanded
+                        ? `participation-step-details-${index}`
+                        : undefined
+                    }
+                    onClick={() =>
+                      setExpandedStep((currentStep) =>
+                        currentStep === index ? null : index,
+                      )
+                    }
+                  >
+                    <span
+                      className="participation-desktop__icon"
+                      aria-hidden="true"
+                    >
+                      <Icon size={42} strokeWidth={1.7} />
                     </span>
-                    <span className="participation-desktop__step-description">
-                      {description}
+                    <span className="participation-desktop__step-copy">
+                      <span className="participation-desktop__step-title">
+                        <span>{index + 1}.</span> {title}
+                      </span>
+                      <span className="participation-desktop__step-description">
+                        {description}
+                      </span>
+                      {index === 0 && (
+                        <span className="participation-desktop__reward">
+                          <strong>+{campaignRewardAmounts.activeContract}</strong>
+                          número da sorte
+                        </span>
+                      )}
+                      {index === 1 && (
+                        <span className="participation-desktop__rewards">
+                          <span>
+                            <strong>+{campaignRewardAmounts.indication}</strong>
+                            indicação
+                          </span>
+                          <span>
+                            <strong>+{campaignRewardAmounts.renewal}</strong>
+                            renovação/contrato
+                          </span>
+                        </span>
+                      )}
+                      {index === 2 && (
+                        <span className="participation-desktop__ticket" aria-hidden="true">
+                          <Ticket size={32} strokeWidth={1.8} />
+                          <span> + </span>
+                          <Ticket size={32} strokeWidth={1.8} />
+                          <span> + </span>
+                          <Ticket size={32} strokeWidth={1.8} />
+                        </span>
+                      )}
                     </span>
-                  </span>
-                  <span className="participation-desktop__expand" aria-hidden="true">
-                    <ChevronDown size={18} />
-                  </span>
-                </button>
-                {index < participationSteps.length - 1 && (
-                  <ChevronRight
-                    className="participation-desktop__next"
-                    size={30}
-                    aria-hidden="true"
-                  />
-                )}
-              </li>
-            );
-          })}
+                    <span
+                      className="participation-desktop__expand"
+                      aria-hidden="true"
+                    >
+                      <ChevronDown size={18} />
+                    </span>
+                  </button>
+                  {index === 3 && (
+                    <a className="participation-desktop__consult" href="#consulta">
+                      Consultar CPF <ArrowRight size={17} aria-hidden="true" />
+                    </a>
+                  )}
+                  {isExpanded && (
+                    <div
+                      id={`participation-step-details-${index}`}
+                      className="participation-desktop__details"
+                      role="region"
+                      aria-labelledby={`participation-step-${index}`}
+                    >
+                      <p>{details}</p>
+                    </div>
+                  )}
+                  {index < participationSteps.length - 1 && (
+                    <ChevronRight
+                      className="participation-desktop__next"
+                      size={30}
+                      aria-hidden="true"
+                    />
+                  )}
+                </li>
+              );
+            },
+          )}
         </ol>
 
-        {expandedStep !== null && (
-          <div
-            id="participation-step-details"
-            className="participation-desktop__expanded"
-            role="region"
-            aria-labelledby={`participation-step-${expandedStep}`}
-          >
-            <div>
-              <span className="participation-desktop__expanded-label">
-                Etapa {expandedStep + 1}
-              </span>
-              <h3>{participationSteps[expandedStep].title}</h3>
-            </div>
-            <p>{participationSteps[expandedStep].details}</p>
-          </div>
-        )}
-
-        <a className="participation-desktop__cta" href="#consulta">
-          Consultar meus números <ArrowRight size={25} aria-hidden="true" />
-        </a>
       </div>
     </section>
   );

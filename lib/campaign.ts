@@ -2,12 +2,9 @@ import {
   Gift,
   UsersRound,
   ChartNoAxesCombined,
-  House,
-  Building2,
   UserRoundPlus,
-  BriefcaseBusiness,
 } from "lucide-react";
-import { FaUserAstronaut, FaRegUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 export const campaign = {
   name: "Netbox 10 Anos",
   tagline: "Conectando pessoas e construindo histórias",
@@ -37,28 +34,37 @@ export const campaign = {
     novo_cliente_pj: "Novo cliente PJ",
   } as Record<string, string>,
 };
+
+/** Quantidades exibidas nas ações e nas etapas de participação da campanha. */
+export const campaignRewardAmounts = {
+  activeContract: 1,
+  indication: 5,
+  renewal: 2,
+  newContract: 2,
+} as const;
+
 export const actions = [
   {
     title: "Indique um amigo",
-    amount: 5,
+    amount: campaignRewardAmounts.indication,
     description: "Quando sua indicação gerar um contrato elegível e ativado",
     icon: UsersRound,
   },
   {
     title: "Contrato ativo",
-    amount: 1,
+    amount: campaignRewardAmounts.activeContract,
     description: "Todo cliente ativo já concorre a 1 número da sorte.",
     icon: FaRegUser,
   },
   {
     title: "Renovação do contrato",
-    amount: 2,
+    amount: campaignRewardAmounts.renewal,
     description: "Renove e aproveite para melhorar seu plano",
     icon: ChartNoAxesCombined,
   },
   {
     title: "Novo contrato",
-    amount: 2,
+    amount: campaignRewardAmounts.newContract,
     description: "Contrate mais um de nossos planos de internet",
     icon: UserRoundPlus,
   },
