@@ -10,7 +10,7 @@ export const campaign = {
   tagline: "Conectando pessoas e construindo histórias",
   period: { inicio: "2026-10-01", fim: "2026-12-31" },
   prizes: { count: 10, each: 2000, total: 20000 },
-  institutional: { cities: "17", clients: "+15.000", confirmed: false },
+  institutional: { cities: "21", clients: "+15.000", confirmed: false },
   commercial: {
     indication: "#",
     upgrade: "#",
@@ -79,7 +79,7 @@ export const commercialActions = [
     key: "indication",
   },
   {
-    title: "Faça uma renovação do seu plano",
+    title: "Renove o seu plano ",
     amount: "+2 números",
     cta: "Conhecer planos",
     href: campaign.commercial.upgrade,
@@ -98,7 +98,7 @@ export const commercialActions = [
 export const faq = [
   [
     "Quem pode participar?",
-    "Clientes pessoa física e pessoa jurídica poderão participar conforme os critérios de elegibilidade do regulamento oficial, ainda pendente de publicação.",
+    "Clientes que são pessoa física poderão participar conforme os critérios do regulamento oficial da campanha, ainda pendente de publicação.",
   ],
   [
     "Como ganho números da sorte?",
@@ -115,10 +115,6 @@ export const faq = [
   [
     "Cliente inadimplente participa?",
     "Essa condição depende do regulamento oficial, ainda pendente.",
-  ],
-  [
-    "Cliente PJ participa?",
-    "Sim, clientes PJ estão previstos na campanha, sujeitos à elegibilidade. A consulta disponível aqui aceita CPF; a consulta por CNPJ depende de integração futura.",
   ],
   [
     "Posso participar com mais de um contrato?",

@@ -6,19 +6,18 @@ import {
   Ticket,
   X,
   Info,
-  CalendarDays,
   ArrowRight,
-  UserRound,
 } from "lucide-react";
 import { useConsultation } from "@/components/consultation-provider";
+import { CampaignBrand } from "@/components/campaign-brand";
 import {
   Header,
-  AnniversaryMark,
   CommercialBand,
-  PrizeBanner,
   HelpBand,
 } from "@/components/shared";
-import { campaign, dateBR } from "@/lib/campaign";
+import { ParticipantCard } from "@/components/participant-card";
+import { ClientPageBackground } from "@/components/client-page-background";
+import { LuckyNumberTicket } from "@/components/lucky-number-ticket";
 function NumbersModal({
   numbers,
   onClose,
@@ -82,7 +81,7 @@ function NumbersModal({
         </p>
         <div className="number-grid">
           {numbers.map((n, i) => (
-            <span key={`${n}-${i}`}>{n}</span>
+            <LuckyNumberTicket number={n} key={`${n}-${i}`} />
           ))}
         </div>
       </div>
@@ -96,6 +95,7 @@ export default function ClientPage() {
     return (
       <>
         <Header returnHome />
+        <ClientPageBackground />
         <main className="shell empty-client client-page">
           <Ticket size={48} />
           <h1>Consulte seus números da sorte</h1>
@@ -106,13 +106,21 @@ export default function ClientPage() {
         </main>
       </>
     );
-  const origins = Object.entries(data.por_origem);
   return (
     <>
       <Header returnHome />
+      <ClientPageBackground />
       <main className="client-main client-main--full client-page">
         <section className="client-hero">
-          <AnniversaryMark />
+          <CampaignBrand
+            className="client-hero__brand"
+            src="/images/netbox-10-anos/LOG%203%20SITE.png"
+            darkSrc="/images/logo/netbox-10-anos-branco-56d580337904.png"
+            alt="Show de Prêmios Netbox 10 Anos. Conectando pessoas e construindo histórias."
+            width={2172}
+            height={724}
+            sizes="(max-width: 640px) 84vw, (max-width: 1100px) 42vw, 480px"
+          />
           <div className="client-hero__copy">
             <span className="client-hero__eyebrow">Netbox 10 anos</span>
             <h1>Parabéns por fazer parte dessa história!</h1>
@@ -121,23 +129,8 @@ export default function ClientPage() {
             </p>
           </div>
         </section>
-        <section
-          className="dashboard-card participant-card"
-          aria-label="Dados do CPF consultado"
-        >
-          <span className="participant-card__icon" aria-hidden="true">
-            <UserRound size={23} />
-          </span>
-          <div className="participant-card__identity">
-            <small>Consulta realizada para</small>
-            <strong>{data.nome || "Participante"}</strong>
-          </div>
-          <div className="participant-card__document">
-            <small>CPF consultado</small>
-            <strong>{data.cpf}</strong>
-          </div>
-        </section>
         <div className="dashboard-top">
+          <ParticipantCard consultation={data} />
           <article className="dashboard-card balance-card">
             <span className="balance-icon">
               <Ticket size={52} />
@@ -147,14 +140,6 @@ export default function ClientPage() {
               <strong>{data.total}</strong>
               <b>{data.total === 1 ? "número da sorte" : "números da sorte"}</b>
               <p>na promoção Netbox 10 Anos.</p>
-              <small>
-                Consulta realizada em{" "}
-                {new Intl.DateTimeFormat("pt-BR", {
-                  dateStyle: "short",
-                  timeStyle: "short",
-                  timeZone: "America/Araguaina",
-                }).format(new Date(data.consultedAt))}
-              </small>
             </div>
           </article>
           <article className="dashboard-card numbers-card">
@@ -169,7 +154,7 @@ export default function ClientPage() {
             {data.numeros.length ? (
               <div className="number-grid">
                 {data.numeros.slice(0, 6).map((n, i) => (
-                  <span key={`${n}-${i}`}>{n}</span>
+                  <LuckyNumberTicket number={n} key={`${n}-${i}`} />
                 ))}
               </div>
             ) : (
@@ -187,63 +172,6 @@ export default function ClientPage() {
         </div>
         <CommercialBand />
         <div className="dashboard-lower">
-          <section className="dashboard-card origin-card">
-            <h2>Resumo da participação</h2>
-            <p>Quantidades agregadas por origem informadas pelo serviço.</p>
-            {origins.length ? (
-              <div className="origin-list">
-                {origins.map(([key, value]) => (
-                  <div className="origin-row" key={key}>
-                    <span>
-                      <Ticket size={19} />
-                      {campaign.origins[key] || key.replace(/_/g, " ")}
-                    </span>
-                    <span>
-                      {value.acoes} {value.acoes === 1 ? "ação" : "ações"}
-                    </span>
-                    <strong>
-                      {value.numeros}{" "}
-                      {value.numeros === 1 ? "número" : "números"}
-                    </strong>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p>Nenhuma origem informada.</p>
-            )}
-            <small>O histórico detalhado depende de integração futura.</small>
-          </section>
-          <div className="summary-column">
-            <PrizeBanner compact />
-            <section className="dashboard-card campaign-summary">
-              <h2>
-                <CalendarDays /> Resumo da campanha
-              </h2>
-              <dl>
-                <div>
-                  <dt>Período</dt>
-                  <dd>
-                    {dateBR(data.campanha.inicio)} a {dateBR(data.campanha.fim)}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Premiação prevista</dt>
-                  <dd>10 prêmios de R$ 2.000 via Pix</dd>
-                </div>
-                <div>
-                  <dt>Participação</dt>
-                  <dd>Indicação, renovação, upgrade e novos contratos</dd>
-                </div>
-                <div>
-                  <dt>Público</dt>
-                  <dd>Clientes PF e PJ, conforme elegibilidade</dd>
-                </div>
-              </dl>
-              <Link href="/10-anos/regulamento" className="outline-button">
-                Ver regulamento <ArrowRight size={16} />
-              </Link>
-            </section>
-          </div>
         </div>
         <HelpBand />
       </main>

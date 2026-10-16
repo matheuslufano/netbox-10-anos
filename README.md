@@ -16,12 +16,26 @@ Acesse `http://localhost:3000/10-anos`. Para produção, execute `npm.cmd run bu
 ## Rotas
 
 - `/10-anos`: campanha e formulário de consulta.
-- `/cliente/10-anos`: painel temporário após consulta. O resultado fica apenas na memória da aba; recarregar exige nova consulta.
+- `/cliente/10-anos`: painel temporário após consulta. O resultado fica apenas na memória da aba; recarregar exige nova consulta. No banner, texto à esquerda e marca ampliada à direita ocupam a mesma linha, alinhados ao centro; no celular, ficam empilhados. No tema claro usa `LOG 3 SITE.png` e, no escuro, a imagem de marca branca, com proporção de 3:1. O fundo tem círculos decorativos animados nos dois temas, desativados com `prefers-reduced-motion`, sem a ilustração do celular.
 - `/10-anos/ganhadores`: estado inicial sem ganhadores fictícios.
 - `/10-anos/regulamento`: aviso de regulamento oficial pendente.
 - `/admin/10-anos`: acesso bloqueado até existir autenticação e integração oficial.
 - `/demo/admin/10-anos`: painel ilustrativo separado, com eventos explicitamente fictícios e filtros locais. Não executa operações.
 - `POST /api/campanha/consulta`: valida CPF e consulta o endpoint configurado por GET, sem cache.
+
+## Painel do participante
+
+O modal “Todos os seus números da sorte” usa fundo fosco uniforme com 95% de opacidade e desfoque de 32 px, claro ou escuro conforme o tema, para destacar os bilhetes e reduzir a interferência do conteúdo atrás dele.
+
+Cada número da sorte é exibido por `components/lucky-number-ticket.tsx` como um bilhete de rifa inspirado no modelo de papel: borda laranja, interior claro, moldura dupla, canhoto com estrelas e foguete, perfurações e textura discreta. A área clara termina na divisão do canhoto. Toda a geometria é desenhada em um único SVG proporcional, com identificadores exclusivos por bilhete para as máscaras e o filtro de papel; não há máscaras externas redimensionadas separadamente. O número continua como texto selecionável, com tamanho ajustado para sequências longas e descrição acessível. O mesmo componente atende ao cartão e ao modal “Ver todos”, em ambos os temas. Os estilos de tamanho, sombra e grade ficam em `components/lucky-number-ticket.css`; o resumo usa duas colunas.
+
+Os três cartões de `.dashboard-top` usam sombras externas em duas camadas para se destacar do fundo, com intensidade própria para cada tema e um brilho laranja suave ao passar o mouse.
+
+O acabamento de vidro do painel é definido em `app/cliente/10-anos/client-page.css`, com variáveis compartilhadas para degradês translúcidos, bordas, sombras e desfoque. Cartões de dados, saldo, números, ações comerciais, ajuda e modal seguem a mesma paleta nos dois temas. As variáveis ficam no `body` da rota para também alcançar o modal, que é renderizado fora do painel. Navegadores sem `backdrop-filter` recebem degradês opacos para manter a leitura.
+
+O fundo de toda a página repete a abertura de `/10-anos`: creme `#fff4e5` no tema claro e degradê escuro com brilho laranja no tema escuro. Os três círculos usam as mesmas cores, posições e ritmos da abertura, em uma camada fixa atrás do conteúdo, renderizada por `components/client-page-background.tsx`, sem textura pontilhada. Essa camada também aparece no estado sem consulta, é oculta dos leitores de tela e não captura cliques. A grade `.dashboard-top` não tem fundo próprio e seus cartões mantêm vidro uniforme, sem degradês individuais. A composição desativa os movimentos com `prefers-reduced-motion`.
+
+O painel `/cliente/10-anos` reúne os dados do participante, o saldo e os números da sorte em três cartões na mesma linha no desktop (acima de 980 px), empilhados em telas menores. `components/participant-card.tsx` apresenta nome, CPF mascarado, data da consulta, período da campanha e indicação de início quando fornecida pela API. A resposta atual não contém telefone, e-mail ou endereço.
 
 ## Cabeçalho e contatos
 
@@ -31,21 +45,31 @@ O cabeçalho público oferece quatro atalhos por ícone: Instagram, WhatsApp, te
 
 ## Tema escuro
 
-O tema `participation-focus` adapta o banner inicial, os cartões de ações e o cartão de prêmios com superfícies escuras, texto claro e destaques laranja. `components/campaign-brand.tsx` mantém as artes originais no tema claro e compõe a versão escura com a marca laranja existente e legendas em HTML de alto contraste, sem modificar os arquivos das logos. Essa marca também é usada no bloco desktop de participação.
+O tema `participation-focus` adapta o banner inicial, os cartões de ações e o cartão de prêmios com superfícies escuras, texto claro e destaques laranja. Na primeira seção, o tema claro usa `LOG 3 SITE.png` no desktop e `LOG 1 SITE.png` no mobile; o tema escuro usa `public/images/logo/netbox-10-anos-branco-56d580337904.png` nos dois formatos, preservando a proporção da arte na área disponível. Esse PNG é uma cópia exata da imagem transparente fornecida, com identificação do conteúdo no nome para evitar reutilizar a versão anterior em cache. Ao substituir a arte, atualize o nome e suas duas referências em `app/10-anos/page.tsx`. A imagem escura é definida pela propriedade opcional `darkSrc` de `components/campaign-brand.tsx`. No bloco desktop de participação, o componente mantém a arte original no tema claro e compõe a versão escura com a marca laranja existente e legendas em HTML de alto contraste. A exibição por tema é definida em `components/campaign-brand.css`, sem modificar os arquivos das logos.
 
 ## Banner principal
+
+O estilo do halo de luz quente da primeira seção fica em `components/campaign-brand.css`, atualmente desativado por comentário no CSS.
 
 O cartão “CLIENTE NETBOX CONCORRE A — R$ 20 MIL REAIS EM PRÊMIOS!” pulsa suavemente no desktop e no mobile, com um ciclo de 3,2 segundos e ampliação máxima de 3,5%. O pulso é desativado com `prefers-reduced-motion`.
 
 Os três círculos decorativos do banner em `/10-anos` flutuam suavemente no desktop e no mobile, com ritmos diferentes. A animação usa apenas `transform`, é definida em `app/10-anos/campaign-glass.css` e fica desativada quando o dispositivo solicita movimento reduzido.
 
+No tema escuro, o contêiner `.campaign-opening` compartilha o fundo do banner com a consulta e a área “Como ganhar números da sorte?”, incluindo o bloco de prêmios. Os círculos decorativos continuam nessa área com a mesma animação, durações e defasagens do banner. No tema claro, o banner mantém seu fundo creme original e a área de ações e prêmios mantém o degradê cinza-claro, creme e branco, sem os círculos adicionais. As animações respeitam `prefers-reduced-motion`.
+
+As seções “Ganhadores” e “Dúvidas frequentes” também compartilham esse mesmo fundo no tema escuro, por meio de `.campaign-support-flow`, incluindo os três círculos da primeira seção com as mesmas posições, cores e animações. Os cartões e acordeões continuam legíveis. No tema claro, preservam seus fundos anteriores, sem essa decoração adicional.
+
 ## Como participar
 
-Os círculos decorativos do fundo flutuam com deslocamento e leve variação de escala, em ritmos diferentes. Esse movimento é desativado com `prefers-reduced-motion` e acompanha a apresentação desktop/tablet, visível acima de 640 px.
+No tema claro, a seção desktop/tablet mantém o fundo original em degradê creme e pêssego. No tema escuro, exibe `public/images/background/Rastros Neon Laranja no Vazio.png`, renderizado no HTML por `next/image` em `components/participation-desktop.tsx`, com preenchimento proporcional (`object-fit: cover`). Os círculos decorativos do fundo flutuam com deslocamento e leve variação de escala, em ritmos diferentes. Esse movimento é desativado com `prefers-reduced-motion` e acompanha a apresentação desktop/tablet, visível acima de 640 px.
 
 O acabamento Liquid Glass desta seção está em `app/10-anos/participation-desktop.css`: cartões translúcidos com reflexos sobre um fundo com variações de cor no desktop e painéis de leitura em vidro escuro sobre as artes no mobile. O CSS concentra os tokens de vidro, contempla os temas claro e escuro, oferece fallback sem `backdrop-filter` e respeita a preferência de movimento reduzido.
 
-Na rota `/10-anos`, a seção desktop (largura acima de 640 px) tem fundo de largura total e conteúdo centralizado na mesma largura de `.shell` (até 1240 px), com título e arte comemorativa e quatro etapas em sequência. Os elementos dos cartões ficam centralizados; ao passar o mouse, a borda se ilumina e a sombra ganha profundidade. Ao selecionar um cartão, ele aumenta de altura para mostrar a explicação dentro dele; selecionar outro fecha a explicação anterior. O primeiro cartão mostra +1 número por contrato ativo; o segundo mostra +5 indicação e +2 renovação/contrato na mesma linha, conforme as ações elegíveis; o terceiro mostra ícones de ingresso com sinais de mais. O quarto cartão tem um botão para consultar o CPF no formulário `#consulta`. As quantidades vêm de `lib/campaign.ts`. O fundo usa `public/images/como participar/plano de fundo.png`; a arte `10 anos.png` e o logo Netbox são arquivos separados, enquanto textos e ícones são elementos HTML editáveis. O carrossel original permanece no mobile, com seus textos em `lib/participation.ts`.
+Na rota `/10-anos`, a seção desktop/tablet (largura acima de 640 px) tem fundo de largura total e conteúdo centralizado na mesma largura de `.shell` (até 1240 px), com título, arte comemorativa e quatro etapas estáticas. Os ícones, títulos e descrições ficam alinhados ao topo dos cartões, com texto centralizado horizontalmente, sem botão de expansão ou textos adicionais de detalhes. O quarto cartão mantém o link “Consultar CPF” para o formulário `#consulta`. O componente está em `components/participation-desktop.tsx` e os estilos em `app/10-anos/participation-desktop.css`. Textos e ícones continuam editáveis em HTML. O carrossel original permanece no mobile, com seus textos em `lib/participation.ts`.
+
+## Nossa história
+
+O bloco “10 anos conectando o Tocantins” usa fundo em degradê azul escuro nos dois temas, com texto claro, destaques laranja, círculos e pontos discretos, sem fotografias. No tema escuro, o azul e as superfícies ficam mais profundos. O foguete decorativo usa o ícone `Rocket` em `components/shared.tsx`, com decolagem em CSS a cada 9 segundos, tamanho reduzido no celular e animação desativada com `prefers-reduced-motion`. Os estilos e as variáveis de cor ficam em `app/10-anos/campaign-glass.css`.
 
 ## Prêmios
 

@@ -23,145 +23,150 @@ export default function CampaignPage() {
     <>
       <Header />
       <main className="campaign-page">
-        <section className="campaign-hero" id="inicio" aria-labelledby="campaign-hero-title">
-          <span className="campaign-hero__circle" aria-hidden="true" />
-          <h1 className="sr-only" id="campaign-hero-title">
-            Show de Prêmios Netbox 10 Anos
-          </h1>
-          <div className="campaign-hero__inner">
-            <header className="campaign-hero__brand">
-              <div className="campaign-hero__responsive-image">
+        <div className="campaign-opening">
+          <section className="campaign-hero" id="inicio" aria-labelledby="campaign-hero-title">
+            <span className="campaign-hero__circle" aria-hidden="true" />
+            <h1 className="sr-only" id="campaign-hero-title">
+              Show de Prêmios Netbox 10 Anos
+            </h1>
+            <div className="campaign-hero__inner">
+              <header className="campaign-hero__brand">
+                <div className="campaign-hero__responsive-image">
+                  <CampaignBrand
+                    className="campaign-hero__logo"
+                    src="/images/netbox-10-anos/LOG 3 SITE.png"
+                    darkSrc="/images/logo/netbox-10-anos-branco-56d580337904.png"
+                    alt="Conectando pessoas e construindo histórias."
+                    width={2172}
+                    height={724}
+                    sizes="(max-width: 700px) 100vw, 480px"
+                    eager
+                  />
+                </div>
+              </header>
+
+              <div
+                className="campaign-hero__mobile"
+              >
+                <span className="campaign-hero__circle campaign-hero__circle--mobile" aria-hidden="true" />
                 <CampaignBrand
-                  className="campaign-hero__logo"
-                  src="/images/netbox-10-anos/LOG 3 SITE.png"
+                  className="campaign-hero__mobile-logo"
+                  src="/logos/LOG%201%20SITE.png"
+                  darkSrc="/images/logo/netbox-10-anos-branco-56d580337904.png"
                   alt="Conectando pessoas e construindo histórias."
-                  width={2172}
-                  height={724}
-                  sizes="(max-width: 700px) 100vw, 480px"
+                  width={489}
+                  height={204}
+                  sizes="(max-width: 700px) 54.3vw, 489px"
                   eager
                 />
+                <div className="campaign-hero__mobile-prize">
+                  <span>CLIENTE NETBOX CONCORRE A</span>
+                  <strong>R$ 20 MIL REAIS</strong>
+                  <b>EM PRÊMIOS!</b>
+                </div>
+                <p className="campaign-hero__mobile-message">
+                  Contrate, indique ou renove seu plano e ganhe um número da sorte
+                  para participar do Show de Prêmios Netbox 10 Anos.
+                </p>
+                <p className="campaign-hero__mobile-date">
+                  SORTEIO DIA 30 DE JANEIRO DE 2027, AO VIVO NO{" "}
+                  <a className="campaign-hero__instagram" href={netboxContacts.instagram} target="_blank" rel="noopener noreferrer">
+                    INSTAGRAM DA NETBOX INTERNET
+                  </a>
+                </p>
+                <span
+                  className="campaign-hero__mobile-accent campaign-hero__mobile-accent--top"
+                  aria-hidden="true"
+                />
+                <span
+                  className="campaign-hero__mobile-accent campaign-hero__mobile-accent--bottom"
+                  aria-hidden="true"
+                />
               </div>
-            </header>
 
-            <div
-              className="campaign-hero__mobile"
-            >
-              <span className="campaign-hero__circle campaign-hero__circle--mobile" aria-hidden="true" />
-              <CampaignBrand
-                className="campaign-hero__mobile-logo"
-                src="/logos/LOG%201%20SITE.png"
-                alt="Conectando pessoas e construindo histórias."
-                width={489}
-                height={204}
-                sizes="(max-width: 700px) 54.3vw, 489px"
-                eager
-              />
-              <div className="campaign-hero__mobile-prize">
-                <span>CLIENTE NETBOX CONCORRE A</span>
-                <strong>R$ 20 MIL REAIS</strong>
-                <b>EM PRÊMIOS!</b>
+              <div className="campaign-hero__offers">
+                <div className="campaign-hero__prize">
+                  <p>CLIENTE NETBOX CONCORRE A</p>
+                  <strong>R$ 20 MIL REAIS</strong>
+                  <b>EM PRÊMIOS!</b>
+                </div>
+                <p className="campaign-hero__message">
+                  Contrate, indique ou renove seu plano e ganhe um número da sorte
+                  para participar do Show de Prêmios Netbox 10 Anos.
+                </p>
               </div>
-              <p className="campaign-hero__mobile-message">
-                Contrate, indique ou renove seu plano e ganhe um número da sorte
-                para participar do Show de Prêmios Netbox 10 Anos.
-              </p>
-              <p className="campaign-hero__mobile-date">
+
+              <p className="campaign-hero__date">
                 SORTEIO DIA 30 DE JANEIRO DE 2027, AO VIVO NO{" "}
                 <a className="campaign-hero__instagram" href={netboxContacts.instagram} target="_blank" rel="noopener noreferrer">
                   INSTAGRAM DA NETBOX INTERNET
                 </a>
               </p>
-              <span
-                className="campaign-hero__mobile-accent campaign-hero__mobile-accent--top"
-                aria-hidden="true"
-              />
-              <span
-                className="campaign-hero__mobile-accent campaign-hero__mobile-accent--bottom"
-                aria-hidden="true"
-              />
+
+              {/* <div className="campaign-hero__actions">
+                <a className="button" href="#acoes">Quero participar</a>
+                <a className="light-button" href="#consulta">Consultar meus números</a>
+              </div> */}
             </div>
-
-            <div className="campaign-hero__offers">
-              <div className="campaign-hero__prize">
-                <p>CLIENTE NETBOX CONCORRE A</p>
-                <strong>R$ 20 MIL REAIS</strong>
-                <b>EM PRÊMIOS!</b>
-              </div>
-              <p className="campaign-hero__message">
-                Contrate, indique ou renove seu plano e ganhe um número da sorte
-                para participar do Show de Prêmios Netbox 10 Anos.
-              </p>
-            </div>
-
-            <p className="campaign-hero__date">
-              SORTEIO DIA 30 DE JANEIRO DE 2027, AO VIVO NO{" "}
-              <a className="campaign-hero__instagram" href={netboxContacts.instagram} target="_blank" rel="noopener noreferrer">
-                INSTAGRAM DA NETBOX INTERNET
-              </a>
-            </p>
-
-            {/* <div className="campaign-hero__actions">
-              <a className="button" href="#acoes">Quero participar</a>
-              <a className="light-button" href="#consulta">Consultar meus números</a>
-            </div> */}
-          </div>
-        </section>
-        <div className="shell consult-wrap">
-          <ConsultForm />
-        </div>
-
-        <div className="campaign-reward-flow">
-          <section
-            className="section shell campaign-section campaign-actions"
-            id="acoes"
-            aria-labelledby="campaign-actions-title"
-          >
-            <header className="section-head campaign-actions__header">
-              <div>
-                <h2 id="campaign-actions-title">Como ganhar números da sorte?</h2>
-                <p>
-                  Cada ação válida gera uma quantidade específica de números da
-                  sorte.
-                </p>
-              </div>
-            </header>
-
-            <CenterSwipeCarousel
-              className="campaign-actions__grid"
-              ariaLabel="Ações que geram números da sorte"
-            >
-              {actions.map((action) => {
-                const Icon = action.icon;
-
-                return (
-                  <article className="campaign-actions__item" key={action.title}>
-                    <div className="campaign-actions__ticket">
-                      <div className="campaign-actions__ticket-panel">
-                        <Icon className="campaign-actions__icon" aria-hidden="true" />
-                        <h3 className="campaign-actions__title">
-                          {action.title}
-                        </h3>
-                        <div className="campaign-actions__reward">
-                          <span className="campaign-actions__label">Ganhe</span>
-                          <strong className="campaign-actions__quantity">
-                            {action.amount} {action.amount === 1 ? "número" : "números"}
-                            <br />
-                            da sorte
-                          </strong>
-                        </div>
-                        <p className="campaign-actions__description">
-                          {action.description}
-                        </p>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
-            </CenterSwipeCarousel>
           </section>
+          <div className="shell consult-wrap">
+            <ConsultForm />
+          </div>
 
-          <div className="shell campaign-prize-wrap">
-            <PrizeBanner />
+          <div className="campaign-reward-flow">
+            <span className="campaign-reward-flow__circle" aria-hidden="true" />
+            <section
+              className="section shell campaign-section campaign-actions"
+              id="acoes"
+              aria-labelledby="campaign-actions-title"
+            >
+              <header className="section-head campaign-actions__header">
+                <div>
+                  <h2 id="campaign-actions-title">Como ganhar números da sorte?</h2>
+                  <p>
+                    Cada ação válida gera uma quantidade específica de números da
+                    sorte.
+                  </p>
+                </div>
+              </header>
+
+              <CenterSwipeCarousel
+                className="campaign-actions__grid"
+                ariaLabel="Ações que geram números da sorte"
+              >
+                {actions.map((action) => {
+                  const Icon = action.icon;
+
+                  return (
+                    <article className="campaign-actions__item" key={action.title}>
+                      <div className="campaign-actions__ticket">
+                        <div className="campaign-actions__ticket-panel">
+                          <Icon className="campaign-actions__icon" aria-hidden="true" />
+                          <h3 className="campaign-actions__title">
+                            {action.title}
+                          </h3>
+                          <div className="campaign-actions__reward">
+                            <span className="campaign-actions__label">Ganhe</span>
+                            <strong className="campaign-actions__quantity">
+                              {action.amount} {action.amount === 1 ? "número" : "números"}
+                              <br />
+                              da sorte
+                            </strong>
+                          </div>
+                          <p className="campaign-actions__description">
+                            {action.description}
+                          </p>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </CenterSwipeCarousel>
+            </section>
+
+            <div className="shell campaign-prize-wrap">
+              <PrizeBanner />
+            </div>
           </div>
         </div>
         <div id="como-participar" />
@@ -204,14 +209,16 @@ export default function CampaignPage() {
         </section>
         <CommercialBand />
         <HistoryBand />
-        <WinnersPreview />
-        <FAQ />
+        <div className="campaign-support-flow">
+          <span className="campaign-hero__circle" aria-hidden="true" />
+          <WinnersPreview />
+          <FAQ />
+        </div>
         <footer className="site-footer">
           <div className="shell">
             <span>© Netbox 10 Anos · {campaign.tagline}</span>
             <span>
-              Período de consulta: {dateBR(campaign.period.inicio)} a{" "}
-              {dateBR(campaign.period.fim)}
+              Pagina desenvolvida por <a href="https://matheuslufano.github.io/Meu-Portfolio/" target="_blank" rel="noopener noreferrer">Matheus Mota 🧑‍💻</a>
             </span>
             <Link href="/10-anos/regulamento">Regulamento</Link>
           </div>

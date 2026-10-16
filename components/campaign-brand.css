@@ -70,3 +70,51 @@ body.participation-focus .campaign-brand__light {
 body.participation-focus .campaign-brand__dark {
   display: grid;
 }
+
+/* Mantém a arte padrão da abertura quando não há uma imagem escura específica. */
+body.participation-focus .campaign-hero .campaign-brand {
+  isolation: isolate;
+}
+
+/* Halo atrás da arte, sem interferir no layout ou capturar cliques. */
+/* body.participation-focus .campaign-hero .campaign-brand::before {
+  position: absolute;
+  z-index: -1;
+  inset: -25% -12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at right center,
+    rgb(255 239 210 / 10%) 0%,
+    rgb(255 177 95 / 50%) 32%,
+    rgb(255 119 32 / 10%) 52%,
+    transparent 72%
+  );
+  filter: blur(24px);
+  content: "";
+  pointer-events: none;
+} */
+
+body.participation-focus .campaign-hero .campaign-brand__light {
+  display: block;
+}
+
+body.participation-focus .campaign-hero .campaign-brand__dark {
+  display: none;
+}
+
+.campaign-brand__dark-image {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+body.participation-focus .campaign-brand--custom-dark .campaign-brand__dark-image {
+  display: block;
+}
+
+body.participation-focus .campaign-hero .campaign-brand--custom-dark .campaign-brand__light {
+  display: none;
+}

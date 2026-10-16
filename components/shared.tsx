@@ -193,16 +193,7 @@ export function CommercialBand() {
               Quer ganhar mais <em>números da sorte?</em>
             </h2>
             <p>Aproveite as oportunidades e participe.</p>
-            <a
-              href={campaign.commercial.renewal || "#"}
-              className="text-link"
-              onClick={(e) => {
-                if (campaign.commercial.renewal === "#") e.preventDefault();
-                else track("renewal");
-              }}
-            >
-              Renovação sem upgrade
-            </a>
+
           </div>
         </div>
         {/* Cartões gerados a partir de commercialActions, em @/lib/campaign. */}
@@ -382,9 +373,15 @@ export function HelpBand() {
 // ============================================================================
 // HISTÓRIA DA NETBOX — texto institucional e indicadores
 // ============================================================================
+/** Apresenta a história e os indicadores, com um foguete apenas decorativo. */
 export function HistoryBand() {
   return (
     <section className="history-band">
+      <div className="history-band__decoration" aria-hidden="true">
+        <span className="history-band__rocket">
+          <Rocket size={76} strokeWidth={1.25} />
+        </span>
+      </div>
       <div className="shell history-inner">
         <div>
           <span className="eyebrow">NOSSA HISTÓRIA</span>
@@ -393,15 +390,6 @@ export function HistoryBand() {
             Mais do que internet, a Netbox sempre acreditou na força das
             pessoas, das cidades e das histórias que se conectam todos os dias.
           </p>
-          <a
-            className="outline-button"
-            href={campaign.commercial.history}
-            onClick={(e) => {
-              if (campaign.commercial.history === "#") e.preventDefault();
-            }}
-          >
-            Conheça a nossa história <ArrowRight size={16} />
-          </a>
         </div>
         {/* Indicadores institucionais alimentados por campaign.institutional. */}
         <div className="history-stats">

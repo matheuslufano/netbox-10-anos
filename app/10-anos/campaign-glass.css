@@ -36,6 +36,8 @@ body:has(.campaign-page) .site-header {
 }
 
 .campaign-page {
+  --opening-background: transparent;
+  --hero-circle-drift: clamp(14px, 2.5vw, 32px);
   position: relative;
   isolation: isolate;
   --glass-ink: #17202d;
@@ -48,6 +50,12 @@ body:has(.campaign-page) .site-header {
   color: var(--glass-ink);
 }
 
+/* No tema escuro, mantém banner, consulta e ações sobre um fundo contínuo. */
+.campaign-opening {
+  display: flow-root;
+  background: var(--opening-background);
+}
+
 .campaign-reward-flow {
   display: flow-root;
   position: relative;
@@ -55,8 +63,21 @@ body:has(.campaign-page) .site-header {
   background: linear-gradient(180deg, #f5f7fa 0%, #fff8f0 58%, #fff 100%);
 }
 
-body.participation-focus .campaign-reward-flow {
-  background: linear-gradient(180deg, #050608 0%, #100b08 58%, #050608 100%);
+.campaign-page .campaign-reward-flow::before,
+.campaign-page .campaign-reward-flow::after,
+.campaign-page .campaign-reward-flow__circle {
+  display: none;
+}
+
+body.participation-focus .campaign-page .campaign-reward-flow {
+  overflow: hidden;
+  background: transparent;
+}
+
+body.participation-focus .campaign-page .campaign-reward-flow::before,
+body.participation-focus .campaign-page .campaign-reward-flow::after,
+body.participation-focus .campaign-page .campaign-reward-flow__circle {
+  display: block;
 }
 
 body.participation-focus
@@ -70,7 +91,6 @@ body.participation-focus
    02 | BANNER PRINCIPAL: estrutura e marca
    =================================================================== */
 .campaign-page .campaign-hero {
-  --hero-circle-drift: clamp(14px, 2.5vw, 32px);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -84,7 +104,12 @@ body.participation-focus
 
 .campaign-page .campaign-hero__circle,
 .campaign-page .campaign-hero::before,
-.campaign-page .campaign-hero::after {
+.campaign-page .campaign-hero::after,
+.campaign-page .campaign-reward-flow::before,
+.campaign-page .campaign-reward-flow::after,
+.campaign-page .campaign-reward-flow__circle,
+body.participation-focus .campaign-page .campaign-support-flow::before,
+body.participation-focus .campaign-page .campaign-support-flow::after {
   position: absolute;
   z-index: -1;
   width: min(42vw, 540px);
@@ -100,7 +125,12 @@ body.participation-focus
 .campaign-page .campaign-hero::after,
 .campaign-page .campaign-hero__circle,
 .campaign-page .campaign-hero__mobile::before,
-.campaign-page .campaign-hero__mobile::after {
+.campaign-page .campaign-hero__mobile::after,
+.campaign-page .campaign-reward-flow::before,
+.campaign-page .campaign-reward-flow::after,
+.campaign-page .campaign-reward-flow__circle,
+body.participation-focus .campaign-page .campaign-support-flow::before,
+body.participation-focus .campaign-page .campaign-support-flow::after {
   animation: campaign-hero-circles 18s ease-in-out infinite alternate;
 }
 
@@ -112,13 +142,15 @@ body.participation-focus
   animation-delay: -5s;
 }
 
-.campaign-page .campaign-hero::before {
+.campaign-page .campaign-hero::before,
+body.participation-focus .campaign-page .campaign-support-flow::before {
   top: -52%;
   left: -18%;
   animation-delay: -8s;
 }
 
-.campaign-page .campaign-hero::after {
+.campaign-page .campaign-hero::after,
+body.participation-focus .campaign-page .campaign-support-flow::after {
   top: 8%;
   right: -18%;
   animation-duration: 22s;
@@ -126,9 +158,33 @@ body.participation-focus
   animation-direction: alternate-reverse;
 }
 
+/* Reutiliza o movimento e os ritmos do banner na área de ações e prêmios. */
+.campaign-page .campaign-reward-flow::before {
+  top: -8%;
+  left: -18%;
+  animation-delay: -8s;
+}
+
+.campaign-page .campaign-reward-flow::after {
+  top: 30%;
+  right: -18%;
+  animation-duration: 22s;
+  animation-delay: -12s;
+  animation-direction: alternate-reverse;
+}
+
+.campaign-page .campaign-reward-flow__circle {
+  bottom: -18%;
+  left: 12%;
+  width: min(34vw, 460px);
+  animation-duration: 7s;
+  animation-delay: -5s;
+}
+
 @keyframes campaign-hero-circles {
   from {
-    transform: translate3d(calc(-1 * var(--hero-circle-drift)), 8px, 0) scale(0.96);
+    transform: translate3d(calc(-1 * var(--hero-circle-drift)), 8px, 0)
+      scale(0.96);
   }
 
   50% {
@@ -145,7 +201,12 @@ body.participation-focus
   .campaign-page .campaign-hero::after,
   .campaign-page .campaign-hero__circle,
   .campaign-page .campaign-hero__mobile::before,
-  .campaign-page .campaign-hero__mobile::after {
+  .campaign-page .campaign-hero__mobile::after,
+  .campaign-page .campaign-reward-flow::before,
+  .campaign-page .campaign-reward-flow::after,
+  .campaign-page .campaign-reward-flow__circle,
+  body.participation-focus .campaign-page .campaign-support-flow::before,
+  body.participation-focus .campaign-page .campaign-support-flow::after {
     animation: none;
   }
 }
@@ -201,7 +262,6 @@ body.participation-focus
   line-height: 1.15;
   text-transform: uppercase;
 }
-
 
 /* ===================================================================
    02.4 | BANNER: cartões promocionais
@@ -291,7 +351,6 @@ body.participation-focus
   text-align: left;
   justify-content: flex-start;
 }
-
 
 /* ===================================================================
    02.6 | BANNER: datas e botões
@@ -525,9 +584,7 @@ body.participation-focus
   .campaign-page .campaign-hero__actions {
     display: none;
   }
-
 }
-
 
 /* ===================================================================
    03 | HERO SECUNDÁRIO: efeito de vidro
@@ -550,7 +607,6 @@ body.participation-focus
     inset 0 1px rgb(255 255 255 / 75%);
 }
 
-
 /* ===================================================================
    04 | CARDS GENÉRICOS: superfícies glass
    =================================================================== */
@@ -571,10 +627,9 @@ body.participation-focus
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
-#acoes{
+#acoes {
   margin: 100px auto;
 }
-
 
 /* ===================================================================
    05 | CONSULTA: CPF, formulário e privacidade
@@ -583,8 +638,16 @@ body.participation-focus
   isolation: isolate;
   border-radius: 30px;
   background:
-    radial-gradient(circle at 18% 30%, rgb(255 141 48 / 28%) 0 12%, transparent 30%),
-    radial-gradient(circle at 82% 66%, rgb(105 158 234 / 22%) 0 10%, transparent 28%);
+    radial-gradient(
+      circle at 18% 30%,
+      rgb(255 141 48 / 28%) 0 12%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 82% 66%,
+      rgb(105 158 234 / 22%) 0 10%,
+      transparent 28%
+    );
 }
 
 .campaign-page .consult-wrap::before {
@@ -593,7 +656,8 @@ body.participation-focus
   z-index: 0;
   inset: 6px;
   border-radius: 26px;
-  background: url('/images/netbox-10-anos/banner-publico.png') center 62% / cover;
+  background: url("/images/netbox-10-anos/banner-publico.png") center 62% /
+    cover;
   filter: blur(18px);
   pointer-events: none;
 }
@@ -635,11 +699,13 @@ body.participation-focus
 }
 
 @keyframes consult-card-reflection {
-  0%, 18% {
+  0%,
+  18% {
     transform: translateX(-100%) skewX(-20deg);
   }
 
-  68%, 100% {
+  68%,
+  100% {
     transform: translateX(380%) skewX(-20deg);
   }
 }
@@ -665,7 +731,6 @@ body.participation-focus
   background: rgb(255 236 222 / 72%);
 }
 
-
 /* ===================================================================
    06 | TÍTULOS DAS SEÇÕES
    =================================================================== */
@@ -678,7 +743,6 @@ body.participation-focus
 .campaign-page .campaign-actions__header p {
   color: var(--glass-muted);
 }
-
 
 /* ===================================================================
    07 | AÇÕES DA CAMPANHA: tickets e grade
@@ -701,7 +765,6 @@ body.participation-focus
   justify-content: center;
   margin-inline: auto;
 }
-
 
 /* ===================================================================
    17 | RESPONSIVIDADE: componentes até 640px
@@ -734,11 +797,10 @@ body.participation-focus
   color: var(--glass-muted);
 }
 
-
 /* ===================================================================
    08 | PRÊMIOS: banner e informações
    =================================================================== */
-#premios{
+#premios {
   margin: 50px auto;
 }
 
@@ -837,7 +899,6 @@ body.participation-focus
   color: #ffad63;
 }
 
-
 /* ===================================================================
    09 | COMO PARTICIPAR: carrossel de passos
    =================================================================== */
@@ -854,10 +915,15 @@ body.participation-focus
 }
 
 @keyframes participation-glass-reflection {
-  0%, 18% { transform: translateX(-120%) skewX(-24deg); }
-  55%, 100% { transform: translateX(380%) skewX(-24deg); }
+  0%,
+  18% {
+    transform: translateX(-120%) skewX(-24deg);
+  }
+  55%,
+  100% {
+    transform: translateX(380%) skewX(-24deg);
+  }
 }
-
 
 /* ===================================================================
    10 | SEÇÃO COMERCIAL
@@ -886,21 +952,129 @@ body.participation-focus
   color: var(--glass-muted);
 }
 
-
 /* ===================================================================
    11 | HISTÓRIA NETBOX
    =================================================================== */
 .campaign-page .history-band {
-  background-position: center;
-  background-size: cover;
+  --history-surface: rgb(7 19 36 / 58%);
+  --history-border: rgb(169 198 232 / 20%);
+  --history-accent: #ffb579;
+  --history-muted: #c0cedf;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 88% 20%, rgb(52 99 155 / 28%), transparent 42%),
+    radial-gradient(ellipse at 12% 100%, rgb(28 68 117 / 26%), transparent 48%),
+    linear-gradient(120deg, #0b1525, #142b45 55%, #0d1c30);
+  color: #f2f6fc;
+}
+
+.campaign-page .history-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* As decorações não interceptam cliques nem entram na árvore de acessibilidade. */
+.campaign-page .history-band__decoration {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  color: var(--history-accent);
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 24%, currentColor 0 2px, transparent 3px),
+    radial-gradient(circle at 48% 78%, currentColor 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 18%, currentColor 0 1px, transparent 2px),
+    radial-gradient(circle at 94% 65%, currentColor 0 2px, transparent 3px);
+}
+
+.campaign-page .history-band__decoration::before,
+.campaign-page .history-band__decoration::after {
+  position: absolute;
+  width: clamp(160px, 24vw, 340px);
+  aspect-ratio: 1;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.12;
+  content: "";
+}
+
+.campaign-page .history-band__decoration::before {
+  top: -40%;
+  left: -5%;
+}
+
+.campaign-page .history-band__decoration::after {
+  right: -7%;
+  bottom: -45%;
+}
+
+.campaign-page .history-band__rocket {
+  position: absolute;
+  right: 5%;
+  bottom: 12%;
+  width: 76px;
+  height: 76px;
+  opacity: 0.24;
+  transform: rotate(-25deg);
+  animation: history-rocket-launch 9s ease-in infinite;
+}
+
+.campaign-page .history-band__rocket svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.campaign-page .history-band__rocket::after {
+  position: absolute;
+  top: 70%;
+  right: 70%;
+  width: 12px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(var(--history-accent), transparent);
+  transform: rotate(45deg);
+  transform-origin: top center;
+  content: "";
+}
+
+/* Pausa, decolagem e retorno invisível, sem alterar a geometria do conteúdo. */
+@keyframes history-rocket-launch {
+  0%,
+  18% {
+    opacity: 0.24;
+    transform: translate3d(0, 0, 0) rotate(-25deg);
+  }
+  65%,
+  100% {
+    opacity: 0;
+    transform: translate3d(90px, -340px, 0) rotate(-25deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .campaign-page .history-band__rocket {
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-page .history-band__rocket {
+    animation: none;
+  }
 }
 
 .campaign-page .history-inner > div:first-child,
 .campaign-page .history-stats {
   padding: 22px;
-  border: 1px solid rgb(255 255 255 / 20%);
+  border: 1px solid var(--history-border);
   border-radius: 22px;
-  background: rgb(7 13 21 / 52%);
+  background: var(--history-surface);
   box-shadow: inset 0 1px rgb(255 255 255 / 12%);
   backdrop-filter: blur(16px) saturate(135%);
   -webkit-backdrop-filter: blur(16px) saturate(135%);
@@ -908,6 +1082,15 @@ body.participation-focus
 
 .campaign-page .history-stats {
   min-width: 250px;
+}
+
+.campaign-page .history-stats :is(svg, b),
+.campaign-page .history-inner .eyebrow {
+  color: var(--history-accent);
+}
+
+.campaign-page .history-stats small {
+  color: var(--history-muted);
 }
 
 .campaign-page .winner-card,
@@ -1089,7 +1272,6 @@ body.participation-focus
   }
 }
 
-
 /* ===================================================================
    13 | RODAPÉ
    =================================================================== */
@@ -1122,6 +1304,9 @@ body.participation-focus:has(.campaign-page) .site-header .nav {
 }
 
 body.participation-focus .campaign-page {
+  --opening-background:
+    radial-gradient(ellipse at 15% 12%, rgb(255 101 0 / 12%), transparent 48%),
+    linear-gradient(135deg, #171312, #0c0d11 75%);
   --glass-ink: #f6f7fa;
   --glass-muted: #b9c0ca;
   --glass-surface: rgb(25 25 29 / 72%);
@@ -1131,40 +1316,90 @@ body.participation-focus .campaign-page {
     0 20px 44px rgb(0 0 0 / 42%), inset 0 1px rgb(255 255 255 / 12%);
 }
 
-body.participation-focus .campaign-page :is(.campaign-hero, .campaign-hero__mobile) {
-  background:
-    radial-gradient(ellipse at 15% 12%, rgb(255 101 0 / 12%), transparent 48%),
-    linear-gradient(135deg, #171312, #0c0d11 75%);
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero, .campaign-hero__mobile) {
+  background: transparent;
   color: var(--glass-ink);
 }
 
-body.participation-focus .campaign-page :is(.campaign-hero, .campaign-hero__mobile)::before,
-body.participation-focus .campaign-page :is(.campaign-hero, .campaign-hero__mobile)::after,
-body.participation-focus .campaign-page .campaign-hero__circle {
+/* Ganhadores e dúvidas compartilham o mesmo fundo da abertura no tema escuro. */
+.campaign-page .campaign-support-flow {
+  display: contents;
+}
+
+.campaign-page .campaign-support-flow > .campaign-hero__circle {
+  display: none;
+}
+
+body.participation-focus .campaign-page .campaign-support-flow {
+  display: flow-root;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--opening-background);
+}
+
+body.participation-focus
+  .campaign-page
+  .campaign-support-flow
+  > .campaign-hero__circle {
+  display: block;
+}
+
+body.participation-focus
+  .campaign-page
+  .campaign-support-flow
+  :is(.campaign-winners, .campaign-faq) {
+  background: transparent;
+}
+
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero, .campaign-hero__mobile)::before,
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero, .campaign-hero__mobile)::after,
+body.participation-focus .campaign-page .campaign-hero__circle,
+body.participation-focus .campaign-page .campaign-reward-flow::before,
+body.participation-focus .campaign-page .campaign-reward-flow::after,
+body.participation-focus .campaign-page .campaign-reward-flow__circle,
+body.participation-focus .campaign-page .campaign-support-flow::before,
+body.participation-focus .campaign-page .campaign-support-flow::after {
   border-color: rgb(255 153 92 / 18%);
 }
 
-body.participation-focus .campaign-page :is(.campaign-hero__prize, .campaign-hero__mobile-prize) {
-  border-color: rgb(255 153 92 / 32%);
-  background: linear-gradient(135deg, #352317, #211b18);
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero__prize, .campaign-hero__mobile-prize) {
+  border-color: rgb(255 153 92 / 80%);
+  background: linear-gradient(135deg, #464326, #1f1b0f);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 9%);
   color: var(--glass-ink);
 }
 
-body.participation-focus .campaign-page :is(.campaign-hero__prize p, .campaign-hero__prize b) {
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero__prize p, .campaign-hero__prize b) {
   color: var(--glass-ink);
 }
 
-body.participation-focus .campaign-page :is(.campaign-hero__prize strong, .campaign-hero__mobile-prize strong) {
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero__prize strong, .campaign-hero__mobile-prize strong) {
   color: #ffad63;
 }
 
-body.participation-focus .campaign-page :is(.campaign-hero__message, .campaign-hero__mobile-message) {
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero__message, .campaign-hero__mobile-message) {
   background: linear-gradient(135deg, #8a350f, #602708);
   color: #fff5eb;
 }
 
-body.participation-focus .campaign-page :is(.campaign-hero__date, .campaign-hero__mobile-date) {
+body.participation-focus
+  .campaign-page
+  :is(.campaign-hero__date, .campaign-hero__mobile-date) {
   color: var(--glass-ink);
 }
 
@@ -1198,12 +1433,20 @@ body.participation-focus
 
 body.participation-focus .campaign-page .consult-wrap {
   background:
-    radial-gradient(circle at 18% 30%, rgb(255 104 28 / 29%) 0 12%, transparent 30%),
-    radial-gradient(circle at 82% 66%, rgb(133 91 210 / 19%) 0 10%, transparent 28%);
+    radial-gradient(
+      circle at 18% 30%,
+      rgb(255 104 28 / 29%) 0 12%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 82% 66%,
+      rgb(133 91 210 / 19%) 0 10%,
+      transparent 28%
+    );
 }
 
 body.participation-focus .campaign-page .consult-wrap::before {
-  filter: blur(18px) brightness(.42) saturate(1.15);
+  filter: blur(18px) brightness(0.42) saturate(1.15);
 }
 
 body.participation-focus .campaign-page .consult-card {
@@ -1221,7 +1464,9 @@ body.participation-focus .campaign-page .campaign-actions__ticket {
   background: linear-gradient(145deg, rgb(36 28 24 / 85%), rgb(15 15 17 / 85%));
 }
 
-body.participation-focus .campaign-page :is(.campaign-actions__quantity, .campaign-actions__icon) {
+body.participation-focus
+  .campaign-page
+  :is(.campaign-actions__quantity, .campaign-actions__icon) {
   color: #ffad63;
 }
 
@@ -1247,11 +1492,17 @@ body.participation-focus .campaign-page .prize-banner .prize-copy h2 {
   color: var(--glass-ink);
 }
 
-body.participation-focus .campaign-page .prize-banner :is(.prize-copy p, .prize-total span) {
+body.participation-focus
+  .campaign-page
+  .prize-banner
+  :is(.prize-copy p, .prize-total span) {
   color: var(--glass-muted);
 }
 
-body.participation-focus .campaign-page .prize-banner :is(.prize-copy strong, .prize-total) {
+body.participation-focus
+  .campaign-page
+  .prize-banner
+  :is(.prize-copy strong, .prize-total) {
   color: #ffad63;
 }
 
@@ -1270,14 +1521,15 @@ body.participation-focus .campaign-page .campaign-commercial {
 }
 
 body.participation-focus .campaign-page .history-band {
-  background-image:
-    linear-gradient(
-      90deg,
-      rgb(0 0 0 / 88%),
-      rgb(0 0 0 / 28%) 65%,
-      rgb(0 0 0 / 74%)
-    ),
-    url("/images/netbox-10-anos/banner-historia.png");
+  --history-surface: rgb(5 14 28 / 68%);
+  --history-border: rgb(169 198 232 / 18%);
+  --history-accent: #ffad70;
+  --history-muted: #becbdb;
+  background:
+    radial-gradient(ellipse at 88% 20%, rgb(40 78 128 / 24%), transparent 42%),
+    radial-gradient(ellipse at 12% 100%, rgb(20 49 87 / 22%), transparent 48%),
+    linear-gradient(120deg, #070f1b, #102238 55%, #0a1424);
+  color: #f2f6fc;
 }
 
 body.participation-focus .campaign-page .winner-card .avatar {
@@ -1291,7 +1543,6 @@ body.participation-focus .campaign-page .faq-grid details[open] {
     var(--glass-shadow),
     0 0 25px rgb(255 122 35 / 19%);
 }
-
 
 /* ===================================================================
    15 | INTERAÇÕES: hover em dispositivos compatíveis
@@ -1325,10 +1576,8 @@ body.participation-focus .campaign-page .faq-grid details[open] {
       0 18px 40px rgb(0 0 0 / 47%),
       0 0 0 1px rgb(255 120 35 / 25%),
       0 0 28px rgb(255 113 26 / 25%);
-    
   }
 }
-
 
 /* ===================================================================
    16 | RESPONSIVIDADE: navegação até 1100px
@@ -1367,50 +1616,55 @@ body.participation-focus .campaign-page .faq-grid details[open] {
     display: none;
   }
 
-.campaign-page .campaign-steps .participation-cover__hint--mobile {
-  position: absolute;
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
+  .campaign-page .campaign-steps .participation-cover__hint--mobile {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  width: max-content;
-  max-width: 83%;
-  min-height: 46px;
-  padding: 10px 16px;
+    width: max-content;
+    max-width: 83%;
+    min-height: 46px;
+    padding: 10px 16px;
 
-  overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 52%);
-  border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 52%);
+    border-radius: 999px;
 
-  background: linear-gradient(
-    125deg,
-    rgb(255 255 255 / 25%),
-    rgb(255 255 255 / 8%)
-  );
+    background: linear-gradient(
+      125deg,
+      rgb(255 255 255 / 25%),
+      rgb(255 255 255 / 8%)
+    );
 
-  box-shadow:
-    inset 0 1px rgb(255 255 255 / 48%),
-    0 10px 24px rgb(0 0 0 / 28%);
+    box-shadow:
+      inset 0 1px rgb(255 255 255 / 48%),
+      0 10px 24px rgb(0 0 0 / 28%);
 
-  color: #fff;
-  font-size: .76rem;
-  letter-spacing: .08em;
-  text-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+    color: #fff;
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-shadow: 0 1px 5px rgb(0 0 0 / 50%);
 
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-}
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+  }
 
   .campaign-page .participation-cover__hint--mobile::before {
     content: "";
     position: absolute;
     inset: -35% auto -35% -65%;
     width: 55%;
-    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 67%), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 67%),
+      transparent
+    );
     animation: participation-glass-reflection 3.4s ease-in-out infinite;
     pointer-events: none;
   }
@@ -1517,7 +1771,6 @@ body.participation-focus .campaign-page .faq-grid details[open] {
   }
 }
 
-
 /* ===================================================================
    18 | ACESSIBILIDADE: movimento reduzido
    =================================================================== */
@@ -1526,7 +1779,6 @@ body.participation-focus .campaign-page .faq-grid details[open] {
     animation: none;
   }
 }
-
 
 /* ===================================================================
    19 | COMPATIBILIDADE: fallback sem backdrop-filter

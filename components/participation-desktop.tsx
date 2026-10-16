@@ -1,73 +1,66 @@
-"use client";
-
-import { useState } from "react";
+import Image from "next/image";
 import { CampaignBrand } from "@/components/campaign-brand";
 import {
   ArrowRight,
-  ChevronDown,
   ChevronRight,
   FilePlus2,
   Smartphone,
   Ticket,
   UserRound,
 } from "lucide-react";
-import { campaignRewardAmounts } from "@/lib/campaign";
 
 const participationSteps = [
   {
-    title: "Seja cliente Netbox",
-    description: "Clientes ativos já participam da campanha.",
-    details:
-      "Clientes ativos já começa com um número da sorte. Se você ainda não é cliente, contrate um plano para participar.",
+    title: "Sou cliente Netbox",
+    description: "Clientes ativos já participam da campanha",
     icon: UserRound,
   },
   {
     title: "Faça uma ação válida",
-    description: "Indique, renove, faça upgrade ou contrate um plano.",
-    details:
-      "Você pode indicar um amigo, renovar ou contratar um novo plano. Cada ação precisa ser validada; uma indicação conta quando gera um contrato ativado.",
+    description: "Indique, renove, ou contrate um plano",
     icon: FilePlus2,
   },
   {
     title: "Acumule números da sorte",
     description:
-      "Cada ação validada gera números para participar dos sorteios.",
-    details:
-      "A campanha informa 1 número por contrato ativo, 5 por indicação convertida e 2 por renovação elegível ou novo contrato. Os números são disponibilizados após a validação.",
+      "Cada ação validada gera números para participar dos sorteios",
     icon: Ticket,
   },
   {
     title: "Acompanhe pelo site",
-    description: "Consulte seus números e veja os resultados da campanha.",
-    details:
-      "Informe seu CPF na consulta de participação para conferir os números acumulados. Acompanhe também os resultados e as atualizações oficiais da campanha.",
+    description: "Consulte seus números e veja os resultados da campanha",
     icon: Smartphone,
   },
 ] as const;
 
-/** Exibe as etapas da campanha com uma explicação por vez no desktop. */
+/** Exibe quatro etapas estáticas da campanha, com acesso à consulta por CPF. */
 export function ParticipationDesktop() {
-  const [expandedStep, setExpandedStep] = useState<number | null>(null);
-
   return (
     <section
       className="section participation-desktop"
       aria-labelledby="participation-desktop-title"
     >
+      <Image
+        className="participation-desktop__background"
+        src="/images/background/Rastros%20Neon%20Laranja%20no%20Vazio.png"
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+      />
       <div className="participation-desktop__inner">
         <div className="participation-desktop__hero">
           <div className="participation-desktop__intro">
             <span className="participation-desktop__eyebrow">
-              1o anos de Netbox
+              10 anos de Netbox
             </span>
             <h2 id="participation-desktop-title">
               Como participar
               <span>do sorteio de 10 anos</span>
             </h2>
             <p>
-              Acumule números da sorte ao contratar, renovar, indicar
-              <br className="participation-desktop__wide-break" /> ou acompanhar
-              a campanha pelo app Netbox.
+              Acumule números da sorte ao contratar, renovar, indicar um novo cliente e <br/>
+              acompanhe a campanha pelo nosso site
             </p>
           </div>
           <div className="participation-desktop__visual">
@@ -83,108 +76,36 @@ export function ParticipationDesktop() {
         </div>
 
         <ol className="participation-desktop__steps">
-          {participationSteps.map(
-            ({ title, description, details, icon: Icon }, index) => {
-              const isExpanded = expandedStep === index;
-
-              return (
-                <li
-                  className="participation-desktop__step"
-                  data-expanded={isExpanded}
-                  key={title}
-                >
-                  <button
-                    id={`participation-step-${index}`}
-                    className="participation-desktop__summary"
-                    type="button"
-                    aria-expanded={isExpanded}
-                    aria-controls={
-                      isExpanded
-                        ? `participation-step-details-${index}`
-                        : undefined
-                    }
-                    onClick={() =>
-                      setExpandedStep((currentStep) =>
-                        currentStep === index ? null : index,
-                      )
-                    }
-                  >
-                    <span
-                      className="participation-desktop__icon"
-                      aria-hidden="true"
-                    >
-                      <Icon size={42} strokeWidth={1.7} />
-                    </span>
-                    <span className="participation-desktop__step-copy">
-                      <span className="participation-desktop__step-title">
-                        <span>{index + 1}.</span> {title}
-                      </span>
-                      <span className="participation-desktop__step-description">
-                        {description}
-                      </span>
-                      {index === 0 && (
-                        <span className="participation-desktop__reward">
-                          <strong>+{campaignRewardAmounts.activeContract}</strong>
-                          número da sorte
-                        </span>
-                      )}
-                      {index === 1 && (
-                        <span className="participation-desktop__rewards">
-                          <span>
-                            <strong>+{campaignRewardAmounts.indication}</strong>
-                            indicação
-                          </span>
-                          <span>
-                            <strong>+{campaignRewardAmounts.renewal}</strong>
-                            renovação/contrato
-                          </span>
-                        </span>
-                      )}
-                      {index === 2 && (
-                        <span className="participation-desktop__ticket" aria-hidden="true">
-                          <Ticket size={32} strokeWidth={1.8} />
-                          <span> + </span>
-                          <Ticket size={32} strokeWidth={1.8} />
-                          <span> + </span>
-                          <Ticket size={32} strokeWidth={1.8} />
-                        </span>
-                      )}
-                    </span>
-                    <span
-                      className="participation-desktop__expand"
-                      aria-hidden="true"
-                    >
-                      <ChevronDown size={18} />
-                    </span>
-                  </button>
-                  {index === 3 && (
-                    <a className="participation-desktop__consult" href="#consulta">
-                      Consultar CPF <ArrowRight size={17} aria-hidden="true" />
-                    </a>
-                  )}
-                  {isExpanded && (
-                    <div
-                      id={`participation-step-details-${index}`}
-                      className="participation-desktop__details"
-                      role="region"
-                      aria-labelledby={`participation-step-${index}`}
-                    >
-                      <p>{details}</p>
-                    </div>
-                  )}
-                  {index < participationSteps.length - 1 && (
-                    <ChevronRight
-                      className="participation-desktop__next"
-                      size={30}
-                      aria-hidden="true"
-                    />
-                  )}
-                </li>
-              );
-            },
-          )}
+          {participationSteps.map(({ title, description, icon: Icon }, index) => (
+            <li className="participation-desktop__step" key={title}>
+              <div className="participation-desktop__content">
+                <span className="participation-desktop__icon" aria-hidden="true">
+                  <Icon size={42} strokeWidth={1.7} />
+                </span>
+                <div className="participation-desktop__step-copy">
+                  <h3 className="participation-desktop__step-title">
+                    <span>{index + 1}.</span> {title}
+                  </h3>
+                  <p className="participation-desktop__step-description">
+                    {description}
+                  </p>
+                </div>
+              </div>
+              {index === participationSteps.length - 1 && (
+                <a className="participation-desktop__consult" href="#consulta">
+                  Consultar CPF <ArrowRight size={17} aria-hidden="true" />
+                </a>
+              )}
+              {index < participationSteps.length - 1 && (
+                <ChevronRight
+                  className="participation-desktop__next"
+                  size={30}
+                  aria-hidden="true"
+                />
+              )}
+            </li>
+          ))}
         </ol>
-
       </div>
     </section>
   );
