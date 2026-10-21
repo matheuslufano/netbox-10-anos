@@ -89,7 +89,8 @@
   padding: 28px 0;
 }
 
-.nav a:hover, .nav .active {
+.nav a:hover,
+.nav .active {
   color: var(--orange);
 }
 
@@ -207,7 +208,10 @@
   border-radius: 50%;
   background: transparent;
   color: var(--dark);
-  transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
+  transition:
+    background-color 650ms ease,
+    color 650ms ease,
+    border-color 650ms ease;
 }
 
 .headerThemeToggle:hover {
@@ -331,19 +335,33 @@ body:global([data-theme="dark"]) .headerThemeToggle:hover {
 }
 
 @media (max-width: 640px) {
-  body:has(.withContacts) :is(#inicio, #consulta, #acoes, #premios, #como-participar, #ganhadores, #duvidas, #regulamento) {
+  body:has(.withContacts)
+    :is(
+      #inicio,
+      #consulta,
+      #acoes,
+      #premios,
+      #como-participar,
+      #ganhadores,
+      #duvidas,
+      #regulamento
+    ) {
     scroll-margin-top: 92px;
   }
 }
 
 body:has(:global([data-ui~="campaign-page"])) .root {
   border-bottom: 1px solid rgb(255 255 255 / 74%);
-  background: rgb(255 255 255 / 76%);
-  backdrop-filter: blur(22px) saturate(160%);
-  -webkit-backdrop-filter: blur(22px) saturate(160%);
+
+background: rgb(255 255 255 / 50%);
+-webkit-backdrop-filter: blur(18px) saturate(160%);
+backdrop-filter: blur(18px) saturate(160%);
 }
 
-body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root, body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root .nav {
+body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root,
+body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"]))
+  .root
+  .nav {
   border-color: rgb(255 255 255 / 14%);
   background: rgb(13 13 16 / 78%);
   color: #f6f7fa;
@@ -355,12 +373,16 @@ body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root,
     border: 1px solid var(--glass-rim, rgb(255 255 255 / 70%));
     border-top: 0;
     border-radius: 0 0 22px 22px;
-    background: rgb(255 255 255 / 89%);
+    background: #ffffffea;
     box-shadow: 0 18px 36px rgb(28 42 63 / 16%);
-    backdrop-filter: blur(22px) saturate(160%);
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    backdrop-filter: blur(22px) saturate(50%);
+    -webkit-backdrop-filter: blur(22px) saturate(50%);
+
+      
   }
-  body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root .nav {
+  body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"]))
+    .root
+    .nav {
     border-color: rgb(255 255 255 / 14%);
     background: rgb(15 15 18 / 89%);
   }
@@ -373,7 +395,10 @@ body:has(:global([data-ui~="client-page"])) .root {
   -webkit-backdrop-filter: blur(22px) saturate(160%);
 }
 
-body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root, body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root .nav {
+body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root,
+body:global([data-theme="dark"]):has(:global([data-ui~="client-page"]))
+  .root
+  .nav {
   background: var(--client-glass);
   border-color: rgb(255 255 255 / 13%);
   color: #f5f6f8;
@@ -390,7 +415,9 @@ body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root, b
     backdrop-filter: blur(22px) saturate(160%);
     -webkit-backdrop-filter: blur(22px) saturate(160%);
   }
-  body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root .nav {
+  body:global([data-theme="dark"]):has(:global([data-ui~="client-page"]))
+    .root
+    .nav {
     border-color: rgb(255 255 255 / 13%);
     background: var(--client-glass);
     box-shadow: 0 18px 36px rgb(0 0 0 / 38%);
@@ -398,7 +425,9 @@ body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root, b
 }
 
 @supports not (backdrop-filter: blur(1px)) {
-  body:has(:global([data-ui~="client-page"])) .root, body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root {
+  body:has(:global([data-ui~="client-page"])) .root,
+  body:global([data-theme="dark"]):has(:global([data-ui~="client-page"]))
+    .root {
     background: var(--client-fallback);
   }
 }
@@ -430,6 +459,8 @@ body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root, b
     text-shadow: 0 0 4px rgb(255 126 30 / 40%);
   }
   to {
-    text-shadow: 0 0 7px rgb(255 126 30 / 85%), 0 0 16px rgb(255 101 0 / 75%);
+    text-shadow:
+      0 0 7px rgb(255 126 30 / 85%),
+      0 0 16px rgb(255 101 0 / 75%);
   }
 }

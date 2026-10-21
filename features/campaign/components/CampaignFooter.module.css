@@ -1,41 +1,338 @@
-/* CampaignFooter — estilos locais; contextos externos usam data-ui. */
+
+/* CampaignFooter — estilos locais do rodapé da campanha. */
 
 .root {
   background: #101722;
-  color: white;
+  color: #fff;
   font-size: 0.78rem;
+  border-top: 1px solid rgb(255 255 255 / 12%);
 }
 
 :global([data-ui~="campaign-page"]) .root {
-  border-top: 1px solid rgb(255 255 255 / 12%);
   background: rgb(12 17 24 / 94%);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 }
 
-@media (max-width: 560px) {
-  .root :global([data-ui~="shell"]) {
-    flex-direction: column;
-  }
-}
-
 .root :global([data-ui~="shell"]) {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 15px;
   padding-block: 25px;
+  line-height: 1.6;
 }
 
-@media (max-width: 780px) {
-  .root :global([data-ui~="shell"]) {
-    flex-wrap: wrap;
-    line-height: 1.5;
+.copyright {
+  color: rgb(255 255 255 / 72%);
+}
+
+.footerLinks {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footerLinks a {
+  color: rgb(255 255 255 / 82%);
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.footerLinks a:hover,
+.footerLinks a:focus-visible {
+  color: #ff400c;
+}
+
+/* Crédito do desenvolvedor */
+
+.portfolioWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.portfolioLink {
+  color: #6da8f9;
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: color 180ms ease;
+}
+
+.portfolioLink:hover,
+.portfolioLink:focus-visible,
+.portfolioWrapper:hover .portfolioLink {
+  color: #ff400c;
+}
+
+.portfolioLink:focus-visible,
+.footerLinks a:focus-visible {
+  outline: 2px solid #ff400c;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+/* Ponte invisível para não fechar o balão ao mover o mouse */
+
+.portfolioWrapper::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+  right: -12px;
+  bottom: 100%;
+  height: 18px;
+}
+
+/* Balão de prévia do portfólio */
+.portfolioPreview {
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  bottom: calc(100% + 10px);
+
+  display: block;
+  width: min(320px, calc(100vw - 32px));
+  box-sizing: border-box;
+
+  color: #242424;
+  background: #fff;
+  border: 4px solid rgb(255 255 255 / 100%);
+  border-radius: 16px;
+
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 15%),
+    0 12px 35px rgb(0 0 0 / 20%),
+    0 3px 8px rgb(0 0 0 / 8%);
+
+  text-decoration: none;
+  text-align: left;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(-50%, 8px) scale(0.97);
+  transform-origin: bottom center;
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms ease;
+}
+
+/* Rabinho do balão com contorno branco */
+.portfolioPreview::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+
+  width: 15px;
+  height: 15px;
+  box-sizing: border-box;
+
+  background: #fff;
+  border-right: 1px solid rgb(255 255 255 / 90%);
+  border-bottom: 1px solid rgb(255 255 255 / 90%);
+
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Exibição ao passar o mouse ou navegar por teclado */
+
+.portfolioWrapper:hover .portfolioPreview,
+.portfolioWrapper:focus-within .portfolioPreview {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.portfolioImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
+}
+
+.previewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 16px 16px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.previewContent strong {
+  color: #202020;
+  font-size: 15px;
+}
+
+.previewAction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  width: 100%;
+  margin-top: 5px;
+
+  color: #ff400c;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+/* Estrutura geral */
+.root {
+  background: #101722;
+  color: #fff;
+  font-size: 0.78rem;
+}
+
+/* Primeira seção: links institucionais */
+.footerMain {
+  background: transparent;
+}
+
+.footerMain :global([data-ui~="shell"]) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 24px;
+}
+
+/* Links */
+.footerLinks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footerLinks a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.footerLinks a:hover,
+.footerLinks a:focus-visible {
+  color: #ff400c;
+}
+
+/* Segunda seção: copyright e crédito */
+.footerBottom {
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  background: rgb(0 0 0 / 12%);
+}
+
+.footerBottom :global([data-ui~="shell"]) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-block: 18px;
+  line-height: 1.6;
+}
+
+.copyright {
+  color: rgb(255 255 255 / 65%);
+}
+
+.footerCredit {
+  color: rgb(255 255 255 / 72%);
+}
+ .previewContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+/* Aplique aqui as regras existentes de:
+   .portfolioWrapper
+   .portfolioLink
+   .portfolioPreview
+   .portfolioPreview::after
+   .portfolioImage
+  
+   .previewAction
+*/
+
+/* Responsividade */
+@media (max-width: 700px) {
+  .footerMain :global([data-ui~="shell"]),
+  .footerBottom :global([data-ui~="shell"]) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .footerMain :global([data-ui~="shell"]) {
+    padding-block: 20px;
+  }
+
+  .footerBottom :global([data-ui~="shell"]) {
+    padding-block: 18px;
+  }
+
+  .footerLinks {
+    gap: 16px;
   }
 }
+
+.footerBottomContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footerLinks a,
+  .portfolioLink,
+  .portfolioPreview {
+    transition: none;
+  }
+}
+
+
+/* Responsividade */
 
 @media (max-width: 700px) {
   .root :global([data-ui~="shell"]) {
     flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .footerLinks {
+    justify-content: center;
+  }
+
+  .portfolioPreview {
+    width: min(300px, calc(100vw - 32px));
+  }
+}
+
+/* Respeita a preferência por menos animações */
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolioPreview,
+  .portfolioLink,
+  .footerLinks a {
+    transition: none;
   }
 }
