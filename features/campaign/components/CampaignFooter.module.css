@@ -1,0 +1,41 @@
+/* CampaignFooter — estilos locais; contextos externos usam data-ui. */
+
+.root {
+  background: #101722;
+  color: white;
+  font-size: 0.78rem;
+}
+
+:global([data-ui~="campaign-page"]) .root {
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  background: rgb(12 17 24 / 94%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+@media (max-width: 560px) {
+  .root :global([data-ui~="shell"]) {
+    flex-direction: column;
+  }
+}
+
+.root :global([data-ui~="shell"]) {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding-block: 25px;
+}
+
+@media (max-width: 780px) {
+  .root :global([data-ui~="shell"]) {
+    flex-wrap: wrap;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 700px) {
+  .root :global([data-ui~="shell"]) {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

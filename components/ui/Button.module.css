@@ -1,0 +1,101 @@
+/* Button — estilos locais; contextos externos usam data-ui. */
+
+.button, .outlineButton, .lightButton {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 23px;
+  border-radius: 999px;
+  font-size: 0.89rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.button {
+  background: linear-gradient(120deg, #ff8200, #ff4b00);
+  color: white;
+  border: 1px solid transparent;
+  box-shadow: 0 7px 15px #ff650025;
+}
+
+.button:hover {
+  background: #e94f00;
+  transform: translateY(-1px);
+}
+
+.outlineButton {
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  background: #fff;
+}
+
+.outlineButton:hover {
+  background: #fff4ec;
+}
+
+.lightButton {
+  background: #ffffffe6;
+  color: #222;
+}
+
+.textLink {
+  background: none;
+  border: 0;
+  color: var(--orange);
+  font-weight: 750;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+}
+
+@media (max-width: 780px) {
+  :global([data-ui~="section-head"]) > .outlineButton {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+body:global([data-theme="dark"]) .lightButton {
+  background-color: #080808;
+  border-color: #344155;
+  color: #f2f5f9;
+  transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
+}
+
+body:global([data-theme="dark"]) .outlineButton {
+  background-color: #090909;
+  border-color: #ff6500;
+  color: #ff995c;
+  transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body .button:hover, body .lightButton:hover, body .outlineButton:hover {
+    animation: none !important;
+  }
+}
+
+@keyframes dark-orange-glow {
+  from {
+    box-shadow: 0 0 8px rgb(255 101 0 / 25%);
+  }
+  to {
+    box-shadow: 0 0 8px rgb(255 101 0 / 45%), 0 0 24px rgb(255 101 0 / 50%);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:global([data-theme="dark"]) :is( .button:not(:global([data-ui~="header-cta"])), .lightButton, .outlineButton ):hover {
+    animation: dark-orange-glow 1.5s ease-in-out infinite alternate;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:not(:global([data-theme="dark"])) :is( .button:not(:global([data-ui~="header-cta"])), .lightButton, .outlineButton ):hover {
+    animation: dark-orange-glow 1.5s ease-in-out infinite alternate;
+  }
+}

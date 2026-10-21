@@ -1,0 +1,58 @@
+/* ClientPageBackground — estilos locais; contextos externos usam data-ui. */
+
+.root {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.root span {
+  position: absolute;
+  width: min(42vw, 540px);
+  aspect-ratio: 1;
+  border: 5px solid var(--client-background-decoration);
+  border-radius: 50%;
+  animation: client-background-drift 18s ease-in-out infinite alternate;
+}
+
+.root span:nth-child(1) {
+  top: -52%;
+  left: -18%;
+  animation-delay: -8s;
+}
+
+.root span:nth-child(2) {
+  top: 8%;
+  right: -18%;
+  animation-duration: 22s;
+  animation-delay: -12s;
+  animation-direction: alternate-reverse;
+}
+
+.root span:nth-child(3) {
+  bottom: -48%;
+  left: 12%;
+  width: min(34vw, 460px);
+  animation-duration: 7s;
+  animation-delay: -5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root span {
+    animation: none;
+  }
+}
+
+@keyframes client-background-drift {
+  from {
+    transform: translate3d(calc(-1 * var(--client-background-drift)), 8px, 0) scale(0.96);
+  }
+  50% {
+    transform: translate3d(0, calc(-1 * var(--client-background-drift)), 0) scale(1);
+  }
+  to {
+    transform: translate3d(var(--client-background-drift), 16px, 0) scale(1.04);
+  }
+}

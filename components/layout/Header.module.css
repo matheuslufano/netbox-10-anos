@@ -1,0 +1,435 @@
+/* Header — estilos locais; contextos externos usam data-ui. */
+
+@media (max-width: 1100px) {
+  .nav {
+    gap: 14px;
+    font-size: 0.75rem;
+  }
+  .headerLocation {
+    display: none;
+  }
+}
+
+@media (max-width: 780px) {
+  .root {
+    height: 65px;
+  }
+  .headerInner {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 780px) {
+  .menuToggle {
+    display: block;
+    order: 3;
+  }
+  .nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 65px;
+    background: white;
+    padding: 12px 20px 20px;
+    box-shadow: 0 15px 20px #14223520;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+}
+
+@media (max-width: 780px) {
+  .nav.open {
+    display: flex;
+  }
+  .nav a {
+    padding: 11px 5px;
+  }
+}
+
+@media (max-width: 780px) {
+  .headerCta {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .headerCta {
+    display: none;
+  }
+}
+
+.root {
+  height: 76px;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 1px 10px #19243709;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  height: 100%;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin: auto;
+  font-weight: 700;
+  font-size: 0.83rem;
+}
+
+.nav a {
+  padding: 28px 0;
+}
+
+.nav a:hover, .nav .active {
+  color: var(--orange);
+}
+
+.nav .active {
+  border-bottom: 3px solid var(--orange);
+}
+
+.headerCta {
+  font-size: 0.78rem;
+}
+
+.headerLocation {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.headerLocation svg {
+  color: var(--orange);
+}
+
+.menuToggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: var(--dark);
+}
+
+@media (max-width: 1100px) {
+  .root .headerInner {
+    gap: 12px;
+  }
+  .root .menuToggle {
+    display: grid;
+    place-items: center;
+    order: 3;
+    flex: none;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .root .nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 76px;
+    margin: 0;
+    padding: 12px max(24px, calc((100vw - 1240px) / 2)) 20px;
+    background: white;
+    box-shadow: 0 15px 20px #14223520;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  .root .nav.open {
+    display: flex;
+  }
+}
+
+@media (max-width: 1100px) {
+  .root .nav a {
+    padding: 11px 5px;
+  }
+  .root .headerCta {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 780px) {
+  .root .nav {
+    top: 65px;
+  }
+}
+
+@media (max-width: 560px) {
+  .root .headerCta {
+    display: none;
+  }
+}
+
+@media (max-width: 780px) {
+  .root .nav a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .root :is(.nav a, .headerCta):hover {
+    animation: header-text-glow 1.5s ease-in-out infinite alternate;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root :is(.nav a, .headerCta):hover {
+    animation: none !important;
+  }
+}
+
+.headerThemeToggle {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--dark);
+  transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
+}
+
+.headerThemeToggle:hover {
+  background-color: #fff0e3;
+}
+
+body:global([data-theme="dark"]) .headerThemeToggle {
+  border-color: #ff6500;
+  background-color: #090909;
+  color: #ff995c;
+}
+
+body:global([data-theme="dark"]) .headerThemeToggle:hover {
+  background-color: #1a100b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headerThemeToggle {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .root .menuToggle {
+    margin-left: auto;
+  }
+  .root .headerThemeToggle {
+    order: 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .root:not(.client) .headerInner {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 8px;
+  }
+  .root:not(.client) .headerThemeToggle {
+    grid-column: 1;
+    grid-row: 1;
+    order: initial;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .root:not(.client) .menuToggle {
+    grid-column: 3;
+    grid-row: 1;
+    order: initial;
+    justify-self: end;
+    margin: 0;
+  }
+  .root:not(.client) .headerCta {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .root:not(.client) .nav {
+    top: 76px;
+    align-items: center;
+    text-align: center;
+  }
+  .root:not(.client) .nav a {
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.root.withContacts .headerInner {
+  gap: 16px;
+}
+
+.withContacts .nav {
+  gap: 16px;
+}
+
+.headerTools {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (min-width: 1101px) and (max-width: 1279px), (max-width: 780px) {
+  .root.withContacts .headerCta {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .root.withContacts .nav {
+    top: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .root.withContacts {
+    height: 76px;
+  }
+  .root.withContacts .headerInner {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    grid-template-rows: 1fr;
+    align-content: center;
+    gap: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .root.withContacts .headerTools {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+  }
+  .root.withContacts .nav {
+    max-height: calc(100dvh - 76px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  body:has(.withContacts) :is(#inicio, #consulta, #acoes, #premios, #como-participar, #ganhadores, #duvidas, #regulamento) {
+    scroll-margin-top: 92px;
+  }
+}
+
+body:has(:global([data-ui~="campaign-page"])) .root {
+  border-bottom: 1px solid rgb(255 255 255 / 74%);
+  background: rgb(255 255 255 / 76%);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+
+body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root, body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root .nav {
+  border-color: rgb(255 255 255 / 14%);
+  background: rgb(13 13 16 / 78%);
+  color: #f6f7fa;
+}
+
+@media (max-width: 1100px) {
+  body:has(:global([data-ui~="campaign-page"])) .root .nav {
+    top: 100%;
+    border: 1px solid var(--glass-rim, rgb(255 255 255 / 70%));
+    border-top: 0;
+    border-radius: 0 0 22px 22px;
+    background: rgb(255 255 255 / 89%);
+    box-shadow: 0 18px 36px rgb(28 42 63 / 16%);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+  }
+  body:global([data-theme="dark"]):has(:global([data-ui~="campaign-page"])) .root .nav {
+    border-color: rgb(255 255 255 / 14%);
+    background: rgb(15 15 18 / 89%);
+  }
+}
+
+body:has(:global([data-ui~="client-page"])) .root {
+  background: var(--client-glass);
+  border-bottom: 1px solid rgb(255 255 255 / 70%);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+
+body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root, body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root .nav {
+  background: var(--client-glass);
+  border-color: rgb(255 255 255 / 13%);
+  color: #f5f6f8;
+}
+
+@media (max-width: 1100px) {
+  body:has(:global([data-ui~="client-page"])) .root .nav {
+    top: 100%;
+    border: 1px solid rgb(255 255 255 / 70%);
+    border-top: 0;
+    border-radius: 0 0 22px 22px;
+    background: var(--client-glass);
+    box-shadow: 0 18px 36px rgb(28 42 63 / 16%);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+  }
+  body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root .nav {
+    border-color: rgb(255 255 255 / 13%);
+    background: var(--client-glass);
+    box-shadow: 0 18px 36px rgb(0 0 0 / 38%);
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  body:has(:global([data-ui~="client-page"])) .root, body:global([data-theme="dark"]):has(:global([data-ui~="client-page"])) .root {
+    background: var(--client-fallback);
+  }
+}
+
+.clientLayout {
+  composes: root client;
+}
+
+.withContactsLayout {
+  composes: root withContacts;
+}
+
+.headerInnerLayout {
+  composes: shell from "../ui/Layout.module.css";
+  composes: headerInner;
+}
+
+.openLayout {
+  composes: nav open;
+}
+
+.headerCtaLayout {
+  composes: button from "../ui/Button.module.css";
+  composes: headerCta;
+}
+
+@keyframes header-text-glow {
+  from {
+    text-shadow: 0 0 4px rgb(255 126 30 / 40%);
+  }
+  to {
+    text-shadow: 0 0 7px rgb(255 126 30 / 85%), 0 0 16px rgb(255 101 0 / 75%);
+  }
+}

@@ -1,0 +1,130 @@
+/* HelpBand — estilos locais; contextos externos usam data-ui. */
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border: 1px solid var(--line);
+  background: white;
+  border-radius: 16px;
+  padding: 18px 24px;
+  margin-top: 18px;
+}
+
+.root > svg {
+  color: var(--orange);
+  flex: none;
+}
+
+.root > div {
+  flex: 1;
+}
+
+.root h3 {
+  margin: 0 0 3px;
+}
+
+.root p {
+  font-size: 0.86rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .root {
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+}
+
+:global([data-ui~="client-page"]) .root {
+  min-width: 0;
+  border: 1px solid var(--client-rim);
+  border-radius: var(--client-radius);
+  background: var(--client-glass);
+  box-shadow: var(--client-shadow);
+  backdrop-filter: blur(var(--client-blur)) saturate(155%);
+  -webkit-backdrop-filter: blur(var(--client-blur)) saturate(155%);
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease, background-color 650ms ease, color 650ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global([data-ui~="client-page"]) .root:hover {
+    transform: translateY(-3px);
+    border-color: rgb(255 121 32 / 58%);
+    box-shadow: 0 20px 44px rgb(61 43 31 / 15%), 0 0 0 1px rgb(255 125 38 / 20%), 0 0 24px rgb(255 115 23 / 20%);
+  }
+  body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .root:hover {
+    border-color: rgb(255 134 43 / 65%);
+    box-shadow: 0 22px 48px rgb(0 0 0 / 48%), 0 0 0 1px rgb(255 125 38 / 25%), 0 0 28px rgb(255 115 23 / 25%);
+  }
+}
+
+:global([data-ui~="client-page"]) .root {
+  gap: 16px;
+  margin-top: 18px;
+  padding: 20px 24px;
+}
+
+:global([data-ui~="client-page"]) .root h3 {
+  color: var(--client-ink);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .root {
+  background: var(--client-glass);
+  border-color: var(--client-rim);
+  box-shadow: var(--client-shadow);
+  color: var(--client-ink);
+}
+
+:global([data-ui~="client-page"]):global([data-ui~="client-main--full"]) .root, body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .root {
+  box-shadow: var(--client-section-shadow);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .root h3 {
+  color: var(--client-ink);
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .root {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 10px 13px;
+    margin-top: 12px;
+    padding: 18px;
+  }
+  :global([data-ui~="client-page"]) .root > svg {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  :global([data-ui~="client-page"]) .root {
+    background: var(--client-fallback);
+  }
+  body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .root {
+    background: var(--client-fallback);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-ui~="client-page"]) .root:hover {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .root :global([data-ui~="button"]) {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .root :global([data-ui~="button"]) {
+    grid-column: 1 / -1;
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}

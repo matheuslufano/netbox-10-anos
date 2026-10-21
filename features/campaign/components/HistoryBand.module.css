@@ -1,0 +1,289 @@
+/* HistoryBand — estilos locais; contextos externos usam data-ui. */
+
+@media (max-width: 780px) {
+  .historyInner {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .historyInner {
+    display: block;
+  }
+  .historyStats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 560px) {
+  .historyStats small {
+    grid-column: 1/-1;
+  }
+}
+
+.root {
+  background-image: linear-gradient( 90deg, #08111e 0%, #08111ed6 26%, #08111e0d 65%, #08111ed6 100% ), url("/images/netbox-10-anos/banner-historia.png");
+  background-position: center;
+  background-size: cover;
+}
+
+@media (max-width: 780px) {
+  .root {
+    background-position: 55% center;
+  }
+}
+
+@media (max-width: 560px) {
+  .root {
+    background-image: linear-gradient(90deg, #08111ee8, #08111e88), url("/images/netbox-10-anos/banner-historia.png");
+    background-position: 60% center;
+  }
+}
+
+.root {
+  background: linear-gradient(90deg, #080f1b 0%, #0b1725e8 30%, #0e192bcc), url("/images/netbox-10-anos/banner-publico.png") center/cover;
+  color: white;
+  min-height: 270px;
+}
+
+.historyInner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  padding-block: 35px;
+}
+
+.historyInner > div:first-child {
+  max-width: 450px;
+}
+
+.historyInner h2 {
+  font-size: 2.45rem;
+  margin: 13px 0;
+}
+
+.historyInner p {
+  font-size: 0.94rem;
+}
+
+.historyStats p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  font-size: 0.91rem;
+}
+
+.historyStats svg {
+  color: var(--orange);
+  width: 25px;
+}
+
+.historyStats b {
+  color: #ffbb65;
+}
+
+.historyStats small {
+  font-size: 0.69rem;
+  color: #b8c0c9;
+}
+
+@media (max-width: 400px) {
+  .historyStats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .historyStats small {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .historyInner {
+    display: block;
+    padding-block: 32px;
+  }
+  .historyInner > div:first-child {
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 700px) {
+  .historyStats {
+    max-width: 540px;
+    margin-top: 26px;
+  }
+}
+
+@media (max-width: 560px) {
+  .root {
+    margin-block: 20px;
+  }
+  .historyInner h2 {
+    font-size: clamp(1.75rem, 7vw, 2.1rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .historyStats p {
+    font-size: 0.85rem;
+  }
+}
+
+:global([data-ui~="campaign-page"]) .root {
+  --history-surface: rgb(7 19 36 / 58%);
+  --history-border: rgb(169 198 232 / 20%);
+  --history-accent: #ffb579;
+  --history-muted: #c0cedf;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 88% 20%, rgb(52 99 155 / 28%), transparent 42%), radial-gradient(ellipse at 12% 100%, rgb(28 68 117 / 26%), transparent 48%), linear-gradient(120deg, #0b1525, #142b45 55%, #0d1c30);
+  color: #f2f6fc;
+}
+
+:global([data-ui~="campaign-page"]) .historyInner {
+  position: relative;
+  z-index: 1;
+}
+
+:global([data-ui~="campaign-page"]) .decoration {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  color: var(--history-accent);
+  pointer-events: none;
+  background: radial-gradient(circle at 8% 24%, currentColor 0 2px, transparent 3px), radial-gradient(circle at 48% 78%, currentColor 0 2px, transparent 3px), radial-gradient(circle at 76% 18%, currentColor 0 1px, transparent 2px), radial-gradient(circle at 94% 65%, currentColor 0 2px, transparent 3px);
+}
+
+:global([data-ui~="campaign-page"]) .decoration::before, :global([data-ui~="campaign-page"]) .decoration::after {
+  position: absolute;
+  width: clamp(160px, 24vw, 340px);
+  aspect-ratio: 1;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.12;
+  content: "";
+}
+
+:global([data-ui~="campaign-page"]) .decoration::before {
+  top: -40%;
+  left: -5%;
+}
+
+:global([data-ui~="campaign-page"]) .decoration::after {
+  right: -7%;
+  bottom: -45%;
+}
+
+:global([data-ui~="campaign-page"]) .rocket {
+  position: absolute;
+  right: 5%;
+  bottom: 12%;
+  width: 76px;
+  height: 76px;
+  opacity: 0.24;
+  transform: rotate(-25deg);
+  animation: history-rocket-launch 9s ease-in infinite;
+}
+
+:global([data-ui~="campaign-page"]) .rocket svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+:global([data-ui~="campaign-page"]) .rocket::after {
+  position: absolute;
+  top: 70%;
+  right: 70%;
+  width: 12px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(var(--history-accent), transparent);
+  transform: rotate(45deg);
+  transform-origin: top center;
+  content: "";
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .rocket {
+    right: 16px;
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-ui~="campaign-page"]) .rocket {
+    animation: none;
+  }
+}
+
+:global([data-ui~="campaign-page"]) .historyInner > div:first-child, :global([data-ui~="campaign-page"]) .historyStats {
+  padding: 22px;
+  border: 1px solid var(--history-border);
+  border-radius: 22px;
+  background: var(--history-surface);
+  box-shadow: inset 0 1px rgb(255 255 255 / 12%);
+  backdrop-filter: blur(16px) saturate(135%);
+  -webkit-backdrop-filter: blur(16px) saturate(135%);
+}
+
+:global([data-ui~="campaign-page"]) .historyStats {
+  min-width: 250px;
+}
+
+:global([data-ui~="campaign-page"]) .historyStats :is(svg, b) {
+  color: var(--history-accent);
+}
+
+:global([data-ui~="campaign-page"]) .historyStats small {
+  color: var(--history-muted);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .root {
+  --history-surface: rgb(5 14 28 / 68%);
+  --history-border: rgb(169 198 232 / 18%);
+  --history-accent: #ffad70;
+  --history-muted: #becbdb;
+  background: radial-gradient(ellipse at 88% 20%, rgb(40 78 128 / 24%), transparent 42%), radial-gradient(ellipse at 12% 100%, rgb(20 49 87 / 22%), transparent 48%), linear-gradient(120deg, #070f1b, #102238 55%, #0a1424);
+  color: #f2f6fc;
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="campaign-page"]) .historyInner > div:first-child, :global([data-ui~="campaign-page"]) .historyStats {
+    padding: 18px;
+    border-radius: 20px;
+  }
+  :global([data-ui~="campaign-page"]) .historyStats {
+    min-width: 0;
+  }
+}
+
+.historyInnerLayout {
+  composes: shell from "../../../components/ui/Layout.module.css";
+  composes: historyInner;
+}
+
+@keyframes history-rocket-launch {
+  0%, 18% {
+    opacity: 0.24;
+    transform: translate3d(0, 0, 0) rotate(-25deg);
+  }
+  65%, 100% {
+    opacity: 0;
+    transform: translate3d(90px, -340px, 0) rotate(-25deg);
+  }
+}
+
+.historyInner :global([data-ui~="outline-button"]) {
+  background: transparent;
+}
+
+:global([data-ui~="campaign-page"]) .historyInner :global([data-ui~="eyebrow"]) {
+  color: var(--history-accent);
+}

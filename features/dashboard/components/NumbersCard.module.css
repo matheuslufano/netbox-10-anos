@@ -1,0 +1,72 @@
+/* NumbersCard — estilos locais; contextos externos usam data-ui. */
+
+.cardTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.mutedNote {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+.mutedNote svg {
+  flex: none;
+}
+
+.emptyNumbers {
+  color: var(--muted);
+  background: #f7f8fa;
+  padding: 18px;
+  border-radius: 10px;
+}
+
+@media (max-width: 560px) {
+  .cardTitle {
+    flex-wrap: wrap;
+  }
+}
+
+:global([data-ui~="client-page"]) .root .cardTitle {
+  align-items: flex-start;
+}
+
+:global([data-ui~="client-page"]) .emptyNumbers {
+  border: 1px solid var(--client-rim);
+  background: var(--client-soft);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .emptyNumbers {
+  border-color: rgb(255 255 255 / 13%);
+  background: var(--client-soft);
+  box-shadow: inset 0 1px rgb(255 255 255 / 10%);
+  color: var(--client-ink);
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .root .cardTitle {
+    flex-wrap: wrap;
+  }
+}
+
+.card {
+  composes: dashboardCard from "../../../components/ui/Card.module.css";
+  composes: root;
+}
+
+@media (max-width: 560px) {
+  .cardTitle :global([data-ui~="text-link"]) {
+    margin-left: auto;
+  }
+}
+
+:global([data-ui~="client-page"]) .root :global([data-ui~="text-link"]) {
+  color: #d85000;
+  font-weight: 750;
+}

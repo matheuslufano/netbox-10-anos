@@ -1,0 +1,23 @@
+/* LuckyNumberTicket — estilos locais; contextos externos usam data-ui. */
+
+.root {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  overflow: visible;
+  filter: drop-shadow(0 3px 2px rgb(96 51 22 / 17%));
+}
+
+.texture, .frame, .fineLine, .icons {
+  pointer-events: none;
+}
+
+.number {
+  font-variant-numeric: tabular-nums;
+  user-select: text;
+}
+
+body:global([data-theme="dark"]) .root {
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 36%));
+}

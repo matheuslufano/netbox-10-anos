@@ -1,8 +1,7 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import "./header-contacts.css";
-import { ConsultationProvider } from "@/components/consultation-provider";
+import { ConsultationProvider } from "@/features/campaign/context/ConsultationProvider";
 
 const manrope = localFont({
   src: "./fonts/manrope-latin.woff2",
@@ -27,7 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" data-scroll-behavior="smooth">
       <body className={`${manrope.variable} ${sora.variable}`}>
         <ConsultationProvider>{children}</ConsultationProvider>
       </body>

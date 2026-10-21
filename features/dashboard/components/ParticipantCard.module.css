@@ -1,0 +1,103 @@
+/* ParticipantCard — estilos locais; contextos externos usam data-ui. */
+
+.root {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 16px 20px;
+}
+
+.icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  border-radius: 14px;
+  background: #fff0e4;
+  color: var(--orange);
+}
+
+.root small {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.root strong {
+  font-size: 0.96rem;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 780px) {
+  .root {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+:global([data-ui~="client-page"]) .root {
+  display: block;
+  margin-top: 0;
+}
+
+:global([data-ui~="client-page"]) .heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+:global([data-ui~="client-page"]) .heading h2 {
+  margin: 0;
+}
+
+:global([data-ui~="client-page"]) .details {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+:global([data-ui~="client-page"]) .details dt {
+  color: var(--client-muted);
+  font-size: 0.75rem;
+}
+
+:global([data-ui~="client-page"]) .details dd {
+  margin: 4px 0 0;
+  font-size: 0.94rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+:global([data-ui~="client-page"]) .icon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgb(255 117 25 / 18%);
+  border-radius: 16px;
+  background: var(--client-accent-glass);
+  box-shadow: inset 0 1px rgb(255 255 255 / 65%);
+}
+
+:global([data-ui~="client-page"]) .root small {
+  color: var(--client-muted);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .icon {
+  border-color: rgb(255 120 35 / 32%);
+  background: var(--client-accent-glass);
+  box-shadow: inset 0 1px rgb(255 255 255 / 10%);
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .root {
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+}
+
+.card {
+  composes: dashboardCard from "../../../components/ui/Card.module.css";
+  composes: root;
+}

@@ -1,0 +1,30 @@
+/* RegulationPage — estilos locais; contextos externos usam data-ui. */
+
+.root {
+  max-width: 760px;
+  text-align: center;
+  padding-top: 100px;
+}
+
+.root svg {
+  color: var(--orange);
+}
+
+.root p {
+  color: var(--muted);
+}
+
+@media (max-width: 560px) {
+  .root {
+    padding-top: 48px;
+  }
+}
+
+.content {
+  composes: shell subpage from "../../components/ui/Layout.module.css";
+  composes: root;
+}
+
+.root :global([data-ui~="button"]) {
+  margin-top: 20px;
+}

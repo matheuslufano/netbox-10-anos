@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { validCPF, maskCPF, parseResponse } from "../lib/consult.ts";
+import { validCPF, maskCPF, parseResponse } from "../features/campaign/model/consult.ts";
 
 const fixture={ok:true,cpf:"529.***.***-25",nome:"PESSOA T.",total:1,numeros:["0084"],por_origem:{ativacao:{acoes:1,numeros:1}},campanha:{inicio:"2026-10-01",fim:"2026-12-31"}};
 test("validates CPF check digits and rejects repeated digits",()=>{assert.equal(validCPF("529.982.247-25"),true);assert.equal(validCPF("529.982.247-26"),false);assert.equal(validCPF("11111111111"),false)});

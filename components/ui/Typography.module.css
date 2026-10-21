@@ -1,0 +1,8 @@
+/* Typography — estilos locais; contextos externos usam data-ui. */
+
+.eyebrow {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+}

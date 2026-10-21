@@ -1,0 +1,249 @@
+/* ConsultForm — estilos locais; contextos externos usam data-ui. */
+
+@media (max-width: 780px) {
+  .consultControls {
+    grid-template-columns: 1fr 150px;
+  }
+}
+
+.root {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 27px 32px;
+  box-shadow: 0 12px 30px #25324813;
+}
+
+.root h2 {
+  margin-bottom: 5px;
+}
+
+.root p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.consultControls {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) 180px 230px;
+  gap: 13px;
+  align-items: stretch;
+}
+
+.consultControls input {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: #f7f8fa;
+  border-radius: 12px;
+  padding: 13px 18px;
+}
+
+.formError {
+  color: #b02920 !important;
+  margin: 12px 0 0 !important;
+}
+
+@media (max-width: 780px) {
+  .root[id] {
+    scroll-margin-top: 82px;
+  }
+}
+
+@media (max-width: 560px) {
+  .root {
+    padding: 22px 18px;
+    border-radius: 22px;
+  }
+  .root > div:first-child {
+    text-align: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .root h2 {
+    font-size: clamp(1.4rem, 6vw, 1.75rem);
+    line-height: 1.15;
+  }
+  .root > div:first-child p {
+    max-width: 30ch;
+    margin: 0 auto 18px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .consultControls {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 11px;
+  }
+  .consultControls input {
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 16px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .root .formError {
+    overflow-wrap: anywhere;
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+}
+
+body:global([data-theme="dark"]) .consultControls input {
+  background-color: #080808;
+  border-color: #344155;
+  color: #f2f5f9;
+  transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
+}
+
+body:global([data-theme="dark"]) :is( :global([data-ui~="campaign-actions__ticket"]), :global([data-ui~="commercial-card"]), :global([data-ui~="winner-card"]), :global([data-ui~="faq-grid"]) details, :global([data-ui~="regulation-card"]), .root ) {
+  transition: background-color 650ms ease, color 650ms ease, border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+body:not(:global([data-theme="dark"])) :is( :global([data-ui~="campaign-actions__ticket"]), :global([data-ui~="commercial-card"]), :global([data-ui~="winner-card"]), :global([data-ui~="faq-grid"]) details, :global([data-ui~="regulation-card"]), .root ) {
+  transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body:global([data-theme="dark"]) :is( :global([data-ui~="commercial-card"]), :global([data-ui~="winner-card"]), :global([data-ui~="faq-grid"]) details, :global([data-ui~="regulation-card"]), .root ):hover {
+    transform: translateY(-4px);
+    border-color: #ff8033;
+    box-shadow: 0 14px 32px rgb(0 0 0 / 45%), 0 0 0 1px rgb(255 119 30 / 32%), 0 0 28px rgb(255 101 0 / 28%);
+  }
+  body:not(:global([data-theme="dark"])) :is( :global([data-ui~="commercial-card"]), :global([data-ui~="winner-card"]), :global([data-ui~="faq-grid"]) details, :global([data-ui~="regulation-card"]), .root ):hover {
+    transform: translateY(-4px);
+    border-color: #ff8033;
+    box-shadow: 0 14px 30px rgb(73 41 19 / 15%), 0 0 0 1px rgb(255 101 0 / 32%), 0 0 26px rgb(255 101 0 / 30%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body :is( :global([data-ui~="campaign-actions__ticket"]), :global([data-ui~="commercial-card"]), :global([data-ui~="winner-card"]), :global([data-ui~="faq-grid"]) details, :global([data-ui~="regulation-card"]), .root ):hover {
+    transform: none !important;
+  }
+}
+
+:global([data-ui~="campaign-page"]) .root {
+  border: 1px solid var(--glass-rim);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 34px);
+  border-radius: 26px;
+  background: rgb(255 255 255 / 75%);
+  backdrop-filter: blur(30px) saturate(165%);
+  -webkit-backdrop-filter: blur(30px) saturate(165%);
+}
+
+:global([data-ui~="campaign-page"]) .root::after {
+  position: absolute;
+  z-index: 0;
+  top: -25%;
+  bottom: -25%;
+  left: -55%;
+  width: 55%;
+  background: linear-gradient( 105deg, transparent 34%, rgb(255 255 255 / 0%) 43%, rgb(255 255 255 / 50%) 50%, rgb(255 255 255 / 0%) 57%, transparent 66% );
+  animation: consult-card-reflection 6s ease-in-out infinite;
+  content: "";
+  pointer-events: none;
+}
+
+:global([data-ui~="campaign-page"]) .root > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-ui~="campaign-page"]) .root::after {
+    animation: none;
+  }
+}
+
+:global([data-ui~="campaign-page"]) .root :is(h2, p) {
+  color: var(--glass-ink);
+}
+
+:global([data-ui~="campaign-page"]) .consultControls input {
+  border: 1px solid rgb(255 255 255 / 75%);
+  background: var(--glass-soft);
+  box-shadow: inset 0 1px rgb(255 255 255 / 85%);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .root {
+  background: rgb(22 22 26 / 54%);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .consultControls input {
+  border-color: rgb(255 255 255 / 16%);
+  background: var(--glass-soft);
+  color: var(--glass-ink);
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="campaign-page"]) .consultControls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  :global([data-ui~="campaign-page"]) .consultControls input {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 56px;
+    padding-right: 64px;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="campaign-page"]) .consultSubmitLabel {
+    display: none;
+  }
+  :global([data-ui~="campaign-page"]) .root {
+    border-radius: 22px;
+  }
+}
+
+@keyframes consult-card-reflection {
+  0%, 18% {
+    transform: translateX(-100%) skewX(-20deg);
+  }
+  68%, 100% {
+    transform: translateX(380%) skewX(-20deg);
+  }
+}
+
+.consultControls :global([data-ui~="button"]) {
+  border-radius: 12px;
+}
+
+@media (max-width: 560px) {
+  .consultControls :global([data-ui~="button"]) {
+    width: 100%;
+    min-height: 52px;
+  }
+}
+
+@media (max-width: 560px) {
+  .root .formError :global([data-ui~="text-link"]) {
+    min-height: 44px;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="campaign-page"]) .consultControls :global([data-ui~="button"]) {
+    z-index: 1;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    margin-right: 6px;
+    padding: 0;
+    border-radius: 10px;
+  }
+}

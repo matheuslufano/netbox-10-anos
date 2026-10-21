@@ -1,0 +1,40 @@
+/* Layout — estilos locais; contextos externos usam data-ui. */
+
+@media (max-width: 780px) {
+  .shell {
+    width: min(100% - 32px, 1240px);
+  }
+}
+
+.shell {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: 54px;
+}
+
+.subpage {
+  padding-block: 45px;
+  min-height: 75vh;
+}
+
+.subpage .section {
+  padding-top: 0;
+}
+
+@media (max-width: 780px) {
+  .section[id] {
+    scroll-margin-top: 82px;
+  }
+}
+
+@media (max-width: 560px) {
+  .shell {
+    width: calc(100% - 32px);
+  }
+  .section {
+    padding-block: 28px;
+  }
+}

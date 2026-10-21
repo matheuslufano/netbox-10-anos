@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { digits, parseResponse, validCPF } from "@/lib/consult";
+import { digits, parseResponse, validCPF } from "@/features/campaign/model/consult";
 export const dynamic = "force-dynamic";
 const headers = { "Cache-Control": "no-store, private" };
 function fail(status: number, code: string) {
