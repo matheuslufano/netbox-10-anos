@@ -1,0 +1,201 @@
+/* Layout — estilos locais; contextos externos usam data-ui. */
+.layoutFooter-credit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 20px 16px;
+  text-align: center;
+
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #777;
+}
+
+.layoutFooter-credit p {
+  margin: 0;
+}
+
+.layoutFooter-credit a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+
+.layoutPortfolioWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.layoutPortfolioLink {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: color 180ms ease;
+}
+
+.layoutPortfolioLink:hover,
+.layoutPortfolioLink:focus-visible {
+  color: #ff400c;
+}
+
+.layoutPortfolioPreview {
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  bottom: calc(100% + 14px);
+
+  width: min(320px, calc(100vw - 32px));
+  overflow: hidden;
+
+  color: #242424;
+  background: rgb(255 255 255 / 96%);
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: 16px;
+
+  box-shadow:
+    0 12px 35px rgb(0 0 0 / 16%),
+    0 2px 8px rgb(0 0 0 / 6%);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transform: translate(-50%, 8px) scale(0.97);
+  transform-origin: bottom center;
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms ease;
+}
+
+/* Pequena seta do balão */
+.layoutPortfolioPreview::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+
+  width: 13px;
+  height: 13px;
+
+  background: #fff;
+  border-right: 1px solid rgb(0 0 0 / 6%);
+  border-bottom: 1px solid rgb(0 0 0 / 6%);
+
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Exibe o balão ao passar o mouse ou navegar por teclado */
+.layoutPortfolioWrapper:hover .layoutPortfolioPreview,
+.layoutPortfolioWrapper:focus-within .layoutPortfolioPreview {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.layoutPortfolioImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.layoutPreviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 16px 16px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.layoutPreviewContent strong {
+  color: #202020;
+  font-size: 15px;
+}
+
+.layoutPreviewAction {
+  margin-top: 5px;
+  color: #ff400c;
+  font-weight: 600;
+}
+
+/* Respeita a preferência por menos animações */
+@media (prefers-reduced-motion: reduce) {
+  .layoutPortfolioPreview,
+  .layoutPortfolioLink {
+    transition: none;
+  }
+}
+
+
+.layoutFooter-credit a:hover {
+  color: #100cff;
+}
+
+.layoutFooter-credit a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 480px) {
+  .layoutFooter-credit {
+    padding: 16px 12px;
+    font-size: 12px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 780px) {
+  .layoutShell {
+    width: min(100% - 32px, 1240px);
+  }
+}
+
+.layoutShell {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.layoutSection {
+  padding-block: 54px;
+}
+
+.layoutSubpage {
+  padding-block: 45px;
+  min-height: 75vh;
+}
+
+.layoutSubpage .layoutSection {
+  padding-top: 0;
+}
+
+@media (max-width: 780px) {
+  .layoutSection[id] {
+    scroll-margin-top: 82px;
+  }
+}
+
+@media (max-width: 560px) {
+  .layoutShell {
+    width: calc(100% - 32px);
+  }
+  .layoutSection {
+    padding-block: 28px;
+  }
+}

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import {
   ConsultationError,
   fetchConsultation,
-} from "../features/campaign/services/consultationService.ts";
+} from "../src/services/campaign/consultationService.ts";
 
 const result = {
   ok: true,

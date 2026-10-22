@@ -1,0 +1,20 @@
+/* AdminLockedPage — estilos locais; contextos externos usam data-ui. */
+
+.adminLockedPageRoot {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 24px;
+}
+
+.adminLockedPageRoot svg {
+  color: var(--orange);
+}
+
+.adminLockedPageRoot p {
+  max-width: 500px;
+  color: var(--muted);
+}

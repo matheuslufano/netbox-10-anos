@@ -1,0 +1,51 @@
+/* SectionHeading — estilos locais; contextos externos usam data-ui. */
+
+.sectionHeadingSectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.sectionHeadingSectionHead h2 {
+  margin-bottom: 5px;
+}
+
+.sectionHeadingSectionHead p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+@media (max-width: 780px) {
+  .sectionHeadingSectionHead {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .sectionHeadingSectionHead {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .sectionHeadingSectionHead h2 {
+    font-size: clamp(1.5rem, 6vw, 1.9rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .sectionHeadingSectionHead p {
+    font-size: 0.9rem;
+  }
+}
+
+body:global([data-theme="dark"]) .sectionHeadingSectionHead h2 {
+  color: #f2f5f9;
+  transition: color 650ms ease;
+}
+
+body:global([data-theme="dark"]) .sectionHeadingSectionHead p {
+  color: #b6c0ce;
+  transition: color 650ms ease;
+}

@@ -1,5 +1,7 @@
 # Relatório da reorganização
 
+> Histórico da migração anterior para CSS Modules. A estrutura vigente está no [README](../README.md); a migração posterior para `src` está em [ALTERACOES-SRC.md](ALTERACOES-SRC.md). Os caminhos antigos abaixo descrevem aquele momento.
+
 ## Resultado e estrutura final
 
 O projeto foi reorganizado por funcionalidade, mantendo app/ na raiz e as URLs existentes. 36 CSS Modules substituem as folhas genéricas de componentes e telas. O CSS global passou de 2005 para 117 linhas. Não foram adicionadas dependências, nem alterados assets, ambiente, contratos da API ou o proxy administrativo.

@@ -1,0 +1,462 @@
+/* CommercialBand — estilos locais; contextos externos usam data-ui. */
+
+:global([data-ui~="client-main"]) .commercialBandRoot {
+  border-radius: 16px;
+  margin: 18px 0;
+  background: linear-gradient(115deg, #fff1e2, #fff8ef);
+}
+
+:global([data-ui~="client-main"]) .commercialBandCommercialGrid {
+  width: 100%;
+  grid-template-columns: 1.3fr repeat(3, 1fr);
+  padding: 0 12px;
+}
+
+:global([data-ui~="client-main"]) .commercialBandCommercialIntro svg {
+  width: 50px;
+}
+
+:global([data-ui~="client-main"]) .commercialBandCommercialIntro h2 {
+  font-size: 1.15rem;
+}
+
+@media (max-width: 1100px) {
+  .commercialBandCommercialGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .commercialBandCommercialIntro {
+    grid-column: 1/-1;
+  }
+}
+
+@media (max-width: 1100px) {
+  :global([data-ui~="client-main"]) .commercialBandCommercialGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  :global([data-ui~="client-main"]) .commercialBandCommercialIntro {
+    grid-column: 1/-1;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialGrid, :global([data-ui~="client-main"]) .commercialBandCommercialGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .commercialBandCommercialCard:last-child {
+    grid-column: 1/-1;
+  }
+}
+
+.commercialBandCommercialIntro em {
+  font-style: normal;
+  color: var(--orange);
+  font-weight: 900;
+}
+
+.commercialBandRoot {
+  background: linear-gradient(115deg, #ffeddd, #fff7ee);
+  padding: 22px 0;
+  margin-top: 10px;
+}
+
+.commercialBandCommercialGrid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 12px;
+}
+
+.commercialBandCommercialIntro {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 13px;
+}
+
+.commercialBandCommercialIntro svg {
+  color: var(--orange);
+  flex: none;
+}
+
+.commercialBandCommercialIntro h2 {
+  font-size: 1.4rem;
+  margin-bottom: 9px;
+}
+
+.commercialBandCommercialIntro p {
+  font-size: 0.87rem;
+  color: var(--muted);
+}
+
+.commercialBandCommercialCard {
+  background: #fff;
+  border-radius: 17px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.commercialBandCommercialCard svg {
+  color: var(--orange);
+}
+
+.commercialBandCommercialCard h3 {
+  font-size: 0.88rem;
+  min-height: 30px;
+  margin: 0;
+}
+
+.commercialBandCommercialCard strong {
+  color: var(--orange);
+  font-size: 1.16rem;
+}
+
+.commercialBandCommercialCard small {
+  font-size: 0.63rem;
+  color: var(--muted);
+}
+
+@media (max-width: 400px) {
+  .commercialBandCommercialGrid, :global([data-ui~="client-main"]) .commercialBandCommercialGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .commercialBandCommercialCard:last-child {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCampaignCommercial {
+    margin-block: 20px;
+    padding-block: 26px;
+  }
+  .commercialBandCommercialGrid, :global([data-ui~="client-main"]) .commercialBandCommercialGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialIntro {
+    grid-column: auto;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 4px 2px 10px;
+  }
+  .commercialBandCommercialIntro svg {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialIntro h2 {
+    font-size: 1.25rem;
+  }
+  .commercialBandCommercialCard, .commercialBandCommercialCard:last-child {
+    display: grid;
+    grid-column: auto;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 5px 13px;
+    padding: 17px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialCard > svg {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  .commercialBandCommercialCard h3, .commercialBandCommercialCard strong {
+    grid-column: 2;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialCard h3 {
+    font-size: 0.96rem;
+  }
+  .commercialBandCommercialCard strong {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialCard small {
+    grid-column: 1 / -1;
+  }
+}
+
+body:global([data-theme="dark"]) .commercialBandCampaignCommercial {
+  background: linear-gradient(115deg,#000);
+  color: #f2f5f9;
+  transition: background 650ms ease, color 650ms ease;
+}
+
+body:global([data-theme="dark"]) .commercialBandCommercialIntro h2 {
+  color: #f2f5f9;
+  transition: color 650ms ease;
+}
+
+body:global([data-theme="dark"]) .commercialBandCommercialIntro p {
+  color: #b6c0ce;
+  transition: color 650ms ease;
+}
+
+:global([data-ui~="campaign-page"]) .commercialBandCommercialCard {
+  border: 1px solid var(--glass-rim);
+  background: var(--glass-surface);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+:global([data-ui~="campaign-page"]) .commercialBandCampaignCommercial {
+  margin-block: 22px;
+  padding-block: 24px;
+  border-top: 1px solid var(--glass-rim);
+  border-bottom: 1px solid var(--glass-rim);
+  background: rgb(255 246 237 / 56%);
+  backdrop-filter: blur(20px) saturate(145%);
+  -webkit-backdrop-filter: blur(20px) saturate(145%);
+}
+
+:global([data-ui~="campaign-page"]) .commercialBandCommercialCard {
+  border-radius: 21px;
+}
+
+:global([data-ui~="campaign-page"]) .commercialBandCommercialIntro h2, :global([data-ui~="campaign-page"]) .commercialBandCommercialCard h3 {
+  color: var(--glass-ink);
+}
+
+:global([data-ui~="campaign-page"]) .commercialBandCommercialIntro p, :global([data-ui~="campaign-page"]) .commercialBandCommercialCard small {
+  color: var(--glass-muted);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .commercialBandCampaignCommercial {
+  border-color: var(--glass-rim);
+  background: rgb(20 17 15 / 72%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global([data-ui~="campaign-page"]) .commercialBandCommercialCard:hover {
+    border-color: rgb(255 128 44 / 58%);
+    box-shadow: 0 17px 38px rgb(54 40 28 / 17%), 0 0 0 1px rgb(255 120 35 / 21%), 0 0 26px rgb(255 113 26 / 20%);
+  }
+  body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .commercialBandCommercialCard:hover {
+    border-color: rgb(255 135 48 / 62%);
+    box-shadow: 0 18px 40px rgb(0 0 0 / 47%), 0 0 0 1px rgb(255 120 35 / 25%), 0 0 28px rgb(255 113 26 / 25%);
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="campaign-page"]) .commercialBandCampaignCommercial {
+    margin-block: 14px;
+    padding-block: 22px;
+  }
+  :global([data-ui~="campaign-page"]) .commercialBandCommercialCard {
+    border-radius: 20px;
+  }
+}
+
+:global([data-ui~="client-page"]) .commercialBandCampaignCommercial {
+  margin: 18px 0;
+  padding: 20px;
+  border: 1px solid var(--client-rim);
+  border-radius: 26px;
+  background: var(--client-glass);
+  box-shadow: var(--client-shadow);
+  backdrop-filter: blur(22px) saturate(155%);
+  -webkit-backdrop-filter: blur(22px) saturate(155%);
+}
+
+:global([data-ui~="client-page"]) .commercialBandCommercialGrid {
+  width: 100%;
+  grid-template-columns: 1.18fr repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+}
+
+:global([data-ui~="client-page"]) .commercialBandCommercialIntro {
+  gap: 14px;
+  padding: 12px;
+}
+
+:global([data-ui~="client-page"]) .commercialBandCommercialIntro h2 {
+  color: var(--client-ink);
+  font-size: 1.18rem;
+}
+
+:global([data-ui~="client-page"]) .commercialBandCommercialIntro p, :global([data-ui~="client-page"]) .commercialBandCommercialCard small {
+  color: var(--client-muted);
+}
+
+:global([data-ui~="client-page"]) .commercialBandCommercialCard {
+  border: 1px solid var(--client-rim);
+  border-radius: 20px;
+  background: var(--client-glass);
+  box-shadow: var(--client-shadow);
+  backdrop-filter: blur(16px) saturate(145%);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+}
+
+:global([data-ui~="client-page"]) .commercialBandCommercialCard h3 {
+  color: var(--client-ink);
+}
+
+:global([data-ui~="client-page"]) .commercialBandCommercialCard {
+  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease, background-color 650ms ease, color 650ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :global([data-ui~="client-page"]) .commercialBandCommercialCard:hover {
+    transform: translateY(-3px);
+    border-color: rgb(255 121 32 / 58%);
+    box-shadow: 0 20px 44px rgb(61 43 31 / 15%), 0 0 0 1px rgb(255 125 38 / 20%), 0 0 24px rgb(255 115 23 / 20%);
+  }
+  body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCommercialCard:hover {
+    border-color: rgb(255 134 43 / 65%);
+    box-shadow: 0 22px 48px rgb(0 0 0 / 48%), 0 0 0 1px rgb(255 125 38 / 25%), 0 0 28px rgb(255 115 23 / 25%);
+  }
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCommercialCard {
+  border-color: var(--client-rim);
+  color: var(--client-ink);
+}
+
+:global([data-ui~="client-page"]):global([data-ui~="client-main--full"]) .commercialBandCampaignCommercial, body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCampaignCommercial {
+  box-shadow: var(--client-section-shadow);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCampaignCommercial {
+  border-color: var(--client-rim);
+  background: var(--client-glass);
+  color: var(--client-ink);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCommercialCard {
+  background: var(--client-glass);
+  box-shadow: var(--client-shadow);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCommercialIntro :is(h2, p), body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCommercialCard h3 {
+  color: var(--client-ink);
+}
+
+@media (max-width: 980px) {
+  :global([data-ui~="client-page"]) .commercialBandCommercialGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  :global([data-ui~="client-page"]) .commercialBandCommercialIntro {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .commercialBandCampaignCommercial {
+    margin: 12px 0;
+    padding: 16px;
+    border-radius: 24px;
+  }
+  :global([data-ui~="client-page"]) .commercialBandCommercialGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .commercialBandCommercialIntro {
+    grid-column: auto;
+    padding: 4px 2px 8px;
+  }
+  :global([data-ui~="client-page"]) .commercialBandCommercialCard, :global([data-ui~="client-page"]) .commercialBandCommercialCard:last-child {
+    grid-column: auto;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 5px 12px;
+    align-items: center;
+    padding: 16px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .commercialBandCommercialCard > svg {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+  :global([data-ui~="client-page"]) .commercialBandCommercialCard :is(h3, strong) {
+    grid-column: 2;
+    min-height: 0;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  :global([data-ui~="client-page"]) .commercialBandCampaignCommercial, :global([data-ui~="client-page"]) .commercialBandCommercialCard {
+    background: var(--client-fallback);
+  }
+  body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCampaignCommercial, body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBandCommercialCard {
+    background: var(--client-fallback);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-ui~="client-page"]) .commercialBandCommercialCard:hover {
+    transform: none !important;
+  }
+}
+
+.commercialBandCampaignCommercialLayout {
+  composes: commercialBandRoot commercialBandCampaignCommercial;
+}
+
+.commercialBandCommercialGridLayout {
+  composes: layoutShell from "../ui/Layout.module.css";
+  composes: commercialBandCommercialGrid;
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialCard :global([data-ui~="button"]) {
+    white-space: normal;
+  }
+}
+
+.commercialBandCommercialCard :global([data-ui~="button"]) {
+  width: 100%;
+  font-size: 0.77rem;
+  padding: 10px 7px;
+}
+
+.commercialBandCommercialCard :global([data-ui~="button"]) svg {
+  color: white;
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialCard :global([data-ui~="button"]) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 560px) {
+  .commercialBandCommercialCard :global([data-ui~="button"]) {
+    min-height: 44px;
+    margin-top: 8px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="client-page"]) .commercialBandCommercialCard :is(:global([data-ui~="button"]), small) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 380px) {
+  :global([data-ui~="client-page"]) .commercialBandCommercialCard :global([data-ui~="button"]) {
+    min-height: 44px;
+  }
+}

@@ -1,0 +1,148 @@
+/* DemoAdminPage — estilos locais; contextos externos usam data-ui. */
+
+.demoAdminPageRoot {
+  padding-block: 35px;
+}
+
+.demoAdminPageDemoWarning {
+  background: #fff1dd;
+  border: 1px solid #f4bb6c;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+
+.demoAdminPageDemoWarning p {
+  margin: 5px 0 0;
+}
+
+.demoAdminPageDemoIndicators {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.demoAdminPageDemoIndicators article {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.demoAdminPageDemoIndicators svg {
+  color: var(--orange);
+}
+
+.demoAdminPageDemoIndicators strong {
+  font-size: 1.8rem;
+}
+
+.demoAdminPageDemoIndicators span {
+  font-size: .78rem;
+  color: var(--muted);
+}
+
+.demoAdminPageDemoFilters {
+  display: grid;
+  grid-template-columns: repeat(6,minmax(0,1fr));
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.demoAdminPageDemoFilters label {
+  font-size: .75rem;
+  font-weight: 700;
+  display: grid;
+  gap: 4px;
+}
+
+.demoAdminPageDemoFilters select, .demoAdminPageDemoFilters input {
+  width: 100%;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+}
+
+.demoAdminPageDemoTableWrap {
+  overflow: auto;
+}
+
+.demoAdminPageDemoTableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .8rem;
+}
+
+.demoAdminPageDemoTableWrap th, .demoAdminPageDemoTableWrap td {
+  padding: 11px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.demoAdminPageDemoTableWrap th {
+  background: #f4f5f7;
+}
+
+.demoAdminPageDemoModules {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.demoAdminPageDemoModules h2 {
+  font-size: 1.1rem;
+}
+
+.demoAdminPageDemoModules p {
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+@media (max-width:800px) {
+  .demoAdminPageDemoIndicators {
+    grid-template-columns: repeat(3,1fr);
+  }
+  .demoAdminPageDemoFilters {
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+@media (max-width:800px) {
+  .demoAdminPageDemoModules {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width:500px) {
+  .demoAdminPageDemoIndicators, .demoAdminPageDemoFilters, .demoAdminPageDemoModules {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .demoAdminPageDemoIndicators, .demoAdminPageDemoFilters, .demoAdminPageDemoModules {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .demoAdminPageDemoFilters, .demoAdminPageDemoModules {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .demoAdminPageDemoTableWrap {
+    margin-inline: -8px;
+    padding-inline: 8px;
+  }
+}
+
+.demoAdminPagePage {
+  composes: layoutShell from "../../ui/Layout.module.css";
+  composes: demoAdminPageRoot;
+}

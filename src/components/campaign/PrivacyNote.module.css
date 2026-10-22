@@ -1,0 +1,65 @@
+/* PrivacyNote — estilos locais; contextos externos usam data-ui. */
+
+@media (max-width: 780px) {
+  .privacyNoteRoot {
+    grid-column: 1/-1;
+  }
+}
+
+@media (max-width: 560px) {
+  .privacyNoteRoot {
+    grid-column: auto;
+  }
+}
+
+.privacyNoteRoot {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: #fff5ef;
+  color: #dd5300;
+  border-radius: 12px;
+  padding: 8px 13px;
+  font-size: 0.73rem;
+}
+
+.privacyNoteRoot svg {
+  flex: none;
+}
+
+@media (max-width: 560px) {
+  .privacyNoteRoot {
+    min-height: 48px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+  .privacyNoteRoot svg {
+    margin-top: 1px;
+  }
+}
+
+body:global([data-theme="dark"]) .privacyNoteRoot {
+  background-color: #2a1b16;
+  color: #ffb17e;
+  transition: background-color 650ms ease, color 650ms ease;
+}
+
+:global([data-ui~="campaign-page"]) .privacyNoteRoot {
+  border: 1px solid rgb(255 161 93 / 30%);
+  background: rgb(255 236 222 / 72%);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .privacyNoteRoot {
+  border-color: rgb(255 255 255 / 16%);
+  background: var(--glass-soft);
+  color: var(--glass-ink);
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="campaign-page"]) .privacyNoteRoot {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}

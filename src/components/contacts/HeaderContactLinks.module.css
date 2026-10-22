@@ -1,0 +1,80 @@
+/* HeaderContactLinks — estilos locais; contextos externos usam data-ui. */
+
+.headerContactLinksHeaderIconButton {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--dark);
+  transition: background-color 650ms ease, color 650ms ease, border-color 650ms ease;
+}
+
+.headerContactLinksHeaderIconButton:hover {
+  background-color: #fff0e3;
+}
+
+body:global([data-theme="dark"]) .headerContactLinksHeaderIconButton {
+  border-color: #ff6500;
+  background-color: #090909;
+  color: #ff995c;
+}
+
+body:global([data-theme="dark"]) .headerContactLinksHeaderIconButton:hover {
+  background-color: #1a100b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headerContactLinksHeaderIconButton {
+    transition: none;
+  }
+}
+
+.headerContactLinksRoot {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 6px;
+}
+
+.headerContactLinksRoot svg {
+  width: 19px;
+  height: 19px;
+}
+
+:global([data-ui~="site-header"]):global([data-ui~="site-header--with-contacts"]) :global([data-ui~="nav"]) > .headerContactLinksRoot {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="site-header"]):global([data-ui~="site-header--with-contacts"]) :global([data-ui~="header-tools"]) > .headerContactLinksRoot {
+    display: none;
+  }
+  :global([data-ui~="site-header"]):global([data-ui~="site-header--with-contacts"]) :global([data-ui~="nav"]) > .headerContactLinksRoot {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 12px;
+    margin-top: 4px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="site-header"]):global([data-ui~="site-header--with-contacts"]) :global([data-ui~="nav"]) .headerContactLinksRoot a {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    padding: 0;
+  }
+  :global([data-ui~="site-header"]):global([data-ui~="site-header--with-contacts"]) :is(:global([data-ui~="header-theme-toggle"]), .headerContactLinksRoot a) {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+}

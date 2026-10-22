@@ -1,0 +1,449 @@
+/* CampaignHero — estilos locais; contextos externos usam data-ui. */
+
+:global([data-ui~="campaign-page"]) .campaignHeroRoot {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  min-height: clamp(480px, 40vw, 620px);
+  align-items: center;
+  padding: clamp(24px, 3.5vw, 42px) 20px;
+  background: #fff4e5;
+  color: #142453;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroCircle, :global([data-ui~="campaign-page"]) .campaignHeroRoot::before, :global([data-ui~="campaign-page"]) .campaignHeroRoot::after {
+  position: absolute;
+  z-index: -1;
+  width: min(42vw, 540px);
+  aspect-ratio: 1;
+  border: 5px solid rgb(255 155 55 / 17%);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroRoot::before, :global([data-ui~="campaign-page"]) .campaignHeroRoot::after, :global([data-ui~="campaign-page"]) .campaignHeroCircle, :global([data-ui~="campaign-page"]) .campaignHeroMobile::before, :global([data-ui~="campaign-page"]) .campaignHeroMobile::after {
+  animation: campaign-hero-circles 18s ease-in-out infinite alternate;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroCircle {
+  bottom: -48%;
+  left: 12%;
+  width: min(34vw, 460px);
+  animation-duration: 7s;
+  animation-delay: -5s;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroRoot::before {
+  top: -52%;
+  left: -18%;
+  animation-delay: -8s;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroRoot::after {
+  top: 8%;
+  right: -18%;
+  animation-duration: 22s;
+  animation-delay: -12s;
+  animation-direction: alternate-reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-ui~="campaign-page"]) .campaignHeroRoot::before, :global([data-ui~="campaign-page"]) .campaignHeroRoot::after, :global([data-ui~="campaign-page"]) .campaignHeroCircle, :global([data-ui~="campaign-page"]) .campaignHeroMobile::before, :global([data-ui~="campaign-page"]) .campaignHeroMobile::after {
+    animation: none;
+  }
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroInner {
+  display: grid;
+  width: min(760px, 100%);
+  gap: clamp(18px, 2.5vw, 28px);
+  margin-inline: auto;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroBrand {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  text-align: center;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroResponsiveImage {
+  display: block;
+  width: min(100%, 620px);
+  margin-inline: auto;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroMobile {
+  display: none;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroLogo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2172 / 724;
+  object-fit: contain;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroBrand h1 {
+  max-width: 480px;
+  margin: 0;
+  color: #142453;
+  font-size: clamp(0.95rem, 1.8vw, 1.3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroOffers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 680px);
+  gap: 14px;
+  align-items: stretch;
+  margin-inline: auto;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroPrize, :global([data-ui~="campaign-page"]) .campaignHeroMessage {
+  display: flex;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 108px;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroPrize {
+  flex-direction: column;
+  border: 1px solid #ffbd64;
+  background: #ffe7a9d2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global([data-ui~="campaign-page"]) .campaignHeroPrize, :global([data-ui~="campaign-page"]) .campaignHeroMobilePrize {
+    animation: none;
+  }
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroPrize p {
+  margin: 0;
+  color: #142453;
+  font-size: clamp(11px, 1.1vw, 13px);
+  font-weight: 800;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroPrize strong {
+  display: block;
+  color: #ff6500;
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 950;
+  line-height: 1.05;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroPrize b {
+  color: #142453;
+  display: block;
+  font-size: clamp(19px, 2vw, 25px);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroMessage {
+  background: #ff5a08c0;
+  color: #fff;
+  font-size: clamp(14px, 1.3vw, 16px);
+  font-weight: 500;
+  line-height: 1.35;
+  text-wrap: pretty;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroDate {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #142453;
+  font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+  font-weight: 850;
+  line-height: 1.35;
+  text-align: center;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroInstagram {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #ff6500;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  border-radius: 3px;
+}
+
+:global([data-ui~="campaign-page"]) .campaignHeroInstagram:hover {
+  color: #c34b08;
+}
+
+@media (min-width: 701px) and (max-width: 850px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroInner {
+    width: min(94%, 700px);
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroOffers {
+    width: 100%;
+    gap: 12px;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 850px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroPrize, :global([data-ui~="campaign-page"]) .campaignHeroMessage {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroRoot {
+    display: block;
+    min-height: 0;
+    padding: 0;
+    background: none;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroRoot::before, :global([data-ui~="campaign-page"]) .campaignHeroRoot::after, :global([data-ui~="campaign-page"]) .campaignHeroRoot > .campaignHeroCircle {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroInner {
+    width: 100%;
+    gap: 0;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroBrand {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroMobile {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 12px;
+    overflow: hidden;
+    padding: 10vw 0 17vw;
+    background: #fff4e5;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobile::before, :global([data-ui~="campaign-page"]) .campaignHeroMobile::after {
+    position: absolute;
+    z-index: -1;
+    border: 1px solid rgb(245 199 136 / 48%);
+    border-radius: 50%;
+    content: "";
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroMobile::before {
+    top: -65vw;
+    right: -110vw;
+    width: 130vw;
+    aspect-ratio: 1;
+    animation-delay: -8s;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobile::after {
+    top: 25vw;
+    left: -180vw;
+    width: 240vw;
+    aspect-ratio: 1;
+    animation-duration: 22s;
+    animation-delay: -12s;
+    animation-direction: alternate-reverse;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroCircleMobile {
+    right: -24vw;
+    bottom: -28vw;
+    left: auto;
+    width: 76vw;
+    border-width: 1px;
+    border-color: rgb(245 199 136 / 48%);
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobileLogo {
+    display: block;
+    width: min(65.3vw, 489px);
+    height: auto;
+    margin-bottom: 3vw;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroMobilePrize, :global([data-ui~="campaign-page"]) .campaignHeroMobileMessage {
+    box-sizing: border-box;
+    width: min(64vw, 575px);
+    max-width: calc(100% - 32px);
+    border-radius: clamp(14px, 3vw, 26px);
+    text-align: center;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobilePrize {
+    display: flex;
+    min-height: 20.8vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    border: 1px solid #ffbd64;
+    background: linear-gradient(100deg, #ffe4a1, #ffdb85 55%, #ffe6ad);
+    color: #142453;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroMobilePrize span {
+    font-size: clamp(10px, 3.1vw, 15px);
+    font-weight: 850;
+    line-height: 1.15;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobilePrize strong {
+    color: #ff6500;
+    font-size: clamp(18px, 6.2vw, 34px);
+    font-weight: 950;
+    line-height: 1.05;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroMobilePrize b {
+    font-size: clamp(18px, 6vw, 30px);
+    font-weight: 900;
+    line-height: 1.05;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobileMessage {
+    display: flex;
+    min-height: 21vw;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 8px 12px;
+    background: linear-gradient(110deg, #ff7200, #ff3b0b);
+    color: #fff;
+    font-size: clamp(13px, 1.6vw, 18px);
+    font-weight: 550;
+    line-height: 1.24;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroMobileDate {
+    width: min(90vw, 760px);
+    margin: 0 auto;
+    color: #142453;
+    font-size: clamp(11px, 3.45vw, 16px);
+    font-weight: 900;
+    line-height: 1.35;
+    text-align: center;
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobileAccent {
+    position: absolute;
+    z-index: -1;
+    width: 9vw;
+    height: 9vw;
+    border-radius: clamp(3px, 1vw, 10px);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroMobileAccentTop {
+    top: 4.4vw;
+    left: -5vw;
+    background: linear-gradient(135deg, #ff1747, #f83049);
+  }
+  :global([data-ui~="campaign-page"]) .campaignHeroMobileAccentBottom {
+    right: -5vw;
+    bottom: 6vw;
+    background: linear-gradient(135deg, #ff9b18, #ff5d16);
+  }
+}
+
+@media (max-width: 700px) {
+  :global([data-ui~="campaign-page"]) .campaignHeroOffers, :global([data-ui~="campaign-page"]) .campaignHeroDate {
+    display: none;
+  }
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroRoot, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroMobile {
+  background: transparent;
+  color: var(--glass-ink);
+}
+
+:global([data-ui~="campaign-page"]) :global([data-ui~="campaign-support-flow"]) > .campaignHeroCircle {
+  display: none;
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) :global([data-ui~="campaign-support-flow"]) > .campaignHeroCircle {
+  display: block;
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroRoot::before, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroMobile::before, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroRoot::after, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroMobile::after, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroCircle {
+  border-color: rgb(255 153 92 / 18%);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroPrize, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroMobilePrize {
+  border-color: rgb(255 153 92 / 80%);
+  background: linear-gradient(135deg, #464326, #1f1b0f);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 9%);
+  color: var(--glass-ink);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) :is(.campaignHeroPrize p, .campaignHeroPrize b) {
+  color: var(--glass-ink);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) :is(.campaignHeroPrize strong, .campaignHeroMobilePrize strong) {
+  color: #ffad63;
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroMessage, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroMobileMessage {
+  background: linear-gradient(135deg, #8a350f, #602708);
+  color: #fff5eb;
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroDate, body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroMobileDate {
+  color: var(--glass-ink);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .campaignHeroInstagram {
+  color: #ffb579;
+}
+
+.campaignHeroCircleMobileLayout {
+  composes: campaignHeroCircle campaignHeroCircleMobile;
+}
+
+.campaignHeroMobileAccentTopLayout {
+  composes: campaignHeroMobileAccent campaignHeroMobileAccentTop;
+}
+
+.campaignHeroMobileAccentBottomLayout {
+  composes: campaignHeroMobileAccent campaignHeroMobileAccentBottom;
+}
+
+@keyframes campaign-hero-circles {
+  from {
+    transform: translate3d(calc(-1 * var(--hero-circle-drift)), 8px, 0) scale(0.96);
+  }
+  50% {
+    transform: translate3d(0, calc(-1 * var(--hero-circle-drift)), 0) scale(1);
+  }
+  to {
+    transform: translate3d(var(--hero-circle-drift), 16px, 0) scale(1.04);
+  }
+}

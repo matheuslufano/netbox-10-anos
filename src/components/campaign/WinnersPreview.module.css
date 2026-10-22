@@ -1,0 +1,117 @@
+/* WinnersPreview — estilos locais; contextos externos usam data-ui. */
+
+@media (max-width: 780px) {
+  .winnersPreviewWinnerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.winnersPreviewWinnerGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.winnersPreviewWinnerCard {
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 20px #1924370b;
+  border-radius: 17px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.winnersPreviewAvatar {
+  background: #f0f2f5;
+  color: #a9b2bf;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.winnersPreviewWinnerCard strong {
+  font-size: 0.9rem;
+}
+
+.winnersPreviewWinnerCard p {
+  font-size: 0.73rem;
+  color: var(--muted);
+  margin: 3px 0 0;
+}
+
+@media (max-width: 400px) {
+  .winnersPreviewWinnerGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .winnersPreviewWinnerGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .winnersPreviewWinnerCard {
+    min-height: 78px;
+    padding: 13px;
+  }
+}
+
+@media (max-width: 560px) {
+  .winnersPreviewAvatar {
+    width: 46px;
+    height: 46px;
+  }
+  .winnersPreviewWinnerCard strong {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .winnersPreviewWinnerCard p {
+    font-size: 0.8rem;
+  }
+}
+
+:global([data-ui~="campaign-page"]) .winnersPreviewWinnerCard {
+  border: 1px solid var(--glass-rim);
+  background: var(--glass-surface);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-radius: 20px;
+}
+
+:global([data-ui~="campaign-page"]) .winnersPreviewWinnerCard .winnersPreviewAvatar {
+  border: 1px solid rgb(255 255 255 / 80%);
+  background: rgb(255 255 255 / 55%);
+}
+
+:global([data-ui~="campaign-page"]) .winnersPreviewWinnerCard p {
+  color: var(--glass-muted);
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) :global([data-ui~="campaign-support-flow"]) .winnersPreviewRoot {
+  background: transparent;
+}
+
+body:global([data-theme="dark"]) :global([data-ui~="campaign-page"]) .winnersPreviewWinnerCard .winnersPreviewAvatar {
+  border-color: rgb(255 255 255 / 14%);
+  background: rgb(255 255 255 / 9%);
+}
+
+@media (max-width: 640px) {
+  :global([data-ui~="campaign-page"]) .winnersPreviewWinnerCard {
+    border-radius: 18px;
+  }
+}
+
+.winnersPreviewSection {
+  composes: layoutSection layoutShell from "../ui/Layout.module.css";
+  composes: winnersPreviewRoot;
+}

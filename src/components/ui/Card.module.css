@@ -1,0 +1,23 @@
+/* Card — estilos locais; contextos externos usam data-ui. */
+
+.cardDashboardCard {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  box-shadow: 0 6px 18px #1924370a;
+  padding: 24px;
+}
+
+.cardDashboardCard h2 {
+  font-size: 1.35rem;
+  margin-bottom: 9px;
+}
+
+@media (max-width: 560px) {
+  .cardDashboardCard {
+    padding: 18px;
+  }
+  .cardDashboardCard h2 {
+    font-size: 1.22rem;
+  }
+}
