@@ -1,4 +1,3 @@
-
 /* CampaignFooter — estilos locais do rodapé da campanha. */
 
 .root {
@@ -14,39 +13,129 @@
   -webkit-backdrop-filter: blur(18px);
 }
 
-.root :global([data-ui~="shell"]) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding-block: 25px;
-  line-height: 1.6;
+.footerMain {
+  background: transparent;
 }
 
-.copyright {
-  color: rgb(255 255 255 / 72%);
+.footerMain :global([data-ui~="shell"]) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 24px;
 }
 
 .footerLinks {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
 }
 
-.footerLinks a {
-  color: rgb(255 255 255 / 82%);
+.institutionalRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.institutionalRow a,
+.contactToggle {
+  color: #fff;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
   text-decoration: none;
   transition: color 180ms ease;
 }
 
-.footerLinks a:hover,
-.footerLinks a:focus-visible {
+.institutionalRow a:hover,
+.institutionalRow a:focus-visible,
+.contactToggle:hover,
+.contactToggle:focus-visible,
+.contactToggle[aria-expanded="true"] {
   color: #ff400c;
 }
 
-/* Crédito do desenvolvedor */
+.institutionalRow a:focus-visible,
+.contactToggle:focus-visible,
+.contactButton:focus-visible,
+.portfolioLink:focus-visible {
+  outline: 2px solid #ff400c;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.contactActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.contactButton {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  color: rgb(255 255 255 / 88%);
+  background: rgb(255 255 255 / 7%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  text-decoration: none;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.contactButton:hover,
+.contactButton:focus-visible {
+  color: #fff;
+  background: rgb(255 64 12 / 18%);
+  border-color: rgb(255 64 12 / 55%);
+}
+
+.contactButton svg {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  color: #ff6a3d;
+}
+
+.footerBottom {
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  background: rgb(0 0 0 / 12%);
+}
+
+.footerBottom :global([data-ui~="shell"]) {
+  padding-block: 18px;
+  line-height: 1.6;
+}
+
+.footerBottomContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+.copyright {
+  color: rgb(255 255 255 / 65%);
+}
+
+.footerCredit {
+  color: rgb(255 255 255 / 72%);
+}
 
 .portfolioWrapper {
   position: relative;
@@ -68,80 +157,57 @@
   color: #ff400c;
 }
 
-.portfolioLink:focus-visible,
-.footerLinks a:focus-visible {
-  outline: 2px solid #ff400c;
-  outline-offset: 4px;
-  border-radius: 3px;
-}
-
-/* Ponte invisível para não fechar o balão ao mover o mouse */
-
 .portfolioWrapper::after {
   content: "";
   position: absolute;
-  left: -12px;
   right: -12px;
   bottom: 100%;
+  left: -12px;
   height: 18px;
 }
 
-/* Balão de prévia do portfólio */
 .portfolioPreview {
   position: absolute;
   z-index: 100;
-  left: 50%;
   bottom: calc(100% + 10px);
-
+  left: 50%;
   display: block;
   width: min(320px, calc(100vw - 32px));
   box-sizing: border-box;
-
   color: #242424;
   background: #fff;
-  border: 4px solid rgb(255 255 255 / 100%);
+  border: 4px solid #fff;
   border-radius: 16px;
-
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 15%),
     0 12px 35px rgb(0 0 0 / 20%),
     0 3px 8px rgb(0 0 0 / 8%);
-
-  text-decoration: none;
   text-align: left;
-
+  text-decoration: none;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-
   transform: translate(-50%, 8px) scale(0.97);
   transform-origin: bottom center;
-
   transition:
     opacity 180ms ease,
     transform 180ms ease,
     visibility 180ms ease;
 }
 
-/* Rabinho do balão com contorno branco */
 .portfolioPreview::after {
   content: "";
   position: absolute;
-  left: 50%;
   bottom: -8px;
-
+  left: 50%;
   width: 15px;
   height: 15px;
   box-sizing: border-box;
-
   background: #fff;
   border-right: 1px solid rgb(255 255 255 / 90%);
   border-bottom: 1px solid rgb(255 255 255 / 90%);
-
   transform: translateX(-50%) rotate(45deg);
 }
-
-/* Exibição ao passar o mouse ou navegar por teclado */
 
 .portfolioWrapper:hover .portfolioPreview,
 .portfolioWrapper:focus-within .portfolioPreview {
@@ -179,147 +245,25 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-
   width: 100%;
   margin-top: 5px;
-
   color: #ff400c;
   font-weight: 600;
   text-align: center;
 }
 
-
-/* Estrutura geral */
-.root {
-  background: #101722;
-  color: #fff;
-  font-size: 0.78rem;
-}
-
-/* Primeira seção: links institucionais */
-.footerMain {
-  background: transparent;
-}
-
-.footerMain :global([data-ui~="shell"]) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-block: 24px;
-}
-
-/* Links */
-.footerLinks {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.footerLinks a {
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 180ms ease;
-}
-
-.footerLinks a:hover,
-.footerLinks a:focus-visible {
-  color: #ff400c;
-}
-
-/* Segunda seção: copyright e crédito */
-.footerBottom {
-  border-top: 1px solid rgb(255 255 255 / 12%);
-  background: rgb(0 0 0 / 12%);
-}
-
-.footerBottom :global([data-ui~="shell"]) {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  padding-block: 18px;
-  line-height: 1.6;
-}
-
-.copyright {
-  color: rgb(255 255 255 / 65%);
-}
-
-.footerCredit {
-  color: rgb(255 255 255 / 72%);
-}
- .previewContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
- }
-/* Aplique aqui as regras existentes de:
-   .portfolioWrapper
-   .portfolioLink
-   .portfolioPreview
-   .portfolioPreview::after
-   .portfolioImage
-  
-   .previewAction
-*/
-
-/* Responsividade */
-@media (max-width: 700px) {
-  .footerMain :global([data-ui~="shell"]),
-  .footerBottom :global([data-ui~="shell"]) {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-  }
-
+@media (max-width: 760px) {
   .footerMain :global([data-ui~="shell"]) {
     padding-block: 20px;
-  }
-
-  .footerBottom :global([data-ui~="shell"]) {
-    padding-block: 18px;
   }
 
   .footerLinks {
     gap: 16px;
   }
-}
 
-.footerBottomContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  width: 100%;
-  text-align: center;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .footerLinks a,
-  .portfolioLink,
-  .portfolioPreview {
-    transition: none;
-  }
-}
-
-
-/* Responsividade */
-
-@media (max-width: 700px) {
-  .root :global([data-ui~="shell"]) {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
-  }
-
-  .footerLinks {
-    justify-content: center;
+  .contactButton {
+    width: 44px;
+    height: 44px;
   }
 
   .portfolioPreview {
@@ -327,12 +271,12 @@
   }
 }
 
-/* Respeita a preferência por menos animações */
-
 @media (prefers-reduced-motion: reduce) {
-  .portfolioPreview,
+  .institutionalRow a,
+  .contactToggle,
+  .contactButton,
   .portfolioLink,
-  .footerLinks a {
+  .portfolioPreview {
     transition: none;
   }
 }

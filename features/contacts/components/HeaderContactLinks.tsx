@@ -4,7 +4,8 @@ import { ImWhatsapp } from "react-icons/im";
 import { FiPhone } from "react-icons/fi";
 import { TfiEmail } from "react-icons/tfi";
 import { netboxContacts } from "@/features/contacts/model/netboxContacts";
-const contactChannels = [
+/** Canais oficiais com rótulos acessíveis e ícones compartilhados pela interface. */
+export const contactChannels = [
   {
     label: "Instagram da Netbox",
     href: netboxContacts.instagram,

@@ -75,6 +75,7 @@ O arquivo `app/globals.css` contém somente reset, tokens, tipografia, documento
 | `/cliente/10-anos` | Painel após consulta; recarregar exige nova consulta |
 | `/10-anos/ganhadores` | Estado inicial sem ganhadores fictícios |
 | `/10-anos/regulamento` | Aviso de regulamento oficial pendente |
+| `/politica-de-privacidade` | Aviso sobre o tratamento de dados na consulta da campanha |
 | `/admin/10-anos` | Bloqueio pelo proxy com HTTP 403 |
 | `/demo/admin/10-anos` | Demonstração separada, sem operações oficiais |
 | `POST /api/campanha/consulta` | Validação do CPF e consulta externa sem cache |
