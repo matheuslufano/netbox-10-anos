@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   title: "Netbox 10 Anos — Conectando pessoas e construindo histórias",
   description:
     "Conheça a campanha Netbox 10 Anos e consulte seus números da sorte.",
+  icons: {
+    icon: { url: "/ ", type: "image/x-icon", sizes: "any" },
+  },
 };
 export default function RootLayout({
   children,

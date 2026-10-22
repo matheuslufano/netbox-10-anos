@@ -37,7 +37,7 @@ npm.cmd start
 
 ```text
 src/
-  app/                  Rotas App Router, layout HTML, favicon e endpoint
+  app/                  Rotas App Router, layout HTML e endpoint
   assets/fonts/         Fontes locais importadas pelo layout
   components/
     layout/             Header e Logo
@@ -59,6 +59,8 @@ docs/                   Guias e relatórios de manutenção
 O alias `@/` aponta para `src/`. Os arquivos `src/app/**/page.tsx` compõem ou reexportam as telas de `src/components/pages/`; o endpoint permanece no App Router. `src/pages` é reservado ao Pages Router do Next.js e por isso as telas ficam em `src/components/pages`. O HTML base é definido em `src/app/layout.tsx`, conforme o framework, sem um `index.html` independente.
 
 Adicione imagens e ícones que precisam de URL fixa em `public/images/` ou `public/logos/` e referencie-os por `/images/...` ou `/logos/...`. Recursos importados pelo código, como fontes locais, ficam em `src/assets/`. Configurações e variáveis de ambiente permanecem na raiz.
+
+O favicon é `public/favicon.ico`, referenciado pelos metadados em `src/app/layout.tsx`. Não adicione outro `src/app/favicon.ico`, pois ele disputa a mesma URL. A logo do cabeçalho usa `public/images/logo/logo-netbox.png`, preservando sua proporção original; `next/image` gera as resoluções para diferentes densidades de tela. Seu tamanho visual é definido em `src/components/layout/Logo.module.css` (160 px no desktop e 148 px até 640 px de largura).
 
 ## Onde editar os estilos
 

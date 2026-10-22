@@ -3,19 +3,22 @@
 .logoRoot {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 1.85rem;
-  font-weight: 900;
-  letter-spacing: -0.085em;
-  white-space: nowrap;
+  flex: none;
+  width: 160px;
+  max-width: 100%;
 }
 
-.logoRoot svg {
-  color: var(--orange);
-  transform: rotate(-24deg);
+.logoImage {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (max-width: 640px) {
+  .logoRoot {
+    width: 148px;
+  }
+
   :global([data-ui~="site-header"]):not(:global([data-ui~="site-header--client"])) .logoRoot {
     grid-column: 2;
     grid-row: 1;

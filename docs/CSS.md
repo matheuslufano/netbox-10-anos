@@ -46,6 +46,8 @@ Os reexports `src/app/**/page.tsx` não precisam de CSS próprio. `src/app/layou
 
 ## Receitas compartilhadas
 
+A marca do cabeçalho é controlada por `src/components/layout/Logo.tsx` e `Logo.module.css`: largura de 160 px no desktop e 148 px no mobile, sem distorcer a proporção da arte original de 3746 × 1378 px. O componente informa `sizes` ao `next/image` para gerar imagens adequadas à largura e à densidade da tela, sem duplicar arquivos manualmente.
+
 - `src/components/ui/Button.module.css`: botões primário, contornado, claro e link textual.
 - `src/components/ui/Layout.module.css`: largura de conteúdo, espaçamento de seção e subpáginas.
 - `src/components/ui/Card.module.css`: base visual de cartões.

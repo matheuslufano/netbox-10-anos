@@ -1,7 +1,7 @@
 import styles from "./Logo.module.css";
 import Link from "next/link";
 import Image from "next/image";
-/** Exibe a marca institucional com retorno à campanha. */
+/** Preserva a proporção da arte original; next/image fornece as resoluções responsivas. */
 export function Logo() {
   return (
     <Link
@@ -10,11 +10,13 @@ export function Logo() {
       aria-label="Netbox, página inicial"
     >
       <Image
+        className={styles.logoImage}
         src="/images/logo/logo-netbox.png"
-        alt="Netbox Fibra Óptica"
-        width={135}
-        height={65}
-        priority
+        alt="Netbox — Internet de verdade"
+        width={3746}
+        height={1378}
+        sizes="(max-width: 640px) 148px, 160px"
+        preload
       />
     </Link>
   );
