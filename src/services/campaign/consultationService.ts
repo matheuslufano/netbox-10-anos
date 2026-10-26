@@ -15,11 +15,11 @@ export class ConsultationError extends Error {
  * Consulta somente a API interna e valida o contrato antes de entregá-lo à interface.
  * Não persiste CPF ou resultado; falhas HTTP preservam o código da API.
  */
-export async function fetchConsultation(cpf: string): Promise<Consultation> {
+export async function fetchConsultation(cpf: string, captchaToken: string): Promise<Consultation> {
   const response = await fetch("/api/campanha/consulta", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ cpf }),
+    body: JSON.stringify({ cpf, captchaToken }),
     cache: "no-store",
   });
   const result = await response.json();

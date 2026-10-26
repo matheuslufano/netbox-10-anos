@@ -19,19 +19,19 @@ const result = {
 
 test("consultation service preserves the internal request and valid response", async (context) => {
   const request = context.mock.method(globalThis, "fetch", async () => Response.json(result));
-  assert.deepEqual(await fetchConsultation("52998224725"), result);
+  assert.deepEqual(await fetchConsultation("52998224725", "test-token"), result);
   const [url, options] = request.mock.calls[0].arguments;
   assert.equal(url, "/api/campanha/consulta");
   assert.equal(options.method, "POST");
   assert.equal(options.cache, "no-store");
-  assert.deepEqual(JSON.parse(options.body), { cpf: "52998224725" });
+  assert.deepEqual(JSON.parse(options.body), { cpf: "52998224725", captchaToken: "test-token" });
 });
 
 test("consultation service preserves API error codes", async (context) => {
   context.mock.method(globalThis, "fetch", async () =>
     Response.json({ ok: false, code: "timeout" }, { status: 504 }),
   );
-  await assert.rejects(fetchConsultation("52998224725"), (failure) =>
+  await assert.rejects(fetchConsultation("52998224725", "test-token"), (failure) =>
     failure instanceof ConsultationError && failure.code === "timeout",
   );
 });
@@ -40,7 +40,7 @@ test("consultation service rejects malformed successful responses", async (conte
   context.mock.method(globalThis, "fetch", async () =>
     Response.json({ ...result, numeros: [7] }),
   );
-  await assert.rejects(fetchConsultation("52998224725"), (failure) =>
+  await assert.rejects(fetchConsultation("52998224725", "test-token"), (failure) =>
     failure instanceof ConsultationError && failure.code === "invalid_response",
   );
 });

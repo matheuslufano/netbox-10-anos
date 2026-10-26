@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { digits, parseResponse, validCPF } from "@/utils/campaign/consult";
+import { verifyCaptcha } from "@/services/campaign/captchaVerification";
 export const dynamic = "force-dynamic";
 const headers = { "Cache-Control": "no-store, private" };
 function fail(status: number, code: string) {
@@ -18,6 +19,11 @@ export async function POST(request: Request) {
     return fail(400, "invalid_cpf");
   const endpoint = process.env.CAMPANHA_API_URL;
   if (!endpoint) return fail(503, "not_configured");
+  const captchaToken = (body as Record<string, unknown>).captchaToken;
+  const verification = await verifyCaptcha(captchaToken);
+  if (verification !== "verified") {
+    return fail(verification === "captcha_unavailable" ? 503 : 400, verification);
+  }
   try {
     const url = new URL(endpoint);
     url.searchParams.set("cpf", digits(cpf));

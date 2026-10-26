@@ -40,6 +40,12 @@ const privacyTopics = [
     description:
       "Adotamos medidas técnicas para reduzir a exposição dos dados, incluindo validação do CPF no servidor e ausência de informações pessoais na URL.",
   },
+  {
+    title: "Verificação de segurança",
+    Icon: ShieldCheck,
+    description:
+      "Após preencher um CPF válido, carregamos o Google reCAPTCHA para proteger a consulta contra automação. O serviço processa informações do navegador e da interação para verificar o desafio. A aplicação envia somente o token de verificação ao Google, sem incluir o CPF nessa solicitação. Consulte a Política de Privacidade e os Termos de Serviço do Google nos links do CAPTCHA.",
+  },
 ] as const;
 
 /** Apresenta o aviso de privacidade específico da campanha Netbox 10 Anos. */
@@ -63,7 +69,7 @@ export default function PrivacyPolicyPage() {
                 consulta de participação na campanha Netbox 10 Anos.
               </p>
               <p data-ui="privacy-policy-page-updated-at" className={styles.privacyPolicyPageUpdatedAt}>
-                Última atualização: 22 de outubro de 2026
+                Última atualização: 26 de outubro de 2026
               </p>
             </div>
           </header>

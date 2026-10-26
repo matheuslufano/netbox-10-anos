@@ -16,6 +16,8 @@ Abra a rota em `src/app/`, siga o import da tela em `src/components/pages/` e ab
 | [CampaignHero.tsx](../src/components/campaign/CampaignHero.tsx) | [CampaignHero.module.css](../src/components/campaign/CampaignHero.module.css) |
 | [CommercialBand.tsx](../src/components/campaign/CommercialBand.tsx) | [CommercialBand.module.css](../src/components/campaign/CommercialBand.module.css) |
 | [ConsultForm.tsx](../src/components/campaign/ConsultForm.tsx) | [ConsultForm.module.css](../src/components/campaign/ConsultForm.module.css) |
+| [ConsultCaptcha.tsx](../src/components/campaign/ConsultCaptcha.tsx) | [ConsultCaptcha.module.css](../src/components/campaign/ConsultCaptcha.module.css); contêiner do widget compacto oficial, sem estilizar o iframe do Google. |
+| [ConsultCaptchaModal.tsx](../src/components/campaign/ConsultCaptchaModal.tsx) | [ConsultCaptchaModal.module.css](../src/components/campaign/ConsultCaptchaModal.module.css); modal em portal centralizado na tela por CSS Grid, com fechamento e retorno do foco. |
 | [FAQ.tsx](../src/components/campaign/FAQ.tsx) | [FAQ.module.css](../src/components/campaign/FAQ.module.css) |
 | [HistoryBand.tsx](../src/components/campaign/HistoryBand.tsx) | [HistoryBand.module.css](../src/components/campaign/HistoryBand.module.css) |
 | [ParticipationDesktop.tsx](../src/components/campaign/ParticipationDesktop.tsx) | [ParticipationDesktop.module.css](../src/components/campaign/ParticipationDesktop.module.css) |
@@ -45,6 +47,8 @@ Abra a rota em `src/app/`, siga o import da tela em `src/components/pages/` e ab
 Os reexports `src/app/**/page.tsx` não precisam de CSS próprio. `src/app/layout.tsx` usa apenas `globals.css` para configurar o documento e as fontes. O contexto de consulta não renderiza interface própria. `CenterSwipeCarousel` recebe a classe do seu chamador e cuida somente da interação; os estilos dos cartões pertencem a `CampaignActions` e `ParticipationMobile`. `WinnersPage` apenas compõe o cabeçalho, a seção de ganhadores e as receitas compartilhadas.
 
 ## Receitas compartilhadas
+
+Salve CSS como **UTF-8 sem BOM**. O Turbopack pode preservar o caractere BOM dentro da folha concatenada, antes do primeiro seletor do módulo, impedindo que ele corresponda ao elemento. Esse caso afetou o fundo fixo do CAPTCHA, fazendo o modal aparecer fora da área visível. `tests/styles.test.mjs` verifica a ausência de BOM nos arquivos CSS de `src`.
 
 A marca do cabeçalho é controlada por `src/components/layout/Logo.tsx` e `Logo.module.css`: largura de 160 px no desktop e 148 px no mobile, sem distorcer a proporção da arte original de 3746 × 1378 px. O componente informa `sizes` ao `next/image` para gerar imagens adequadas à largura e à densidade da tela, sem duplicar arquivos manualmente.
 

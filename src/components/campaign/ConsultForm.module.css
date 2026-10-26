@@ -1,11 +1,5 @@
 /* ConsultForm — estilos locais; contextos externos usam data-ui. */
 
-@media (max-width: 780px) {
-  .consultFormConsultControls {
-    grid-template-columns: 1fr 150px;
-  }
-}
-
 .consultFormRoot {
   background: white;
   border: 1px solid var(--line);
@@ -30,6 +24,12 @@
   align-items: stretch;
 }
 
+@media (max-width: 780px) {
+  .consultFormConsultControls {
+    grid-template-columns: minmax(0, 1fr) 150px;
+  }
+}
+
 .consultFormConsultControls input {
   min-width: 0;
   border: 1px solid var(--line);
@@ -41,6 +41,11 @@
 .consultFormFormError {
   color: #b02920 !important;
   margin: 12px 0 0 !important;
+}
+
+.consultFormVerificationStatus {
+  margin: 14px 0 0;
+  font-size: 0.88rem;
 }
 
 @media (max-width: 780px) {

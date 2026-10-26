@@ -21,6 +21,12 @@ Abra http://localhost:3000/10-anos. No Git Bash, os mesmos comandos npm funciona
 
 `CAMPANHA_API_URL` configura o endpoint externo consultado pelo servidor via GET. Não use o prefixo `NEXT_PUBLIC_`, não publique `.env.local` e não use CPFs reais em testes automatizados. O arquivo `.env.example` existente apresenta o formato esperado. Para simulação, configure a URL de um serviço que implemente o mesmo contrato; este projeto não inicia esse serviço automaticamente.
 
+## CAPTCHA da consulta
+
+Configure `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` (pública) e `RECAPTCHA_SECRET_KEY` (somente servidor) em `.env.local` com um par de chaves **reCAPTCHA v2 — caixa “Não sou um robô”**. Cadastre no [console do Google](https://www.google.com/recaptcha/admin/create) os domínios de publicação e `localhost` para desenvolvimento; mantenha a verificação de domínio habilitada. Não use chaves de teste em produção. Reinicie o servidor após configurar; a chave pública exige novo build na publicação.
+
+Após preencher um CPF válido, aparece a verificação. Ao concluí-la, o modal fecha, a consulta começa automaticamente e, em caso de sucesso, abre o painel com os números da sorte. A seleção de imagens é apresentada quando o Google a solicita; o reCAPTCHA v2 não garante imagens em todas as tentativas. Sem as chaves, a consulta permanece bloqueada. O servidor valida o token antes de acessar a API da campanha; ele não envia o CPF ao verificador. Expiração, alteração do CPF e cada tentativa de consulta exigem nova verificação. Consulte [o fluxo da campanha](docs/CAMPANHA.md#captcha-da-consulta).
+
 ## Comandos de validação
 
 ```powershell
@@ -31,7 +37,7 @@ npm.cmd run build
 npm.cmd start
 ```
 
-`start` serve o build de produção. Os testes cobrem CPF, validação do contrato, serviço de consulta com fetch simulado, referências estáticas e composições de CSS Modules.
+`start` serve o build de produção. Os testes cobrem CPF, validação do contrato, serviço de consulta e verificação do CAPTCHA com fetch simulado, referências estáticas e composições de CSS Modules.
 
 ## Arquitetura
 

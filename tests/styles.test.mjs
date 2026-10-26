@@ -19,6 +19,14 @@ function sourceFiles(directory) {
   });
 }
 
+/** O Turbopack pode preservar o BOM dentro do CSS concatenado e invalidar o primeiro seletor. */
+test("CSS sources have no leading BOM before selectors", () => {
+  const failures = sourceFiles("src")
+    .filter((file) => file.endsWith(".css"))
+    .filter((file) => readFileSync(file, "utf8").startsWith("\uFEFF"));
+  assert.deepEqual(failures, [], `Salve estes arquivos como UTF-8 sem BOM:\n${failures.join("\n")}`);
+});
+
 /** TypeScript aceita qualquer chave de CSS Module; esta verificação encontra erros que tsc não detecta. */
 test("component CSS imports and static class references exist after migration", () => {
   const files = sourceFiles("src");

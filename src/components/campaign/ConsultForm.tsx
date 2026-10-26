@@ -3,13 +3,17 @@ import styles from "./ConsultForm.module.css";
 import stylesAccessibility from "../ui/Accessibility.module.css";
 import stylesButton from "../ui/Button.module.css";
 import { ConsultationError, fetchConsultation } from "../../services/campaign/consultationService";
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { maskCPF, validCPF } from "@/utils/campaign/consult";
 import { useConsultation } from "@/context/campaign/ConsultationProvider";
-import { PrivacyNote } from "@/components/campaign/PrivacyNote";
+import { ConsultCaptchaModal } from "./ConsultCaptchaModal";
+import { PrivacyNote } from "./PrivacyNote";
 const messages: Record<string, string> = {
+  captcha_required: "Complete a verificação de segurança antes de consultar.",
+  captcha_invalid: "A verificação expirou ou não foi aceita. Complete o CAPTCHA novamente.",
+  captcha_unavailable: "A verificação de segurança está indisponível. Tente novamente mais tarde.",
   invalid_cpf: "CPF inválido. Confira os 11 dígitos.",
   not_confirmed: "A participação não foi confirmada pelo serviço. Confira os dados e tente novamente.",
   timeout: "A consulta demorou mais que o esperado. Tente novamente.",
@@ -23,18 +27,28 @@ export function ConsultForm() {
   const [cpf, setCpf] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [captchaAttempt, setCaptchaAttempt] = useState(0);
+  const [captchaOpen, setCaptchaOpen] = useState(false);
+  const consultationInProgress = useRef(false);
+  const closeCaptcha = useCallback(() => setCaptchaOpen(false), []);
+  function openCaptcha(value = cpf) {
+    const nextCpf = maskCPF(value);
+    if (!validCPF(nextCpf)) return;
+    setCpf(nextCpf);
+    setCaptchaOpen(true);
+  }
   const router = useRouter();
   const { setData } = useConsultation();
-  async function submit(e: FormEvent) {
-    e.preventDefault();
+
+  /** Consome o token uma única vez e abre o painel após a resposta validada. */
+  const consultParticipant = useCallback(async (token: string) => {
+    if (consultationInProgress.current) return;
+    consultationInProgress.current = true;
     setError("");
-    if (!validCPF(cpf)) {
-      setError(messages.invalid_cpf);
-      return;
-    }
     setLoading(true);
     try {
-      setData(await fetchConsultation(cpf));
+      setData(await fetchConsultation(cpf, token));
       router.push("/cliente/10-anos");
     }
     catch (failure) {
@@ -45,8 +59,34 @@ export function ConsultForm() {
       );
     }
     finally {
+      // Tokens são de uso único, inclusive quando a consulta externa falha.
+      setCaptchaToken("");
+      setCaptchaAttempt((attempt) => attempt + 1);
+      consultationInProgress.current = false;
       setLoading(false);
     }
+  }, [cpf, router, setData]);
+
+  const receiveCaptchaToken = useCallback((token: string) => {
+    setCaptchaToken(token);
+    if (!token) return;
+    setCaptchaOpen(false);
+    void consultParticipant(token);
+  }, [consultParticipant]);
+
+  async function submit(e: FormEvent) {
+    e.preventDefault();
+    if (consultationInProgress.current) return;
+    setError("");
+    if (!validCPF(cpf)) {
+      setError(messages.invalid_cpf);
+      return;
+    }
+    if (!captchaToken) {
+      openCaptcha();
+      return;
+    }
+    await consultParticipant(captchaToken);
   }
   return (<form className={styles.consultFormRoot} data-ui="consult-card" id="consulta" onSubmit={submit} noValidate>
     <div>
@@ -66,7 +106,19 @@ export function ConsultForm() {
         placeholder="000.000.000-00"
         maxLength={14}
         value={cpf}
-        onChange={(e) => setCpf(maskCPF(e.target.value))}
+        disabled={loading}
+        onChange={(e) => {
+          const nextCpf = maskCPF(e.target.value);
+          if (nextCpf === cpf) return;
+          setCpf(nextCpf);
+          setCaptchaToken("");
+          setCaptchaOpen(validCPF(nextCpf));
+          setError("");
+        }}
+        onBlur={(event) => {
+          // Também cobre preenchimento automático e retorno ao campo já completo.
+          if (!captchaToken) openCaptcha(event.currentTarget.value);
+        }}
         aria-invalid={!!error}
         aria-describedby={error ? "consult-error" : undefined}
       />
@@ -83,9 +135,21 @@ export function ConsultForm() {
       </button>
       <PrivacyNote />
     </div>
+    {validCPF(cpf) && !captchaToken && !captchaOpen && !loading && (
+      <p className={styles.consultFormVerificationStatus} role="status">
+        Verificação de segurança pendente.{" "}
+        <button type="button" className={stylesButton.buttonTextLink} onClick={() => openCaptcha()}>
+          Abrir CAPTCHA
+        </button>
+      </p>
+    )}
+    {loading && <p className={styles.consultFormVerificationStatus} role="status">Consultando sua participação…</p>}
+    {(captchaOpen || captchaToken) && (
+      <ConsultCaptchaModal key={`${cpf}:${captchaAttempt}`} open={captchaOpen} onClose={closeCaptcha} onToken={receiveCaptchaToken} />
+    )}
     {error && (<p id="consult-error" role="alert" className={styles.consultFormFormError} data-ui="form-error">
       {error}{" "}
-      <button type="submit" className={stylesButton.buttonTextLink} data-ui="text-link">
+      <button type="submit" disabled={loading} className={stylesButton.buttonTextLink} data-ui="text-link">
         Tentar novamente
       </button>
     </p>)}
