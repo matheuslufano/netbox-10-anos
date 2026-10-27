@@ -114,6 +114,6 @@ O regulamento V1 fornecido está publicado com todas as suas 12 seções. A publ
 
 ## Manutenção do regulamento
 
-O PDF original fica em `public/documents/regulamento-netbox-10-anos-v1.pdf`; a transcrição em `src/utils/campaign/regulation.ts` preserva a redação e a numeração, normalizando apenas espaços e quebras de linha. A página Server Component e seus estilos ficam em `src/components/pages/campaign/RegulationPage.tsx` e `RegulationPage.module.css`. Não há serviço externo, consulta de CPF ou autenticação nesta página.
+O PDF original fica em `public/documents/REGULAMENTO CAMPANHA NETBOX 10 ANOS - V3.pdf`; a transcrição em `src/utils/campaign/regulation.ts` preserva a redação e a numeração, normalizando apenas espaços e quebras de linha. A página Server Component e seus estilos ficam em `src/components/pages/campaign/RegulationPage.tsx` e `RegulationPage.module.css`. Não há serviço externo, consulta de CPF ou autenticação nesta página.
 
 Os endereços da página e do PDF estão centralizados em `campaign.legal`, em `src/utils/campaign/campaign.ts`, e também alimentam os links do FAQ. Para uma nova versão, adicione o PDF em `public/documents/`, atualize a transcrição e o endereço centralizado e confira todas as cláusulas contra o documento. O download usa um link nativo com `download` e o índice usa âncoras HTML, sem JavaScript adicional.

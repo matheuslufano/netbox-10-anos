@@ -35,7 +35,7 @@ export const campaign = {
   },
   legal: {
     regulationUrl: "/10-anos/regulamento",
-    regulationPdfUrl: "/documents/regulamento-netbox-10-anos-v1.pdf",
+    regulationPdfUrl: "/documents/REGULAMENTO CAMPANHA NETBOX 10 ANOS - V3.pdf",
     pfMinimumMonths: 12,
     pjMinimumMonths: 24,
   },
