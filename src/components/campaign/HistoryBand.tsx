@@ -12,7 +12,7 @@ export function HistoryBand() {
     <div className={styles.historyBandHistoryInnerLayout} data-ui="shell history-inner">
       <div>
         <span className={stylesTypography.typographyEyebrow} data-ui="eyebrow">NOSSA HISTÓRIA</span>
-        <h2>10 anos conectando o Tocantins.</h2>
+        <h2>10 anos conectando o Tocantins</h2>
         <p>
           Mais do que internet, a Netbox sempre acreditou na força das
           pessoas, das cidades e das histórias que se conectam todos os dias.
