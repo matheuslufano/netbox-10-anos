@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./FAQ.module.css";
 import stylesSectionHeading from "../ui/SectionHeading.module.css";
 import stylesButton from "../ui/Button.module.css";
@@ -8,11 +8,27 @@ import Link from "next/link";
 import { ChevronDown, ArrowRight, Eye, FileText } from "lucide-react";
 import { LuEyeClosed } from "react-icons/lu";
 import { campaign, faq } from "@/utils/campaign/campaign";
+import { openFaqQuestion } from "@/utils/campaign/faqNavigation";
 export function FAQ({ standalone = false }: {
   standalone?: boolean;
 }) {
   const faqGridRef = useRef<HTMLDivElement>(null);
   const [areAllQuestionsOpen, setAreAllQuestionsOpen] = useState(false);
+
+  useEffect(() => {
+    /** Abre links diretos e os acessos vindos do painel do participante. */
+    function openLinkedQuestion() {
+      const question = document.getElementById(window.location.hash.slice(1));
+      if (!(question instanceof HTMLDetailsElement) || !faqGridRef.current?.contains(question)) return;
+
+      openFaqQuestion(question);
+      question.scrollIntoView({ block: "start" });
+    }
+
+    openLinkedQuestion();
+    window.addEventListener("hashchange", openLinkedQuestion);
+    return () => window.removeEventListener("hashchange", openLinkedQuestion);
+  }, []);
 
   /** Mantém o rótulo do controle sincronizado com a abertura individual das perguntas. */
   function updateAllQuestionsState() {
@@ -66,7 +82,13 @@ export function FAQ({ standalone = false }: {
       ref={faqGridRef}
     >
       {/* Perguntas carregadas da lista faq em @/utils/campaign/campaign. */}
-      {faq.map(([q, a]) => (<details key={q} onToggle={updateAllQuestionsState}>
+      {faq.map(([q, a, id]) => (<details id={id} key={q} onToggle={updateAllQuestionsState}
+        onAnimationEnd={(event) => {
+          if (event.target === event.currentTarget) {
+            event.currentTarget.removeAttribute("data-faq-highlight");
+          }
+        }}
+      >
         <summary>
           <span>{q}</span>
           <ChevronDown className={styles.faqGridToggle} size={18} aria-hidden="true" />

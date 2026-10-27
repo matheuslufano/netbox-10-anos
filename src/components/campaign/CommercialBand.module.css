@@ -419,6 +419,98 @@ body:global([data-theme="dark"]) :global([data-ui~="client-page"]) .commercialBa
   composes: commercialBandCommercialGrid;
 }
 
+.commercialButton {
+  composes: button from "../ui/Button.module.css";
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: background-color 220ms ease, box-shadow 220ms ease;
+}
+
+.commercialButton::before {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: 160%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 22%);
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+}
+
+.commercialButtonLabel {
+  position: relative;
+}
+
+.commercialButtonIcons {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+}
+
+.commercialButtonArrow, .commercialButtonWhatsapp {
+  grid-area: 1 / 1;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.commercialButtonWhatsapp {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+/* A especificidade local substitui o brilho laranja compartilhado nos dois temas. */
+:global(body) .commercialBandCommercialCard a.commercialButton[data-ui~="button"]:is(:hover, :focus-visible) {
+  background: #128c4a;
+  box-shadow: 0 7px 18px rgb(18 140 74 / 28%);
+  animation: none;
+}
+
+.commercialButton:is(:hover, :focus-visible)::before {
+  animation: commercial-whatsapp-wave 1.2s ease-out infinite;
+}
+
+.commercialButton:is(:hover, :focus-visible) .commercialButtonArrow {
+  opacity: 0;
+  transform: translateX(6px);
+}
+
+.commercialButton:is(:hover, :focus-visible) .commercialButtonWhatsapp {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes commercial-whatsapp-wave {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .commercialButton,
+  .commercialButtonArrow,
+  .commercialButtonWhatsapp {
+    transition: none;
+  }
+
+  .commercialButton:is(:hover, :focus-visible)::before {
+    animation: none;
+  }
+
+  :global(body) .commercialBandCommercialCard a.commercialButton[data-ui~="button"]:is(:hover, :focus-visible) {
+    transform: none;
+  }
+}
+
 @media (max-width: 560px) {
   .commercialBandCommercialCard :global([data-ui~="button"]) {
     white-space: normal;

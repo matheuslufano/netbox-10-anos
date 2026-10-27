@@ -5,3 +5,10 @@ export const netboxContacts = {
   phone: "tel:08006022732",
   email: "mailto:atendimento@netbox.net.br",
 } as const;
+
+/** Preenche uma mensagem no WhatsApp oficial; o envio continua sendo manual. */
+export function createNetboxWhatsappLink(message: string): string {
+  const url = new URL(netboxContacts.whatsapp);
+  url.searchParams.set("text", message);
+  return url.toString();
+}

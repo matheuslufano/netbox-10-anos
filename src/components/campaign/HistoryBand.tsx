@@ -32,7 +32,6 @@ export function HistoryBand() {
         <p>
           <HeartHandshake /> Amizade que conecta
         </p>
-        <small>Indicadores institucionais pendentes de confirmação.</small>
       </div>
     </div>
   </section>);

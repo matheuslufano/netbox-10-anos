@@ -68,6 +68,8 @@ Na rota `/10-anos`, a seção desktop/tablet (largura acima de 640 px) tem fundo
 
 ## Nossa história
 
+Os dois cartões da seção usam colunas de mesma largura e altura compartilhada em `src/components/campaign/HistoryBand.module.css`. Até 700 px, ficam empilhados em linhas de mesma altura, ajustadas pelo conteúdo, sem altura fixa nem corte de texto.
+
 O bloco “10 anos conectando o Tocantins” usa fundo em degradê azul escuro nos dois temas, com texto claro, destaques laranja, círculos e pontos discretos, sem fotografias. No tema escuro, o azul e as superfícies ficam mais profundos. O foguete decorativo usa o ícone `Rocket` em `os componentes de src/components/campaign/`, com decolagem em CSS a cada 9 segundos, tamanho reduzido no celular e animação desativada com `prefers-reduced-motion`. Os estilos e as variáveis de cor ficam em `os CSS Modules em src/components/campaign/`.
 
 ## Prêmios
@@ -77,6 +79,20 @@ A ilustração de notas e Pix flutua com uma leve inclinação em ciclos de 5,5 
 Na versão mobile de `/10-anos`, a ilustração de notas e Pix aparece reduzida dentro do cartão de prêmios, abaixo do título. No desktop, a ilustração permanece ao lado do texto.
 
 ## Dúvidas frequentes
+
+O título da pergunta de destino fica laranja enquanto sua âncora estiver selecionada na URL (`:target`), inclusive após o fim do pulso. O tom se adapta aos temas claro e escuro para manter a leitura.
+
+Ao abrir uma pergunta por redirecionamento, o cartão recebe dois pulsos suaves com contorno laranja, após um pequeno intervalo para a rolagem. O efeito reinicia mesmo ao clicar novamente no mesmo destino e não altera o fluxo do layout. A abertura, o foco e o reinício do destaque são compartilhados em `src/utils/campaign/faqNavigation.ts`; a animação fica em `src/components/campaign/FAQ.module.css` e é desativada com `prefers-reduced-motion`. A abertura manual das perguntas não dispara o pulso.
+
+As perguntas de indicação, renovação e números da sorte continuam acessíveis por links diretos com âncora. Seus identificadores são definidos por `faqTargets` em `src/utils/campaign/campaign.ts`, no terceiro campo opcional da lista `faq`. A resposta abre automaticamente, recebe foco no título e mantém espaço para o cabeçalho fixo. A abertura individual continua sincronizada com o botão de abrir/fechar todas as perguntas.
+
+## Contato comercial pelo WhatsApp
+
+Os três botões de “Quer ganhar mais números da sorte?” abrem o WhatsApp oficial da Netbox em nova aba, tanto na campanha quanto no painel do participante. O destino vem de `netboxContacts.whatsapp`, em `src/utils/contacts/netboxContacts.ts`, reutilizado por `campaign.commercial` sem duplicar o número. Nenhuma mensagem é enviada automaticamente.
+
+Cada ação preenche uma mensagem própria sobre indicação de amigo, renovação do plano ou nova contratação, contextualizada com a campanha Netbox 10 Anos. Os textos ficam em `campaign.commercial`, em `src/utils/campaign/campaign.ts`. A função `createNetboxWhatsappLink`, em `src/utils/contacts/netboxContacts.ts`, codifica o parâmetro `text` do link, preservando acentos e pontuação. O usuário pode editar a mensagem antes de enviá-la; nenhum dado pessoal é incluído automaticamente.
+
+Ao passar o mouse ou focar pelo teclado, o botão fica verde, exibe uma onda circular e substitui a seta pelo ícone `FaWhatsapp`. Os estilos e a composição do botão compartilhado ficam em `src/components/campaign/CommercialBand.module.css`; a marcação e o evento de acompanhamento permanecem em `CommercialBand.tsx`. Com movimento reduzido, a cor e a troca do ícone permanecem, sem onda ou transições animadas.
 
 No celular (até 700 px), as perguntas de `/10-anos` aparecem em uma coluna, com cabeçalhos de toque amplos e setas que indicam a abertura. Os acordeões usam `<details>`/`<summary>` nativos, preservando a navegação por teclado. O cartão do regulamento organiza texto e botões em linhas próprias. Os estilos ficam em `os CSS Modules em src/components/campaign/` e o conteúdo continua vindo de `src/utils/campaign/campaign.ts`.
 
@@ -90,7 +106,7 @@ Para desenvolvimento, use uma API simulada que reproduza o contrato do prompt. N
 
 `public/images/netbox-10-anos/` contém ilustrações geradas, sem textos ou marca, para banner público, banner do participante, arte dos prêmios e banner Nossa História. A primeira seção mobile de `/10-anos` é composta em HTML/CSS e usa o logo `public/logos/LOG 1 SITE.png`; os demais banners oficiais e suas versões móveis ainda precisam ser preparados. Para publicação final, substituir as ilustrações por arquivos oficiais separados: selo tridimensional com foguete, banner público, banner do participante, arte dos prêmios e banner Nossa História.
 
-Em `src/utils/campaign/campaign.ts`, confirmar e configurar links comerciais e institucionais, números de cidades/clientes, prazos de contrato quando aplicáveis. Atualmente os links comerciais pendentes não executam navegação.
+Em `src/utils/campaign/campaign.ts`, confirmar e configurar os destinos institucionais ainda marcados com `#`, números de cidades/clientes e prazos de contrato quando aplicáveis. Os três cartões comerciais já direcionam ao WhatsApp oficial.
 
 Os botões comerciais disparam o evento local `netbox:commercial-click` com apenas a chave da ação. É necessário conectar esse evento a uma ferramenta de analytics aprovada; CPF/CNPJ nunca entram no evento.
 

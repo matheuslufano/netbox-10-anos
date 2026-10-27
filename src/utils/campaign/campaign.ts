@@ -5,6 +5,15 @@ import {
   UserRoundPlus,
 } from "lucide-react";
 import { FaRegUser } from "react-icons/fa";
+import { createNetboxWhatsappLink } from "@/utils/contacts/netboxContacts";
+
+/** Âncoras estáveis compartilhadas entre os cartões comerciais e as perguntas. */
+export const faqTargets = {
+  indication: "faq-indicacao",
+  renewal: "faq-renovacao",
+  numbers: "faq-numeros-da-sorte",
+} as const;
+
 export const campaign = {
   name: "Netbox 10 Anos",
   tagline: "Conectando pessoas e construindo histórias",
@@ -12,9 +21,15 @@ export const campaign = {
   prizes: { count: 10, each: 2000, total: 20000 },
   institutional: { cities: "21", clients: "+15.000", confirmed: false },
   commercial: {
-    indication: "#",
-    upgrade: "#",
-    plans: "#",
+    indication: createNetboxWhatsappLink(
+      "Olá! Quero indicar um amigo para a campanha de 10 anos da Netbox e ganhar meus números da sorte.",
+    ),
+    upgrade: createNetboxWhatsappLink(
+      "Olá! Quero renovar o meu plano da Netbox e participar dacampanha Netbox 10 Anos.",
+    ),
+    plans: createNetboxWhatsappLink(
+      "Olá! Quero contratar a Netbox e conhecer os planos disponíveis para participar da campanha dos 10 Anos da Netbox.",
+    ),
     renewal: "#",
     history: "#",
   },
@@ -71,7 +86,7 @@ export const actions = [
 ];
 export const commercialActions = [
   {
-    title: "Indique um amigo",
+    title: "Quero indicar um amigo",
     amount: "+5 números",
     cta: "Indicar agora",
     href: campaign.commercial.indication,
@@ -79,7 +94,7 @@ export const commercialActions = [
     key: "indication",
   },
   {
-    title: "Renove o seu plano ",
+    title: "Quero renovar o meu plano ",
     amount: "+2 números",
     cta: "Conhecer planos",
     href: campaign.commercial.upgrade,
@@ -87,7 +102,7 @@ export const commercialActions = [
     key: "upgrade",
   },
   {
-    title: "Contrate a Netbox",
+    title: "Quero contratar a Netbox",
     amount: "+2 números",
     cta: "Ver planos",
     href: campaign.commercial.plans,
@@ -108,14 +123,17 @@ export const faq = [
   [
     "Como posso ganhar números da sorte?",
     "Você pode acumular números da sorte de quatro maneiras:\n- 1 número: por ser cliente Netbox ativo.\n- 5 números adicionais: por indicação validada de um novo cliente.\n- 2 números adicionais: por nova contratação elegível, após a ativação.\n- 2 números adicionais: por renovação de contrato elegível.\nOs números são cumulativos, respeitando as condições do regulamento.",
+    faqTargets.numbers,
   ],
   [
     "Como funciona a indicação de amigos?",
     "Indique alguém que ainda não seja cliente Netbox por um dos nossos canais oficiais, informando seu CPF antes da conclusão da contratação. Se a pessoa contratar e tiver a internet ativada durante a campanha, você receberá 5 números da sorte adicionais. Não há limite individual de indicações válidas.",
+    faqTargets.indication,
   ],
   [
     "Como funciona a renovação do contrato?",
     "Ao renovar seu contrato nas condições previstas no regulamento, você recebe 2 números da sorte adicionais. A renovação precisa ser formalizada e validada no sistema da Netbox durante a campanha. Consulte nossa equipe para verificar se seu contrato está elegível.",
+    faqTargets.renewal,
   ],
   [
     "Cliente com mensalidade atrasada participa?",

@@ -23,6 +23,7 @@
 }
 
 .faqGrid details {
+  scroll-margin-top: 100px;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 9px;
@@ -30,10 +31,43 @@
   box-shadow: 0 3px 10px #19243706;
 }
 
+/* Dois pulsos após a navegação, sem alterar as dimensões do layout. */
+.faqGrid details[data-faq-highlight="true"] {
+  animation: faq-target-pulse 750ms ease-in-out 350ms 2;
+}
+
+@keyframes faq-target-pulse {
+  0%, 100% {
+    transform: scale(1);
+    outline: 2px solid transparent;
+    outline-offset: 0;
+  }
+  50% {
+    transform: scale(1.015);
+    outline: 2px solid #ff923e;
+    outline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faqGrid details[data-faq-highlight="true"] {
+    animation: none;
+  }
+}
+
 .faqGrid summary {
   font-size: 0.88rem;
   font-weight: 650;
   cursor: pointer;
+}
+
+/* O título permanece destacado enquanto a pergunta for o destino da URL. */
+.faqGrid details:target summary > span {
+  color: #c34b08;
+}
+
+body:global([data-theme="dark"]) .faqGrid details:target summary > span {
+  color: #ffad63;
 }
 
 .faqGrid details p {

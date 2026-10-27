@@ -1,9 +1,9 @@
 "use client";
 import styles from "./CommercialBand.module.css";
-import stylesButton from "../ui/Button.module.css";
 import { ArrowRight, Target } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { commercialActions } from "@/utils/campaign/campaign";
-/** Exibe as ações comerciais e sinaliza apenas cliques com destino configurado. */
+/** Leva ao WhatsApp oficial e preserva o evento de acompanhamento comercial. */
 export function CommercialBand() {
   // Evento que permite rastrear cliques comerciais no restante do site.
   function track(action: string) {
@@ -27,19 +27,19 @@ export function CommercialBand() {
         <h3>{a.title}</h3>
         <strong>{a.amount}</strong>
         <a
-          className={stylesButton.button} data-ui="button"
+          className={styles.commercialButton} data-ui="button"
           href={a.href}
-          aria-disabled={a.href === "#"}
-          onClick={(e) => {
-            if (a.href === "#")
-              e.preventDefault();
-            else
-              track(a.key);
-          }}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${a.cta} — falar com a Netbox pelo WhatsApp (abre em nova aba)`}
+          onClick={() => track(a.key)}
         >
-          {a.cta} <ArrowRight size={15} />
+          <span className={styles.commercialButtonLabel}>{a.cta}</span>
+          <span className={styles.commercialButtonIcons} aria-hidden="true">
+            <ArrowRight className={styles.commercialButtonArrow} size={15} />
+            <FaWhatsapp className={styles.commercialButtonWhatsapp} size={18} />
+          </span>
         </a>
-        {a.href === "#" && <small>Destino comercial pendente</small>}
       </article>))}
     </div>
   </section>);

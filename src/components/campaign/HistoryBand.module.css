@@ -8,7 +8,7 @@
 
 @media (max-width: 560px) {
   .historyBandHistoryInner {
-    display: block;
+    grid-template-columns: minmax(0, 540px);
   }
   .historyBandHistoryStats {
     display: grid;
@@ -49,15 +49,13 @@
 }
 
 .historyBandHistoryInner {
-  display: flex;
+  /* Colunas iguais e altura compartilhada pelos dois cartões. */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 450px));
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   gap: 60px;
   padding-block: 35px;
-}
-
-.historyBandHistoryInner > div:first-child {
-  max-width: 450px;
 }
 
 .historyBandHistoryInner h2 {
@@ -102,7 +100,8 @@
 
 @media (max-width: 700px) {
   .historyBandHistoryInner {
-    display: block;
+    grid-template-columns: minmax(0, 540px);
+    grid-auto-rows: 1fr;
     padding-block: 32px;
   }
   .historyBandHistoryInner > div:first-child {
@@ -113,7 +112,6 @@
 @media (max-width: 700px) {
   .historyBandHistoryStats {
     max-width: 540px;
-    margin-top: 26px;
   }
 }
 
@@ -234,7 +232,7 @@
 }
 
 :global([data-ui~="campaign-page"]) .historyBandHistoryStats {
-  min-width: 250px;
+  min-width: 0;
 }
 
 :global([data-ui~="campaign-page"]) .historyBandHistoryStats :is(svg, b) {
